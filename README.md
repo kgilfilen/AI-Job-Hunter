@@ -13,7 +13,7 @@ The project was conceived on June 22, 2026, with the goal of delivering a produc
 AI Job Hunter automates much of this workflow while maintaining human review and approval.
 
 # Features
-Current Features
+## Current Features
 * Job description parsing
 * Structured job object generation
 * Resume strategy recommendations
@@ -22,7 +22,7 @@ Current Features
 * Role-based access control
 * Public demo mode
 * REST API
-# Planned Features
+## Planned Features
 * Automated job discovery
 * Resume tailoring
 * Interview question generation
@@ -70,15 +70,17 @@ Examples include:
 Configuration is managed through environment variables.
 
 # User Roles
-Guest
+## Guest
 * Access demo data
 * View sample job analyses
 * Explore application functionality
-Admin
+## Admin
 * Analyze real job descriptions
 * Generate tailored resumes
 * Generate cover letters
 * Manage application history
+## Developer
+* TBD
 
 # Repository Structure
 src/
