@@ -36,7 +36,7 @@ Planned Features
 * Application success analytics
 * Agent-assisted application workflow
 
-# Architecture
+## Architecture
 ```text
 Job Description
        |
@@ -55,7 +55,8 @@ Structured Job Object
        +-------> Future ML Scoring
 ```
 
-# Technology Stack
+## Technology Stack
+
 * Python
 * FastAPI
 * SQLite
@@ -64,27 +65,34 @@ Structured Job Object
 * GitHub Actions
 * Pytest
 
-# Security
+## Security
 Sensitive information is never committed to source control.
 Examples include:
+
 * API keys
 * Authentication secrets
 * Production databases
 * Personal resumes
 * Real job application history
+
 Configuration is managed through environment variables.
 
-# User Roles
-## Guest
+## User Roles
+Guest
+
 * Access demo data
 * View sample job analyses
 * Explore application functionality
-## Admin
+
+Admin
+
 * Analyze real job descriptions
 * Generate tailored resumes
 * Generate cover letters
 * Manage application history
-## Developer
+
+Developer
+
 * TBD
 
 # Repository Structure
@@ -100,6 +108,7 @@ requirements.txt
 ```
 
 # Running Locally
+```bash
 python -m venv venv
 
 source venv/bin/activate
@@ -107,11 +116,15 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 uvicorn src.main:app --reload
+```
 
 # Future Machine Learning Integration
 This project intentionally separates business logic from scoring logic.
+
 Current releases use transparent rule-based scoring.
+
 Future releases may include:
+
 * Interview probability prediction
 * Resume-job similarity scoring
 * Job clustering
@@ -122,5 +135,8 @@ Future releases may include:
 This project is intended as a personal productivity and portfolio project. Generated resumes and cover letters should always be reviewed before submission.
 
 # Author
-Kenny Gilfilen Colorado, USA
+Kenny Gilfilen
+
+Colorado, USA
+
 
