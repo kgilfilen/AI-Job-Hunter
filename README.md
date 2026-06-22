@@ -1,9 +1,9 @@
-AI Job Hunter
+# AI Job Hunter
 
-AI Job Hunter is a Python-based application that automates portions of the job search process, including job description analysis, resume tailoring, cover letter generation, application tracking, and future machine learning-based job ranking.
+# AI Job Hunter is a Python-based application that automates portions of the job search process, including job description analysis, resume tailoring, cover letter generation, application tracking, and future machine learning-based job ranking.
 The project was conceived on June 22, 2026, with the goal of delivering a production-ready MVP by June 30, 2026.
 
-Purpose
+# Purpose
 Searching for jobs often involves repetitive work:
 * Reading job descriptions
 * Identifying required skills
@@ -13,7 +13,7 @@ Searching for jobs often involves repetitive work:
 * Tracking applications
 AI Job Hunter automates much of this workflow while maintaining human review and approval.
 
-Features
+# Features
 Current Features
 * Job description parsing
 * Structured job object generation
@@ -23,7 +23,7 @@ Current Features
 * Role-based access control
 * Public demo mode
 * REST API
-Planned Features
+# Planned Features
 * Automated job discovery
 * Resume tailoring
 * Interview question generation
@@ -32,7 +32,7 @@ Planned Features
 * Application success analytics
 * Agent-assisted application workflow
 
-Architecture
+# Architecture
 Job Description
        |
        v
@@ -49,7 +49,7 @@ Structured Job Object
        |
        +-------> Future ML Scoring
 
-Technology Stack
+# Technology Stack
 * Python
 * FastAPI
 * SQLite
@@ -58,7 +58,7 @@ Technology Stack
 * GitHub Actions
 * Pytest
 
-Security
+# Security
 Sensitive information is never committed to source control.
 Examples include:
 * API keys
@@ -68,7 +68,7 @@ Examples include:
 * Real job application history
 Configuration is managed through environment variables.
 
-User Roles
+# User Roles
 Guest
 * Access demo data
 * View sample job analyses
@@ -79,7 +79,7 @@ Admin
 * Generate cover letters
 * Manage application history
 
-Repository Structure
+# Repository Structure
 src/
 tests/
 examples/
@@ -89,7 +89,7 @@ README.md
 LICENSE
 requirements.txt
 
-Running Locally
+# Running Locally
 python -m venv venv
 
 source venv/bin/activate
@@ -98,7 +98,7 @@ pip install -r requirements.txt
 
 uvicorn src.main:app --reload
 
-Future Machine Learning Integration
+# Future Machine Learning Integration
 This project intentionally separates business logic from scoring logic.
 Current releases use transparent rule-based scoring.
 Future releases may include:
@@ -108,9 +108,9 @@ Future releases may include:
 * Application outcome prediction
 * Recommendation systems
 
-Disclaimer
+# Disclaimer
 This project is intended as a personal productivity and portfolio project. Generated resumes and cover letters should always be reviewed before submission.
 
-Author
+# Author
 Kenny Gilfilen Colorado, USA
 
