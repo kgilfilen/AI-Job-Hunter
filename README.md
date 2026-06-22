@@ -83,6 +83,7 @@ Configuration is managed through environment variables.
 * TBD
 
 # Repository Structure
+```text
 src/
 tests/
 examples/
@@ -91,6 +92,7 @@ docs/
 README.md
 LICENSE
 requirements.txt
+```
 
 # Running Locally
 python -m venv venv
