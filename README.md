@@ -2,18 +2,21 @@
 AI Job Hunter is a Python-based application that automates portions of the job search process, including job description analysis, resume tailoring, cover letter generation, application tracking, and future machine learning-based job ranking.
 The project was conceived on June 22, 2026, with the goal of delivering a production-ready MVP by June 30, 2026.
 
-# Purpose
-## Searching for jobs often involves repetitive work:
+## Purpose
+Searching for jobs often involves repetitive work:
+
 * Reading job descriptions
 * Identifying required skills
 * Comparing jobs against a resume
 * Tailoring resumes
 * Writing cover letters
 * Tracking applications
+
 AI Job Hunter automates much of this workflow while maintaining human review and approval.
 
-# Features
-## Current Features
+## Features
+Current Features
+
 * Job description parsing
 * Structured job object generation
 * Resume strategy recommendations
@@ -22,7 +25,9 @@ AI Job Hunter automates much of this workflow while maintaining human review and
 * Role-based access control
 * Public demo mode
 * REST API
-## Planned Features
+
+Planned Features
+
 * Automated job discovery
 * Resume tailoring
 * Interview question generation
