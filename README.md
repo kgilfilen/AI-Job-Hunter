@@ -95,7 +95,7 @@ Developer
 
 * TBD
 
-# Repository Structure
+## Repository Structure
 ```text
 src/
 tests/
@@ -107,7 +107,7 @@ LICENSE
 requirements.txt
 ```
 
-# Running Locally
+## Running Locally
 ```bash
 python -m venv venv
 
@@ -118,7 +118,7 @@ pip install -r requirements.txt
 uvicorn src.main:app --reload
 ```
 
-# Future Machine Learning Integration
+## Future Machine Learning Integration
 This project intentionally separates business logic from scoring logic.
 
 Current releases use transparent rule-based scoring.
@@ -131,12 +131,11 @@ Future releases may include:
 * Application outcome prediction
 * Recommendation systems
 
-# Disclaimer
+## Disclaimer
 This project is intended as a personal productivity and portfolio project. Generated resumes and cover letters should always be reviewed before submission.
 
-# Author
-Kenny Gilfilen
-
+## Author
+Kenny Gilfilen  
 Colorado, USA
 
 
