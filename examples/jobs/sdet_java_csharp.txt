@@ -1,0 +1,73 @@
+Software Development Engineer in Test I
+Software Engineering - Phoenix, Arizona (Remote)
+
+Software Development Engineer in Test I
+
+About Us: At Fullbay, our mission is simple to create safer roads for our families and yours. As leaders in the heavy-duty repair industry, we power shops with technology that helps them run smarter and more efficiently. As an AI-First company, we invite artificial intelligence to eliminate friction, spark innovation, and drive efficiencies in every conversation for our teams and our customers. Fullbay is the number one cloud-based shop management software for commercial repair shops and is growing fast. This is an exciting opportunity to join a high-performing team and help shape the next phase of growth for the company.
+
+Position Overview: The SDET I at Fullbay collaborates with teams and eventually works independently to design, develop, execute, and maintain tests that ensure the quality and reliability of our software products and services. This role applies established testing practices and processes while developing expertise in quality engineering, software testing, and automation. The SDET I works closely with Product and Development teams to identify quality risks, validate functionality, and support successful software delivery.
+
+The role balances manual and automated testing responsibilities while progressively increasing technical knowledge, automation capabilities, and independence. The SDET I is expected to build a strong understanding of customer workflows, software behavior, and quality engineering principles through hands-on experience, mentorship, and continuous learning.
+
+Primary Duties & Responsibilities:
+
+Test Development: Design and execute manual and automated tests to support product quality and reliability.
+Test Planning & Execution: Create test plans and perform functional, exploratory, integration, and end-to-end testing.
+Test Automation: Maintain and enhance automated tests while developing automation and quality engineering skills with support from other SDETs.
+Defect Management: Create, track, investigate, and verify software defects through resolution.
+Requirements Review: Review requirements and technical documentation to understand system behavior, testing needs, and quality risks.
+Release Validation: Participate in release readiness activities, production validation, and post-deployment verification efforts to help ensure successful software delivery.
+Automation Quality: Participate in reviews of automation code and testing artifacts while developing an understanding of maintainable, reliable, and reusable automation practices.
+Team Collaboration: Work closely with Product and Development teams to support testing activities, communicate quality concerns, and ensure timely execution of testing efforts.
+Environment Support: Support test environment and integration activities while developing environment management skills.
+Continuous Learning: Develop technical and quality engineering skills through hands-on experience and mentorship.
+Adheres to all confidentiality and compliance regulations.
+Performs other duties as assigned.
+Minimum Education & Work Experience:
+
+Preferred Education: Bachelor's degree in Computer Science, Software Engineering, Information Technology, or a related field. Equivalent professional experience in lieu of a degree will also be considered.
+Experience: 1-2 years of hands-on experience in software design, development, testing, or quality engineering. This experience may be gained through academic coursework, internships, personal projects, or professional roles.
+Programming Knowledge: Demonstrated ability to write, read, debug, and maintain code using Java, C#, or a similar modern programming language.
+Software Development Fundamentals: Foundational understanding of software development methodologies, testing principles, and quality assurance practices.
+Key Skills and Qualifications:
+
+Experience with or knowledge of modern testing tools, automation frameworks, and quality engineering practices.
+Familiarity with automation frameworks and tools such as Playwright, Selenium, Cypress, or similar technologies.
+Knowledge of or hands-on experience with APIs and API testing concepts, including requests, responses, authentication, and validation techniques.
+Exposure to database technologies and data validation concepts, including SQL and NoSQL databases.
+Knowledge of or experience with cloud technologies and platforms such as AWS, Azure, GCP, or similar environments.
+Exposure to AI-assisted development, testing, or productivity tools such as GitHub Copilot, Claude Code, ChatGPT, or similar technologies.
+Experience using AI tools to support software development, learning, and testing activities is a plus.
+Exposure to performance, load, or scalability testing concepts is a plus.
+Strong analytical, problem-solving, and organizational skills.
+Strong verbal and written communication skills with the ability to collaborate effectively in a team environment.
+Familiarity with project management and work tracking tools such as Jira, Xray, or similar platforms.
+Eagerness to learn and grow in software development, quality engineering, test planning, automation, execution, and analysis.
+Physical Demands and Work Environment:
+
+The physical demands described here are representative of those that must be met by an employee to successfully perform the essential functions of this job. Reasonable accommodations may be made to enable individuals with disabilities to perform the essential functions
+
+Regularly required to sit at a desk in front of a computer and use hands to finger, handle, or feel objects, tools, or controls (including a computer keyboard and operating a telephone), lift and/or move up to 10 pounds.
+Frequently requires the use of hands and arms for reaching, as well as the ability to walk and communicate effectively through speaking and listening.
+Specific vision abilities required by this position include close vision, color vision, and the ability to adjust focus.
+Noise level in the work environment is usually moderate.
+Type on a computer keyboard and look at a computer monitor, and operate a cell phone or a computer-based phone Location
+Phoenix, Arizona (Remote)
+
+Department
+
+Software Engineering
+
+Employment Type
+
+Full-Time
+
+Minimum Experience
+
+Mid-level
+
+Compensation
+
+$65,482.79 - $80,216.42
+
+

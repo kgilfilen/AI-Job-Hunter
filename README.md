@@ -131,6 +131,36 @@ Future releases may include:
 * Application outcome prediction
 * Recommendation systems
 
+## Engineering Philosophy 
+
+Where Do Engineers Often Go Wrong When Using AI?
+
+One of the biggest mistakes engineers make when using AI is allowing the AI to generate large amounts of code that they never truly understand.
+
+When I write software manually, I build a mental model of the application as it comes into existence. I know the paths through the code because I created them. I run the software frequently, add print statements, inspect variables, and watch the program execute. Over time, I develop an intuition for the system. I can often predict what the code will do before I run it because I have experienced each part of it being built.
+
+AI changes that process.
+
+An engineer can ask for an entire module, class, or application and receive hundreds of lines of code in seconds. The code may be correct, but if it is accepted without inspection, testing, and observation, the engineer never develops a complete understanding of how it works. The code exists, but it is not yet part of the engineer’s mental model.
+
+For this project, I deliberately used AI differently.
+
+Rather than asking AI to build the entire system, I broke the project into small pieces:
+
+* Repository structure
+* Data models
+* Parsers
+* API integration
+* Authentication
+* Testing
+* User interface
+
+Each component was reviewed, modified, executed, and validated before moving to the next. I frequently run the code, inspect intermediate results, and verify that execution follows the expected path. AI helps accelerate development, but it does not replace engineering discipline.
+
+My goal is not simply to produce working software. My goal is to understand the software well enough to maintain it, extend it, debug it, and explain it to another engineer months later.
+
+This project was created with AI assistance, but it was engineered intentionally. I know what is in the codebase because I experienced it being built.
+
 ## Disclaimer
 This project is intended as a personal productivity and portfolio project. Generated resumes and cover letters should always be reviewed before submission.
 

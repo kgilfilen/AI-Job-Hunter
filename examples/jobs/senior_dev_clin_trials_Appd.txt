@@ -1,0 +1,37 @@
+Original Job Description
+Senior Software Developer Conshohocken, Pennsylvania; Remote - United States About Suvoda: Suvoda is a global clinical trial technology company shaping digital experiences that enable clinical trial sponsor and site professionals to take full command over the inherent logistical complexity behind mission-critical and time-sensitive patient interactions in life-sustaining studies for therapeutic areas such as oncology, central nervous system, and rare disease. Headquartered in the greater Philadelphia area, with offices in Bucharest and Iasi, Barcelona, Portland, OR, and Tokyo, JP, we've experienced impressive year-over-year growth and are growing our teams across the globe. Learn more about us on our website!
+
+As a Software Developer on Suvoda's Product team, you'll design and build clinical trial software that directly supports mission-critical, time-sensitive patient interactions in life-sustaining studies across oncology, CNS, and rare disease. You'll work in agile, cross-functional teams to deliver high-quality features and services, with a relentless focus on patient safety and the integrity of clinical study data. Here, your code doesn't just ship product it helps sponsors, sites, and patients navigate some of the most complex, high-stakes trials in the world, while you grow your craft alongside experienced engineers in a modern, continuously improving SDLC.
+
+Responsibilities:
+
+Design, develop, and support clinical trial software with emphasis on patient safety and integrity of clinical study data
+Review product requirements and verify that all requirements can be implemented
+Assist with the creation of technical design and implementation documentation
+Design and code software applications and fix defects
+Provide unit testing coverage for delivered code
+Work with others to ensure timely delivery of high-quality code
+Manage software deployment into all environments and complete all required documentation
+Assist support team with troubleshooting and resolution of production issues
+Perform other related duties as required
+Requirements:
+
+Bachelor's degree or equivalent experience
+At least 5 years of experience in software development/software engineering
+Deep, hands-on Python experience in production systems
+Deep understanding of relational databases + cloud (AWS) and experience building and supporting services
+Django experience preferred
+Angular experience preferred
+Previous exposure to working with AI, with a curious attitude to experiment with Claude Code or something similar
+Ability to design, develop, and support software modules with medium to high complexity
+Excellent problem-solving skills and learning capability
+Excellent time management and organizational
+Strong production-support mindset for mission-critical payments
+LI-JD1
+We are aware that an individual(s) are fraudulently representing themselves as Suvoda recruiters and/or hiring managers. Suvoda will never request personal information such as your bank account number, credit card number, drivers license or social security number or request payment from you during the job application or interview process. Any emails from the Suvoda recruiting team will come from a @suvoda.com email address. You can learn more about these types of fraud by referring to this FTC consumer alert.
+
+As set forth in Suvoda's Equal Employment Opportunity policy, we do not discriminate on the basis of any protected group status under any applicable law.
+
+If you are based in California, we encourage you to read this important information for California residents linked here.
+
+
