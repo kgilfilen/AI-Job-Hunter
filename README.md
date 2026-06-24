@@ -161,6 +161,29 @@ My goal is not simply to produce working software. My goal is to understand the 
 
 This project was created with AI assistance, but it was engineered intentionally. I know what is in the codebase because I experienced it being built.
 
+## Why This Project Matters
+
+One of the most interesting aspects of this project is not the Python code, the API integration, or the user interface. It is the ability to extract meaning from unstructured text.
+
+A simple example is identifying the correct job title from a job description.
+
+At first glance, this appears to be a small problem. In practice, it is remarkably difficult. Job descriptions come from different companies, industries, and recruiting systems. Titles may appear multiple times, be abbreviated, be embedded in marketing language, or be surrounded by unrelated information.
+
+Historically, solving this problem required large amounts of custom software, complex parsing logic, rules engines, keyword databases, and extensive maintenance. Even then, results were often inconsistent.
+
+Today, a large language model can perform this task reliably across a variety of formats. During the development of this project, five significantly different job descriptions were analyzed and the correct job title was identified in each case.
+
+The Python code required to make this happen is relatively small. The intelligence required to understand the text is not.
+
+This project intentionally combines both capabilities:
+
+* Large language models provide the ability to understand and extract meaning from text.
+* Software engineering provides the structure, testing, validation, security, persistence, and user experience required to turn that capability into a useful application.
+
+The goal of this project is not to demonstrate that AI can write software. The goal is to demonstrate how modern software engineering can leverage AI to solve problems that were previously expensive, complex, or impractical to automate.
+
+As the project evolves, the focus remains the same: use AI where understanding is required, and use engineering discipline everywhere else.
+
 ## Disclaimer
 This project is intended as a personal productivity and portfolio project. Generated resumes and cover letters should always be reviewed before submission.
 
