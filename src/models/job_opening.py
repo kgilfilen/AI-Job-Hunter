@@ -1,17 +1,26 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional
+
 
 @dataclass
 class JobOpening:
-    company: str | None
-    title: str | None
-    location: str | None
+    source_file: str
 
-    required_skills: list[str]
-    preferred_skills: list[str]
+    title: Optional[str]
+    company: Optional[str]
+    location: Optional[str]
 
-    responsibilities: list[str]
+    remote_status: Optional[str]
+    employment_type: Optional[str]
 
-    salary_range: str | None
-    remote_status: str | None
+    security_clearance_required: bool
+    security_clearance_level: Optional[str]
 
-    notes: list[str]
+    required_skills: List[str] = field(default_factory=list)
+    preferred_skills: List[str] = field(default_factory=list)
+    responsibilities: List[str] = field(default_factory=list)
+
+    salary_range: Optional[str] = None
+    notes: List[str] = field(default_factory=list)
+
+    parser_metadata: Dict[str, Dict[str, Any]] = field(default_factory=dict)
