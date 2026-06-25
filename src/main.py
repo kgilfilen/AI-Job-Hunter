@@ -4,7 +4,7 @@ from pathlib import Path
 
 from parsers.job_opening_parser import parse_job_opening
 from models.candidate_profile import CandidateProfile
-from scoring.fit_scorer import FitAnalysis
+from scoring.fit_scorer import score_job
 
 
 JOBS_DIR = Path("examples/jobs")
