@@ -30,6 +30,9 @@ Allowed values:
 - remote
 - hybrid
 - onsite
+- remote or hybrid
+- hybrid or remote
+- flexible
 - unknown
 
 Rules:
