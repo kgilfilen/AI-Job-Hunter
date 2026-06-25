@@ -71,11 +71,13 @@ def main():
             source_file=job_file.name,
         )
         fit_analysis = score_job(job_opening, profile)
+        print("\033[1mFit Analysis:\033[0m")
         print(json.dumps(asdict(fit_analysis), indent=4))
         output_fit_file = save_fit_analysis(job_file, fit_analysis)
 
         output_file = save_job_opening(job_file, job_opening)
 
+        print("\033[1mJob Opening:\033[0m")
         print(json.dumps(asdict(job_opening), indent=4))
         print(f"Saved: {output_file}")
         print(f"Saved: {output_fit_file}")
