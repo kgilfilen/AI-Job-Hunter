@@ -7,7 +7,6 @@ from parsers.company_parser import verify_company_name
 from parsers.location_parser import verify_job_location
 from parsers.remote_status_parser import verify_job_remote_status
 from parsers.employment_type_parser import verify_job_employment_type
-from parsers.security_clearnance_parser import verify_job_security_clearance
 from parsers.security_clearance_parser import verify_job_security_clearance
 
 
