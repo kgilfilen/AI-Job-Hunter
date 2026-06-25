@@ -5,6 +5,7 @@ from parsers.job_opening_parser import parse_job_opening
 from models.job_opening import JobOpening
 from models.candidate_profile import CandidateProfile
 from scoring.fit_scorer import score_job
+from constants import VALID_RECOMMENDATIONS
 
 JOBS_DIR = Path("examples/jobs")
 profile = CandidateProfile(
@@ -70,7 +71,6 @@ def test_job_opening_target_title():
 def test_job_opening_recommendation():
     job_file = JOBS_DIR / "sdet_topstep.txt"
     job_text = job_file.read_text(encoding="utf-8")
-    recommendation_states = ["Apply", "Consider", "Pass"]
 
     job_opening = parse_job_opening(job_text, source_file=job_file.name)
     fit_analysis = score_job(job_opening, profile)
@@ -78,4 +78,4 @@ def test_job_opening_recommendation():
     assert isinstance(job_opening, JobOpening)
     assert job_opening.title is not None
     assert len(job_opening.title.strip()) > 0
-    assert fit_analysis.recommendation in recommendation_states
+    assert fit_analysis.recommendation in VALID_RECOMMENDATIONS
