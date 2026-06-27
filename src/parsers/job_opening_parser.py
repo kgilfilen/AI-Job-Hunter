@@ -9,6 +9,8 @@ from parsers.remote_status_parser import verify_job_remote_status
 from parsers.employment_type_parser import verify_job_employment_type
 from parsers.security_clearance_parser import verify_job_security_clearance
 from parsers.required_skills_parser import verify_required_skills
+from parsers.preferred_skills_parser import verify_preferred_skills
+from parsers.responsibilities_parser import verify_responsibilities
 
 
 def parser_metadata(result: Any) -> Dict[str, Any]:
@@ -27,6 +29,8 @@ def parse_job_opening(job_text: str, source_file: str) -> JobOpening:
     employment_type_result = verify_job_employment_type(job_text)
     security_clearance_result = verify_job_security_clearance(job_text)
     required_skills_result = verify_required_skills(job_text)
+    preferred_skills_result = verify_preferred_skills(job_text)
+    responsibilities_result = verify_responsibilities(job_text)
 
     return JobOpening(
         source_file=source_file,
@@ -42,8 +46,8 @@ def parse_job_opening(job_text: str, source_file: str) -> JobOpening:
         security_clearance_level=security_clearance_result.level,
 
         required_skills=required_skills_result.required_skills,
-        preferred_skills=[],
-        responsibilities=[],
+        preferred_skills=preferred_skills_result.preferred_skills,
+        responsibilities=responsibilities_result.responsibilities,
 
         salary_range=None,
         notes=[],
@@ -56,5 +60,7 @@ def parse_job_opening(job_text: str, source_file: str) -> JobOpening:
             "employment_type": parser_metadata(employment_type_result),
             "security_clearance": parser_metadata(security_clearance_result),
             "required_skills": parser_metadata(required_skills_result),
+            "preferred_skills": parser_metadata(preferred_skills_result),
+            "responsibilities": parser_metadata(responsibilities_result),
         },
     )

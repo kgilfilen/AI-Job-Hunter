@@ -24,6 +24,8 @@ def verify_required_skills(job_text: str) -> RequiredSkillsResult:
     prompt = f"""
 You are extracting required skills from a job description.
 
+Normalize equivalent technologies whenever possible.
+
 Return ONLY valid JSON with these fields:
 
 {{
