@@ -1,6 +1,7 @@
 from models.candidate_profile import CandidateProfile
 from models.fit_analysis import FitAnalysis
 from models.job_opening import JobOpening
+from constants import Recommendation
 
 
 def score_job(job: JobOpening, profile: CandidateProfile) -> FitAnalysis:
@@ -32,11 +33,11 @@ def score_job(job: JobOpening, profile: CandidateProfile) -> FitAnalysis:
     score = max(0, min(100, score))
 
     if score >= 80:
-        recommendation = "Apply"
+        recommendation = Recommendation.APPLY
     elif score >= 60:
-        recommendation = "Consider"
+        recommendation = Recommendation.CONSIDER
     else:
-        recommendation = "Pass"
+        recommendation = Recommendation.PASS
 
     return FitAnalysis(
         overall_score=score,
