@@ -8,6 +8,7 @@ from parsers.location_parser import verify_job_location
 from parsers.remote_status_parser import verify_job_remote_status
 from parsers.employment_type_parser import verify_job_employment_type
 from parsers.security_clearance_parser import verify_job_security_clearance
+from parsers.required_skills_parser import verify_required_skills
 
 
 def parser_metadata(result: Any) -> Dict[str, Any]:
@@ -25,6 +26,7 @@ def parse_job_opening(job_text: str, source_file: str) -> JobOpening:
     remote_status_result = verify_job_remote_status(job_text)
     employment_type_result = verify_job_employment_type(job_text)
     security_clearance_result = verify_job_security_clearance(job_text)
+    required_skills_result = verify_required_skills(job_text)
 
     return JobOpening(
         source_file=source_file,
@@ -39,7 +41,7 @@ def parse_job_opening(job_text: str, source_file: str) -> JobOpening:
         security_clearance_required=security_clearance_result.required,
         security_clearance_level=security_clearance_result.level,
 
-        required_skills=[],
+        required_skills=required_skills_result.required_skills,
         preferred_skills=[],
         responsibilities=[],
 
@@ -53,5 +55,6 @@ def parse_job_opening(job_text: str, source_file: str) -> JobOpening:
             "remote_status": parser_metadata(remote_status_result),
             "employment_type": parser_metadata(employment_type_result),
             "security_clearance": parser_metadata(security_clearance_result),
+            "required_skills": parser_metadata(required_skills_result),
         },
     )

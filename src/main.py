@@ -1,11 +1,13 @@
 import json
 from dataclasses import asdict
 from pathlib import Path
+from enum import Enum
 
 from parsers.job_opening_parser import parse_job_opening
 from models.candidate_profile import CandidateProfile
 from scoring.fit_scorer import score_job
 from models.fit_analysis import FitAnalysis
+
 
 
 JOBS_DIR = Path("examples/jobs")
@@ -17,8 +19,10 @@ def save_job_opening(job_file: Path, job_opening) -> Path:
 
     output_file = OUTPUT_DIR / f"{job_file.stem}.json"
 
+    safe_dict = make_json_safe(asdict(job_opening))
+
     output_file.write_text(
-        json.dumps(asdict(job_opening), indent=4),
+        json.dumps(safe_dict, indent=4),
         encoding="utf-8",
     )
 
@@ -29,12 +33,29 @@ def save_fit_analysis(job_file: Path, fit_analysis: FitAnalysis) -> Path:
 
     output_file = OUTPUT_DIR / f"{job_file.stem}_fit.json"
 
+    safe_dict = make_json_safe(asdict(fit_analysis))
+
     output_file.write_text(
-        json.dumps(asdict(fit_analysis), indent=4),
+        json.dumps(safe_dict, indent=4),
         encoding="utf-8",
     )
 
     return output_file
+
+def make_json_safe(value):
+    if isinstance(value, Enum):
+        return value.value
+    if isinstance(value, list):
+        return [
+            make_json_safe(item)
+            for item in value
+        ]
+    if isinstance(value, dict):
+        return {
+            make_json_safe(key): make_json_safe(val)
+            for key, val in value.items()
+        }
+    return value
 
 def main():
     job_files = sorted(JOBS_DIR.glob("*.txt"))
@@ -72,13 +93,13 @@ def main():
         )
         fit_analysis = score_job(job_opening, profile)
         print("\033[1mFit Analysis:\033[0m")
-        print(json.dumps(asdict(fit_analysis), indent=4))
+        print(json.dumps(make_json_safe(asdict(fit_analysis)), indent=4))
         output_fit_file = save_fit_analysis(job_file, fit_analysis)
 
         output_file = save_job_opening(job_file, job_opening)
 
         print("\033[1mJob Opening:\033[0m")
-        print(json.dumps(asdict(job_opening), indent=4))
+        print(json.dumps(make_json_safe(asdict(job_opening)), indent=4))
         print(f"Saved: {output_file}")
         print(f"Saved: {output_fit_file}")
 
