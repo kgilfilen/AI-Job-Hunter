@@ -8,8 +8,6 @@
 * Connected the project to Git and GitHub.
 * Created the initial README and architecture documentation.
 
-⸻
-
 ## Day 2 – LLM Parsing
 
 * Integrated the OpenAI API.
@@ -27,8 +25,6 @@
     * Evidence
     * Warning
 
-⸻
-
 ## Day 3 – Domain Models and Scoring
 
 * Introduced the JobOpening domain model.
@@ -40,8 +36,6 @@
 * Built the first rule-based scoring engine.
 * Introduced recommendation enums (Apply, Consider, Pass).
 * Separated factual job information from candidate-specific fit analysis.
-
-⸻
 
 ## Day 4 – Testing and Skill Extraction
 
@@ -57,8 +51,6 @@
     * Responsibilities
 * Improved parser prompts through iterative testing using real job descriptions.
 * Began designing the project as a future machine learning dataset by preserving structured features extracted from job postings.
-
-⸻
 
 ## Current Status
 
@@ -85,8 +77,6 @@ FitAnalysis
 ↓
 
 Structured JSON Output
-
-⸻
 
 ## Planned Next Milestones
 
