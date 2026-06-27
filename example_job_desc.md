@@ -1,5 +1,7 @@
 NOTE: this is an example of parsing a job description after day 4. It is a C++ Developer position that matches me somewhat, but it has been ten years since I looked at C++, and it has changed signficantly in that time. This scores the job at 60, and suggests to consider it. 
 
+```
+bash
 --- Processing dev_II_cpp.txt ---
 Fit Analysis:
 {
@@ -120,4 +122,4 @@ Job Opening:
 }
 Saved: examples/output/dev_II_cpp.json
 Saved: examples/output/dev_II_cpp_fit.json
-
+```
