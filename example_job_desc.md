@@ -1,7 +1,9 @@
 NOTE: this is an example of parsing a job description after day 4. It is a C++ Developer position that matches me somewhat, but it has been ten years since I looked at C++, and it has changed signficantly in that time. This scores the job at 60, and suggests to consider it. 
 
+The job description was pasted into the text file; future work on this tool will go to job boards and find jobs and analyze the descriptions, rather than requiring the developer to find jobs and paste them into tet files for the application.
+
 ```
-bash
+Bash
 --- Processing dev_II_cpp.txt ---
 Fit Analysis:
 {
