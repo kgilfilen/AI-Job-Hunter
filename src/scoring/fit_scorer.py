@@ -4,6 +4,47 @@ from models.job_opening import JobOpening
 from constants import Recommendation
 
 
+SKILL_NORMALIZATION_MAP = {
+    "rest apis": "REST API",
+    "rest api": "REST API",
+    "restful apis": "REST API",
+    "restful api": "REST API",
+    "api testing": "API Testing",
+    "pytest": "pytest",
+    "py test": "pytest",
+    "playwright": "Playwright",
+    "selenium": "Selenium",
+    "python": "Python",
+}
+
+
+def normalize_skill(skill: str) -> str:
+    cleaned = skill.strip().lower()
+    return SKILL_NORMALIZATION_MAP.get(cleaned, skill.strip())
+
+
+def match_skills(job_skills, candidate_skills):
+    normalized_job_skills = {
+        normalize_skill(skill)
+        for skill in job_skills
+    }
+
+    normalized_candidate_skills = {
+        normalize_skill(skill)
+        for skill in candidate_skills
+    }
+
+    matched_skills = sorted(
+        normalized_job_skills.intersection(normalized_candidate_skills)
+    )
+
+    missing_skills = sorted(
+        normalized_job_skills.difference(normalized_candidate_skills)
+    )
+
+    return matched_skills, missing_skills
+
+
 def score_job(job: JobOpening, profile: CandidateProfile) -> FitAnalysis:
     score = 50
     strengths = []
@@ -29,6 +70,24 @@ def score_job(job: JobOpening, profile: CandidateProfile) -> FitAnalysis:
         elif remote_status in ["flexible", "remote or hybrid", "hybrid or remote"]:
             score += 8
             strengths.append(f"Flexible work arrangement: {job.remote_status}")
+
+    matched_required_skills, missing_required_skills = match_skills(
+        job.required_skills,
+        profile.core_skills,
+    )
+
+    if matched_required_skills:
+        score += len(matched_required_skills) * 5
+        strengths.append(
+            f"Matched {len(matched_required_skills)} required skills: "
+            + ", ".join(matched_required_skills)
+        )
+
+    if missing_required_skills:
+        concerns.append(
+            f"Missing required skills: "
+            + ", ".join(missing_required_skills)
+        )
 
     score = max(0, min(100, score))
 
