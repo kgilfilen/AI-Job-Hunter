@@ -4,11 +4,11 @@ from scoring.fit_scorer import score_job
 from scoring.fit_scorer import normalize_skill
 from scoring.fit_scorer import match_skills
 from constants import Recommendation
+from tests.helpers import make_test_job
 
 
 def test_fit_score_is_between_0_and_100():
-    job = JobOpening(
-        source_file="unit_test_job.txt",
+    job = make_test_job(
         title="SDET III",
         company="Example Company",
         location="Remote",
@@ -19,9 +19,6 @@ def test_fit_score_is_between_0_and_100():
         required_skills=[],
         preferred_skills=[],
         responsibilities=[],
-        salary_range=None,
-        notes=[],
-        parser_metadata={},
     )
 
     profile = CandidateProfile(
@@ -55,26 +52,12 @@ def test_sdet_title_increases_score():
         target_titles=["SDET"],
     )
 
-    non_matching_job = JobOpening(
-        source_file="test.txt",
+    non_matching_job = make_test_job(
         title="Business Analyst",
-        company="Example",
-        location=None,
-        remote_status=None,
-        employment_type=None,
-        security_clearance_required=False,
-        security_clearance_level=None,
     )
 
-    matching_job = JobOpening(
-        source_file="test.txt",
+    matching_job = make_test_job(
         title="SDET III",
-        company="Example",
-        location=None,
-        remote_status=None,
-        employment_type=None,
-        security_clearance_required=False,
-        security_clearance_level=None,
     )
 
     non_match_score = score_job(non_matching_job, profile).overall_score
@@ -89,23 +72,13 @@ def test_clearance_lowers_score():
         has_security_clearance=False,
     )
 
-    job_with_clearance = JobOpening(
-        source_file="test.txt",
-        title="SDET III",
-        company="Example",
-        location=None,
-        remote_status=None,
-        employment_type=None,
+
+    job_with_clearance = make_test_job(
         security_clearance_required=True,
         security_clearance_level=None,
     )
-    job_without_clearance = JobOpening(
-        source_file="test.txt",
-        title="SDET III",
-        company="Example",
-        location=None,
-        remote_status=None,
-        employment_type=None,
+
+    job_without_clearance = make_test_job(
         security_clearance_required=False,
         security_clearance_level=None,
     )
@@ -127,25 +100,12 @@ def test_recommendation_valid():
         remote_preference="remote"
     )
 
-    job_with_remote = JobOpening(
-        source_file="test.txt",
-        title="SDET III",
-        company="Example",
-        location=None,
+    job_with_remote = make_test_job(
         remote_status="Remote",
-        employment_type=None,
-        security_clearance_required=True,
-        security_clearance_level=None,
     )
-    job_without_remote = JobOpening(
-        source_file="test.txt",
-        title="SDET III",
-        company="Example",
-        location="Onsite",
+
+    job_without_remote = make_test_job(
         remote_status=None,
-        employment_type=None,
-        security_clearance_required=False,
-        security_clearance_level=None,
     )
 
 
@@ -195,39 +155,15 @@ def test_skill_match_increases_score():
         remote_preference="remote",
     )
 
-    weak_job = JobOpening(
-        source_file="test.txt",
-        title="SDET III",
-        company="Example",
-        location=None,
-        remote_status="Remote",
-        employment_type=None,
-        security_clearance_required=False,
-        security_clearance_level=None,
+
+    weak_job = make_test_job(
         required_skills=["Docker", "Kubernetes"],
-        preferred_skills=[],
-        responsibilities=[],
-        salary_range=None,
-        notes=[],
-        parser_metadata={},
     )
 
-    strong_job = JobOpening(
-        source_file="test.txt",
-        title="SDET III",
-        company="Example",
-        location=None,
-        remote_status="Remote",
-        employment_type=None,
-        security_clearance_required=False,
-        security_clearance_level=None,
+    strong_job = make_test_job(
         required_skills=["REST API", "pytest"],
-        preferred_skills=[],
-        responsibilities=[],
-        salary_range=None,
-        notes=[],
-        parser_metadata={},
-    )
+    )       
+
 
     weak_score = score_job(weak_job, profile).overall_score
     strong_score = score_job(strong_job, profile).overall_score

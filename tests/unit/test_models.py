@@ -4,6 +4,9 @@ from models.fit_analysis import FitAnalysis
 from scoring.fit_scorer import score_job
 from constants import Recommendation
 
+"""
+Usage: python3 -m pytest tests/unit -v
+"""
 
 def test_job_skills_list_can_be_empty():
     """
