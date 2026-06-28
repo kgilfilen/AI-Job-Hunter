@@ -104,4 +104,7 @@ def score_job(job: JobOpening, profile: CandidateProfile) -> FitAnalysis:
         strengths=strengths,
         concerns=concerns,
         notes=notes,
+        matched_required_skills=matched_required_skills,
+        missing_required_skills=missing_required_skills,
+        matched_preferred_skills=[],
     )
