@@ -1,0 +1,110 @@
+Original Job Description
+Document Automation & Integration Engineer
+Remote Information Technology Full time
+
+Georgia,United States
+
+Description
+Modern Family Law, a boutique law firm specializing in family law, is seeking a detail-oriented and proactive Document Automation & Integration Engineer to support the implementation, optimization, and ongoing management of the firm's document automation initiatives. The Document Automation & Integration Engineer will serve as the firm's subject matter expert for document generation and automation solutions. This role will help modernize and scale the way legal documents are created, managed, and delivered across the firm.
+
+This position will partner closely with attorneys, legal staff, operations leaders, Salesforce administrators, business systems stakeholders, and software developers to evaluate, implement, and optimize document automation technologies. The successful candidate will design and maintain automated document workflows, develop scalable document generation processes, and help establish best practices for document automation across the organization.
+
+While this is not primarily a software development role, the Document Automation & Integration Engineer will work closely with the Technology team to ensure document automation solutions integrate effectively with Salesforce, the firm's business systems, and other technology platforms.
+
+This role is ideal for someone who has successfully implemented document automation solutions, enjoys solving complex business problems, and can bridge the gap between business requirements and technical implementation.
+
+Key Responsibilities
+
+Document Automation Leadership
+
+Serve as the firm's primary subject matter expert for document automation solutions, processes, and best practices.
+Support the firm's document automation strategy by providing recommendations on technologies, processes, workflow improvements, and scalable solutions.
+Participate in the evaluation, implementation, and ongoing optimization of document automation platforms and related technologies.
+Identify opportunities to improve efficiency, consistency, accuracy, and scalability through document automation.
+Establish standards and best practices for automated document generation, template maintenance, and workflow management.
+Systems Integration & API Development
+
+Design, configure, and maintain integrations between Salesforce, document automation platforms, document storage systems, and other business applications.
+Build and support API-driven workflows for document generation, data synchronization, and process automation.
+Configure and troubleshoot REST APIs, webhooks, authentication mechanisms, and integration end points.
+Define and manage data mappings, transformation rules, validation logic, and synchronization processes across systems.
+Collaborate with internal and external technology partners to implement and support integration solutions.
+Monitor and resolve integration failures, API issues, data quality concerns, and workflow exceptions.
+Solution Design and Implementation
+
+Design, build, test, and maintain automated document templates and workflows.
+Translate legal, operational, and business requirements into scalable document automation solutions.
+Develop and maintain complex document templates using conditional logic, calculations, dynamic content, and business rules.
+Configure and manage document generation workflows to support legal and operational processes.
+Perform testing, validation, and quality assurance to ensure document accuracy, reliability, and consistency.
+Maintain and enhance a growing library of automated documents and templates.
+Collaboration and Integration
+
+Partner closely with attorneys, legal staff, operations leaders, and business stakeholders to understand document requirements, workflows, and business processes.
+Collaborate with software developers, Salesforce administrators, and technology stakeholders to support effective integration between document automation platforms and Salesforce and other business systems.
+Define data requirements, mapping needs, and workflow dependencies for document generation processes.
+Assist with user training, adoption, troubleshooting, and ongoing support.
+Document business processes, automation workflows, template logic, and system configurations.
+Continuous Improvement
+
+Monitor system performance, adoption, and effectiveness.
+Identify opportunities to streamline workflows, reduce manual effort, and improve the user experience.
+Research emerging document automation technologies and industry best practices.
+Recommend enhancements that improve efficiency, accuracy, scalability, and long-term maintainability.
+Success in This Role Looks Like
+
+Within the first 12 months, the successful candidate will:
+Help evaluate and implement a document automation platform that aligns with the firm's needs.
+Successfully automate key legal document workflows and templates.
+Establish scalable processes for maintaining and expanding document automation capabilities.
+Build strong partnerships with legal, operations, and technology stakeholders.
+Deliver measurable improvements in document generation efficiency, accuracy, and consistency.
+Create a foundation for future document automation and workflow optimization initiatives.
+Requirements
+Required Qualifications
+
+3+ years of experience implementing, configuring, or managing document automation, document assembly, or document generation solutions.
+Proven experience creating and maintaining complex document templates and workflows.
+Experience gathering business requirements and translating them into technical or system-based solutions.
+Strong understanding of workflow automation, business rules, conditional logic, and process optimization.
+Experience working with structured data sources and business systems.
+Strong analytical, problem-solving, and troubleshooting skills.
+Excellent communication and stakeholder management abilities.
+Ability to manage multiple projects and priorities in a fast-paced environment.
+Comfortable collaborating cross-functionally with both technical and non-technical teams.
+Preferred Qualifications
+
+Experience with document automation platforms such as Conga Composer, Drawloop, Formstack Documents, DocuSign Gen, HotDocs, Contract Express, XpressDox, Gavel, or similar solutions.
+Experience integrating document generation platforms with Salesforce, CRM systems, case management systems, document management systems, or other business systems.
+Experience working with APIs, data mapping, structured data, and system integrations.
+Experience in legal technology, legal operations, or professional services environments.
+Familiarity with Salesforce, workflow automation platforms, and cloud-based business applications.
+Experience supporting enterprise-scale document generation or workflow automation initiatives.
+Skills and Competencies:
+
+Ability to communicate professionally and interact effectively with employees, managers, leadership, attorneys, support staff, and external partners
+Ability to be a proactive self-starter who can operate independently while managing multiple priorities and deadlines
+Demonstrated attention to detail, reliability, organization, and follow-through
+Ability to identify process gaps and recommend practical solutions to improve efficiency, consistency, and operational effectiveness
+Flexibility and ability to respond positively to shifting priorities and business needs
+Ability to work under pressure and manage competing priorities while maintaining accuracy and professionalism
+Ability to work in a primarily computer-based environment, including extended periods of sitting, screen time, typing, and use of standard office equipment
+Ability to occasionally lift and move office equipment or materials weighing up to 10 pounds
+Mandatory Notices for Applicants:
+
+ADA Compliance: Candidates must be able to perform the role with or without reasonable accommodation. Requests for accommodation should be made to the Director of People & Culture in advance.
+
+Compensation and Benefits: $100,000-$110,000. This range is a reasonably reliable estimate of the base salary that this individual is expected to receive. Actual pay will be adjusted based on experience, location, and other job-related factors permitted by law.
+
+Comprehensive benefits package includes health insurance, HSA/FSA options, short-term and long-term disability, dental and vision care, life insurance, 401(k), vacation, sick time, and access to an employee assistance program. Additional voluntary benefits include accident insurance, life insurance, disability insurance, critical illness insurance, long-term care insurance, and pet insurance. Commuter and transit benefits may be available in some locations.
+
+Modern Family Law will consider all qualified applicants with arrest or conviction records. Modern Family Law is committed to diversity and inclusion in the workplace and has zero tolerance for harassment of any kind. Individuals seeking employment at MFL are considered without regard to their race, color, religion, sex, sexual orientation, gender identity, transgender experience, national origin, age, marital status, ancestry, disability, military status (including discharge status), genetic information, or any other protected class status as set forth by local, state, and federal law.
+
+Benefits
+Health Care Plan (Medical, Dental & Vision)
+Retirement Plan (401k, IRA)
+Life Insurance (Basic, Voluntary & AD&D)
+Paid Time Off (Vacation, Sick & Public Holidays)
+Short Term & Long Term Disability
+Training & Development
+Work From Anywhere -- eligible after 6 months**

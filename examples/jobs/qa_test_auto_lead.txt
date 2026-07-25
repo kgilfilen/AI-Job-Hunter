@@ -1,0 +1,74 @@
+QA Test Automation Developer locations
+
+Durham NC
+
+Remote_United States
+
+Full time
+
+Posted Today
+
+time left to apply
+
+End Date: July 3, 2026 (3 days left to apply)
+
+2618801
+
+Labcorp is a leader in diagnostics, drug development and healthcare innovation. Across every role, we harness data and AI to work smarter, move faster and create breakthrough solutions that improve health outcomes for people. With our global scale and deep expertise, you'll do meaningful work, grow your career and make a real impact. Together, we're improving health and improving lives.
+
+Labcorp is recruiting a QA Test Automation Developer.
+
+Advance your Information Technology (IT) career at an industry leading HealthCare Science Innovator.
+
+Corporate IT is actively searching for an experienced and skilled AI Test Automation Engineer who will integrate AI capabilities with state-of-the-art test automation technologies and develop AI-driven test solutions. The test engineer will be part of clinical development teams within LabCorp and contribute to our science and innovation developments. Our development area includes enterprise web service, web application, mobile solution, and other software testing for continuous testing and continuous delivery.
+
+The right candidate for this role will participate in developing and enhancing test frameworks to optimize QA efforts. Most importantly, you'll be engaged in meaningful work for an organization that is committed to "helping people live longer and healthier lives" every day.
+
+Job Responsibilities:
+
+Develop AI-driven test agents to automate routine testing tasks such as test case generation, documentation, and scripting.
+Implementing automation frameworks for testing AI models and software components.
+Integrate test automation solutions into existing automation frameworks.
+Design and develop automated test scripts using open-source tools and frameworks.
+Identify, analyze, and document defects in AI models and software applications.
+Collaborate with developers and data scientists to ensure AI algorithms meet quality standards.
+Monitor and troubleshoot AI system performance to improve accuracy and efficiency.
+Integrate security testing into the automation framework to identify vulnerabilities in AI systems.
+Conduct penetration testing to assess security risks in AI-powered applications.
+Ensure compliance with security standards and best practices for AI models and software
+Stay updated on industry trends and advancements in AI testing methodologies and cybersecurity.
+Minimum Qualifications:
+
+Bachelor's Degree
+8 or more years' of experience on QA test automation development.
+Preferred Qualifications:
+
+8 or more years' of proficiency in one or more programming languages such as C# or Java, or Python.
+5 or more years' of hands-on experience with test automation tools like Selenium or TestNG or Junit or Playwright or equivalent.
+Current or prior Labcorp experience.
+Additional Job Standards:
+
+Experience testing and deploying applications across web, mobile, and cloud platforms (AWS, Azure, or Google Cloud)
+Experience working with CI/CD pipelines and tools like Jenkins, GitHub Actions, or Azure DevOps.
+Understanding of security testing methodologies, including penetration testing and vulnerability assessments.Strong Knowledge of AI/ML concepts, particularly LLMS and Gen AItesting frameworks and techniques.
+Hands-on experience with test automation tools like Selenium, TestNG, Junit, Playwright or equivalent.
+Strong experience with testing reliability and accuracy of synchronous APIs by verifying request-response interactions and asynchronous APIs.
+Deep knowledge of user story to test case translation with methods like Gherkin/Cucumber or equivalent.
+The ability to quickly grasp and distill highly complex user design issues into clean, understandable solutions.
+Candidate must flourish in a fast paced, iterative, deadline driven environment.
+Strong communication and organizational skills are critical to success among this company of talented individuals.
+Application Window: 7/3/2026
+
+Pay Range: $100K/yr to $115K/yr
+
+All job offers will be based on a candidate's skills and prior relevant experience, applicable degrees/certifications, as well as internal equity and market data.
+
+Benefits: Employees regularly scheduled to work 20 or more hours per week are eligible for comprehensive benefits including: Medical, Dental, Vision, Life, STD/LTD, 401(k), Paid Time Off (PTO) or Flexible Time Off (FTO), Tuition Reimbursement and Employee Stock Purchase Plan. Employees regularly scheduled to work less than 20 hours, Casual, Intern, and Temporary employees are only eligible to participate in the 401(k) Plan. Employees who are regularly scheduled to work a 7 on/7 off schedule are eligible to receive all the foregoing benefits except PTO or FTO. For more detailed information, please click here.
+
+Labcorp is proud to be an Equal Opportunity Employer:
+
+Labcorp strives for inclusion and belonging in the workforce and does not tolerate harassment or discrimination of any kind. We make employment decisions based on the needs of our business and the qualifications and merit of the individual. Qualified applicants will receive consideration for employment without regard to race, religion, color, national origin, sex (including pregnancy, childbirth, or related medical conditions), family or parental status, marital, civil union or domestic partnership status, sexual orientation, gender identity, gender expression, personal appearance, age, veteran status, disability, genetic information, or any other legally protected characteristic. Additionally, all qualified applicants with arrest or conviction records will be considered for employment in accordance with applicable law.
+
+We encourage all to apply
+
+If you are an individual with a disability who needs assistance using our online tools to search and apply for jobs, or needs an accommodation, please visit our accessibility site or contact us at Labcorp Accessibility. For more information about how we collect and store your personal data, please see our Privacy Statement.

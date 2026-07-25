@@ -1,0 +1,104 @@
+Principal QA Automation Engineer, Team Lead
+Engineering - Remote
+
+ABOUT ENGAGEWARE
+
+Engageware helps financial institutions and enterprises provide seamless, customer-centric experiences through an AI-powered platform offering appointment scheduling, virtual assistants, and customer engagement solutions. Our platform enhances digital and in-person interactions, streamlining customer journeys across multiple touchpoints.
+
+Open to LATAM-based contractors in Spanish-speaking countries (Mexico, Argentina, Colombia, and others) | Bilingual: Spanish & English required
+
+ABOUT THE ROLE
+
+We're scaling our QA practice and need a leader who can build and guide a high-performing, distributed team while staying deeply technical and hands-on. As Principal QA Automation Engineer, Team Lead, you will serve as the central pillar of quality across all Engageware products owning the automation strategy, standardizing engineering practices, and directly managing a team of QA automation engineers distributed across our product squads.
+
+You'll report directly to the VP of Engineering and play a strategic role in defining what "done" truly means across our engineering organization. From establishing automation standards and enforcing the Definition of Done, to building robust CI/CD pipelines and leveraging AI to accelerate testing, you will elevate quality at every level and do it by example.
+
+This role is for a bilingual (Spanish/English) leader who is comfortable operating across cultures, product domains, and technical stacks. You will be hands-on in the code every day while simultaneously guiding your team's growth, coordinating with product squads, and reporting quality trends to engineering leadership.
+
+If you thrive on owning quality end-to-end, love building systems that scale, and want your leadership to have a measurable impact on everything engineering ships this is the role for you.
+
+KEY RESPONSIBILITIES
+
+Team Leadership & People Management
+
+Directly manage a distributed team of QA automation engineers including hiring, onboarding, performance management, and career development.
+Conduct regular 1:1s, set clear goals, provide ongoing feedback, and run performance reviews for all direct reports.
+Partner with the VP of Engineering on team structure, headcount planning, and organizational design as the QA function grows.
+Serve as the single point of accountability for quality standards across the entire engineering organization.
+Define, document, and enforce Definition of Done criteria in collaboration with engineering and product leadership.
+Drive adoption of shared testing standards, automation patterns, and tooling across all product squads.
+Report on quality metrics, test coverage trends, defect patterns, and release readiness to the VP of Engineering.
+Foster a culture of quality, ownership, and continuous improvement within the QA team and the broader engineering org.
+Hands-On Automation
+
+Personally architect, build, and maintain automation frameworks for both UI and API testing across multiple product domains.
+Implement Playwright as the primary E2E test framework, covering complex UI flows in Angular and React applications.
+Build and maintain comprehensive API test suites covering REST, SOAP, and WSDL interfaces.
+Write automation in multiple languages including Java and TypeScript/JavaScript, selecting the right tool for each context.
+Leverage AI tooling (Claude and others) heavily for test generation, coverage gap analysis, and reducing maintenance burden.
+Build regression, smoke, and integration test suites that execute reliably within CI/CD pipelines on every deployment.
+CI/CD & DevOps Collaboration
+
+Integrate and maintain automated test suites within our current Jenkins-based CI/CD pipelines, and help shape the path forward as we migrate to Bitbucket Pipelines and/or GitHub Actions.
+Define environment promotion gating criteria and build release confidence signals (dashboards, alerts, readiness reports).
+Integrate test results, coverage trends, and flakiness metrics into observability tooling.
+Partner with DevOps to ensure test infrastructure evolves with the team and scales through the pipeline migration.
+Coverage & Cross-Squad Collaboration
+
+Oversee quality for all Engageware products: Aivo suite (Virtual Assistant, Live Chat, AgentBot, Studio) and Appointment Scheduling.
+Collaborate with product managers and engineers to define acceptance criteria and testability requirements per squad.
+Execute and evolve functional, regression, integration, and end-to-end test strategies.
+Identify, document, and track defects in Jira; surface defect patterns and root-cause prevention strategies to engineering leadership.
+TECHNICAL REQUIREMENTS
+
+Required
+
+Proven hands-on expertise with Playwright for modern end-to-end UI and API test automation at scale.
+Strong proficiency in TypeScript/JavaScript and Java for test framework development.
+Experience testing Angular and React frontend applications.
+Deep experience with API testing REST, SOAP, and WSDL interfaces.
+Experience architecting test frameworks from the ground up, not just maintaining existing ones.
+CI/CD pipeline experience with Bitbucket Pipelines and/or GitHub Actions.
+Active, hands-on use of AI tools (Claude, Copilot, or similar) in day-to-day QA workflows.
+Demonstrated people management experience: hiring, performance management, career development, and team building in a distributed/remote environment.
+Proven ability to lead a QA team embedded across multiple squads while maintaining consistent standards and individual accountability.
+Strong software engineering fundamentals: clean code, design patterns, Git-based version control, code review practices.
+Experience working across multiple deployed environments and distributed SaaS systems.
+Preferred / Nice to Have
+
+Experience with Python, Behave, and Selenium (for legacy suite migration context).
+Familiarity with database testing (MySQL, Amazon Redshift).
+Knowledge of AWS services (Lambda, ECS, RDS, CloudWatch).
+Experience with performance or load testing frameworks (k6, Locust, Gatling).
+Familiarity with observability and reporting tools (Datadog, ReportPortal, LangFuse).
+Background in SaaS products serving financial services or regulated industries.
+WHAT WE'RE LOOKING FOR
+
+You lead people, not just projects you invest in your team's growth, hold people accountable with clarity and empathy, and take retention and engagement personally.
+You stay in the code you don't delegate what you won't do yourself, and your team follows your example because they see you doing the hard work.
+You think at the system level: you don't just write tests, you design quality systems that scale across teams and squads.
+You bridge technical depth and executive clarity equally comfortable pairing with an engineer on a tricky WSDL test and presenting quality trends to the VP of Engineering.
+You set standards through craft, not title. You earn credibility by being the person the team turns to when something is hard to test.
+You're energized by ambiguity you can define structure where none exists and turn a blank-slate quality practice into something the whole engineering organization adopts.
+You genuinely care about developer experience: you know a test suite only gets adopted if it's fast, reliable, and easy to contribute to.
+QUALIFICATIONS
+
+7+ years of experience in Quality Assurance, Test Automation, or Software Development in Test (SDET) roles.
+2+ years in a formal team lead or engineering management role with direct reports not just technical mentorship.
+Native or advanced Spanish proficiency required; advanced English proficiency required this is a bilingual role.
+Degree in Computer Science, Software Engineering, Information Systems, or a related field or equivalent practical experience.
+Experience in agile environments (Scrum/Kanban); comfortable with iterative delivery and fast release cadences. Location
+Remote
+
+Department
+
+Engineering
+
+Employment Type
+
+Contractor
+
+Minimum Experience
+
+Manager/Supervisor
+

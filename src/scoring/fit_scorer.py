@@ -61,7 +61,9 @@ def score_job(job: JobOpening, profile: CandidateProfile) -> FitAnalysis:
 
     if job.security_clearance_required and not profile.has_security_clearance:
         score -= 25
-        concerns.append("Security clearance required, but candidate does not currently have one.")
+        concerns.append(
+            "Security clearance required, but candidate does not currently have one."
+        )
 
     if profile.remote_preference:
         if profile.remote_preference.lower() in remote_status:
@@ -85,8 +87,20 @@ def score_job(job: JobOpening, profile: CandidateProfile) -> FitAnalysis:
 
     if missing_required_skills:
         concerns.append(
-            f"Missing required skills: "
+            "Missing required skills: "
             + ", ".join(missing_required_skills)
+        )
+
+    matched_preferred_skills, _ = match_skills(
+        job.preferred_skills,
+        profile.core_skills,
+    )
+
+    if matched_preferred_skills:
+        score += len(matched_preferred_skills) * 2
+        strengths.append(
+            f"Matched {len(matched_preferred_skills)} preferred skills: "
+            + ", ".join(matched_preferred_skills)
         )
 
     score = max(0, min(100, score))
@@ -106,5 +120,5 @@ def score_job(job: JobOpening, profile: CandidateProfile) -> FitAnalysis:
         notes=notes,
         matched_required_skills=matched_required_skills,
         missing_required_skills=missing_required_skills,
-        matched_preferred_skills=[],
+        matched_preferred_skills=matched_preferred_skills,
     )

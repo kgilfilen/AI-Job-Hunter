@@ -59,7 +59,8 @@ def make_json_safe(value):
 
 def main():
     job_files = sorted(JOBS_DIR.glob("*.txt"))
-    job_files = sorted(JOBS_DIR.glob("dev_II_cpp.txt"))
+    #job_files = sorted(JOBS_DIR.glob("dev_II_cpp.txt"))
+    #job_files = sorted(JOBS_DIR.glob("pred_insts_anlst.txt"))
 
     profile = CandidateProfile(
         name="Kenny Gilfilen",

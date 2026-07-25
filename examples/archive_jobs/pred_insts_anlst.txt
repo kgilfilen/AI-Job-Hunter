@@ -1,0 +1,43 @@
+Predictive Insights Analyst
+Job Requisition ID #
+
+26WD97837
+
+Position Overview
+
+We are building a flexible, high-leverage team responsible for detecting customer issues earlier and enabling the organization to act before they escalate. This team operates as a horizontal intelligence layer within the Predictive Support pillar, partnering
+
+closely with Diagnostics, Customer Reliability, and Technical Account Management (TAM) to improve how the organization anticipates and responds to customer needs.
+
+Responisbilites
+
+* Identify patterns across support data, telemetry, knowledge base usage, and TAM signals — surfacing issues before they become visible through any single source
+* Use AI to accelerate analysis, automate detection, and build lightweight systems and prototypes
+* Translate cross-system data into clear, actionable intelligence that defines what is happening, why it matters, and what should be done
+* Create repeatable systems for detection, classification, and monitoring — replacing recurring manual analysis
+* Develop intelligence that enables Customer Reliability teams to act on emerging issues, TAM to guide customers proactively, and Diagnostics to investigate root causes faster
+* Help design and evolve systems (e.g., CIRCL, Support MCP) that connect customer signals with product and support workflows at scale
+* Outcome-driven — every initiative is tied to clear, measurable outcomes with accountability to partner teams
+* Capability-first — we build reusable systems, not stakeholder-specific one-offs
+* Shared success — we work as a team to ensure outcomes are connected and delivered across the system
+* Connected work — we ensure our work integrates with and amplifies other efforts across the system, not just local outputs
+* 
+Minimum Qalifications
+
+* Strong analytical thinker who can move from data → insight → action with minimal guidance
+* Active interest in using AI to extend capabilities beyond traditional role boundaries
+* Comfortable working across data, systems, and ambiguous problem spaces
+* Demonstrated ability to build, prototype, or create solutions — not just analyze and report
+* Experience building analytical tools, pipelines, or automations
+* High ownership mindset — identifies important problems and drives them to measurable outcomes
+* Learns quickly, adapts, and operates effectively in a collaborative, fast-moving environment without rigid structure
+* 
+Learn More
+
+About Autodesk
+
+Welcome to Autodesk! Amazing things are created every day with our software – from the greenest buildings and cleanest cars to the smartest factories and biggest hit movies. We help innovators turn their ideas into reality, transforming not only how things are made, but what can be made.
+
+We take great pride in our culture here at Autodesk – it’s at the core of everything we do. Our culture guides the way we work and treat each other, informs how we connect with customers and partners, and defines how we show up in the world.
+
+When you’re an Autodesker, you can do meaningful work that helps build a better world designed and made for all. Ready to shape the world and your future? Join us!

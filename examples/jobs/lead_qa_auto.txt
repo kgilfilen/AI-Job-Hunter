@@ -1,0 +1,79 @@
+Lead QA Automation
+
+Remote
+
+locations
+
+Remote Location
+
+Full time
+
+Posted Today
+
+R26_0345
+
+Group 1001 is a consumer-centric, technology-driven family of insurance companies on a mission to deliver outstanding value and operational performance by combining financial strength and stability with deep insurance expertise and a can-do culture. Group1001's culture emphasizes the importance of collaboration, communication, core business focus, risk management, and striving for outcomes. This goal extends to how we hire and onboard our most valuable assets - our employees.
+
+Company Overview:
+
+Gainbridge,**a part of the Group 1001 enterprise, is a self-managed, innovative, digital platform providing its clients with direct access to trusted financial products to smartly grow their savings over time. Gainbridge strives to offer products through its platform that are simple, intuitive, and backed by smart technology with no complexity or hidden fees. Gainbridge empowers clients to take control of the financial future with simple solutions that are accessible to everyone no matter their budget.
+
+Why This Role Matters:
+
+We're looking for a Lead QA Automation Engineer to own the automation strategy across a multi-surface product portfolio. You'll improve existing frameworks where they exist and build from the ground up where they don't.
+
+You'll make the architectural calls, set the quality bar, and work directly with engineering and product. You'll join an established QA team and report to QA Manager.
+
+This is a senior IC role with a path to people leadership if you perform, you'll have engineers reporting to you within 12-18 months.
+
+How You'll Contribute:
+
+Architecture and technical strategy
+
+Own the automation framework across the portfolio: structure, conventions, CI integration, scalability
+Make tooling and architectural decisions you set the direction, you're accountable for outcomes
+Build new automation foundations on greenfield surfaces; raise the bar on existing ones
+Conduct code reviews that set the standard, not just check the box
+Quality bar
+
+Define what gets tested, to what depth, and with what trade-offs across multiple product surfaces simultaneously
+Design coverage from requirements: decomposition, edge cases, environments, failure modes not just automating cases handed to you
+When release readiness isn't there, you say so clearly, with evidence, to whoever needs to hear it
+Cross-functional accountability
+
+Close requirement gaps before development begins
+Represent QA in sprint planning, architecture reviews, and cross-team syncs
+Negotiate scope and timelines with product and engineering when quality risk isn't accounted for
+Team and process
+
+Raise the craft of the QA engineers around you through structured code reviews and direct feedback
+Evaluate and improve QA and SDLC processes if something is slow or unclear, fix it
+Participate in hiring as the team grows screening candidates, conducting technical interviews, helping shape the bar
+What We're Looking For:
+
+Strong test automation experience with Playwright and TypeScript
+You've built automation infrastructure from scratch and improved inherited systems you're comfortable with both
+You design test coverage rigorously decomposition, edge cases, environment and data scenarios, failure modes and can explain why a plan is shaped the way it is
+You've made architectural decisions and can defend the reasoning with evidence others can follow
+You've made the case to hold a release when quality wasn't there backed by data, not just conviction
+You communicate quality risk directly, without softening it for the room
+Your estimates are accurate; when they're not, you say so early and adjust
+You've raised the quality of the engineers around you through reviews, feedback, or direct mentorship
+You'll Thrive Here If You:
+
+Treat ownership as the default, not a perk
+Hold a high bar through rigor and evidence, not just force of will
+Make decisions with incomplete information and adjust when you're wrong
+Give your manager information they didn't know to ask for
+Are open to leading a team within 12-18 months if the path emerges
+Compensation:
+
+Our compensation reflects the cost of labor across several U.S. geographic markets. The base pay for this position ranges from $160,000/year in our lowest geographic market up to $180,000/year plus bonus in our highest geographic market. Pay is based on a number of factors including market location and may vary depending on job-related knowledge, skills, and experience.
+
+Benefits Highlights:
+
+Employees who meet benefit eligibility guidelines and work 30 hours or more weekly, have the ability to enroll in Group 1001's benefits package. Employees (and their families) are eligible to participate in the Company's comprehensive health, dental, and vision insurance plan options. Employees are also eligible for Basic and Supplemental Life Insurance, Short and Long-Term Disability. All employees (regardless of hours worked) have immediate access to the Company's Employee Assistance Program and wellness programs no enrollment is required. Employees may also participate in the Company's 401K plan, with matching contributions by the Company.
+
+Group 1001, and its affiliated companies, is strongly committed to providing a supportive work environment where employee differences are valued. Diversity is an essential ingredient in making Group 1001 a welcoming place to work and is fundamental in building a high-performance team. Diversity embodies all the differences that make us unique individuals. All employees share the responsibility for maintaining a workplace culture of dignity, respect, understanding and appreciation of individual and group differences.
+
+LI-AS1

@@ -1,0 +1,39 @@
+100% Remote - QA Automation Engineer **Los Angeles, CA
+
+Temporary/Contract **
+
+$ 44.00 per hour
+
+Posted Jun 23, 2026
+
+Job ID: NS-QAM-NS_1782239039
+
+About the Role
+NOTE: This is a 100% remote position. PST work hours.
+
+Job Title: QA Automation Engineer
+
+Seeking a QA Automation Engineer with strong Java and Selenium experience to support testing for complex applications with multiple integrations. This role will begin with manual testing and test case development while the candidate learns the application and domain, then transition into a heavier automation focus.
+
+Must-Have Skills:
+
+5+ years of QA or test automation experience
+Strong hands-on experience with Java for automation scripting
+Experience with Selenium WebDriver for UI test automation
+Experience testing complex systems with multiple integrations and end-to-end workflows
+Ability to perform manual testing, define test cases, and transition test scenarios into automation
+Experience working with backend data stores such as MongoDB
+Responsibilities:
+
+Develop, maintain, and execute automated test scripts using Java and Selenium WebDriver
+Perform manual testing during the initial ramp-up period to understand the application, domain, and test coverage needs
+Create and document test cases for functional, integration, regression, and end-to-end testing
+Support testing for applications with multiple integrations, data flows, and backend dependencies
+Work closely with other QA engineers and development teams to validate enhancements, maintenance items, and new integration work
+Preferred Skills:
+
+Experience with Guidewire PolicyCenter testing or policy administration
+Insurance industry experience, ideally within personal lines such as auto, home, landlord, umbrella, or earthquake products
+Interested candidates may submit their resumes online or call on 310-906-4780 for further information regarding the position.
+
+NS-QAM-NS_1782239039
