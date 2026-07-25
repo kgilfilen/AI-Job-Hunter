@@ -15,6 +15,7 @@ The first public module is **AI Job Hunter**.
 # Milestone 1 – AI Job Hunter MVP
 
 **Status:** ✅ Complete
+
 **As Of:** June 30, 2026
 
 ## Project Setup
