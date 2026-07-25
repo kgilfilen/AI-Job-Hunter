@@ -64,7 +64,7 @@ The first public module is **AI Job Hunter**.
 
 **Status:** 🚧 In Progress
 
-**Sprint two** July 24-31
+**Sprint two:** July 24-31
 
 ## Resume
 
