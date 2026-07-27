@@ -5,7 +5,7 @@ The project was conceived on June 22, 2026, with the goal of delivering a produc
 This project is not about replacing engineers, but accelerating them. 
 
 ## Purpose
-Searching for jobs often involves repetitive work:
+Searching for jobs often involves repetitive work, much of which I HATE:
 
 * Reading job descriptions
 * Identifying required skills
@@ -19,7 +19,7 @@ AI Job Hunter automates much of this workflow while maintaining human review and
 ## Features
 Current Features
 
-* Job description parsing
+* Job description parsing using AI
 * Structured job object generation
 * Resume strategy recommendations
 * Cover letter draft generation
@@ -27,6 +27,11 @@ Current Features
 * Role-based access control
 * Public demo mode
 * REST API
+* Resume/job fit scoring
+* Structured JSON output
+* Unit & integration test suite
+* Dockerized dev and test
+* Environment-based config using `.env`
 
 Planned Features
 
@@ -37,6 +42,19 @@ Planned Features
 * Machine learning ranking models
 * Application success analytics
 * Agent-assisted application workflow
+
+## Current Status
+
+* core parser complete
+* AI fit scoring complete
+* unit and integration testing up to date
+* docker build & execution
+
+### TODO:
+
+* resume tailoring
+* web interface
+* github actions
 
 ## Architecture
 ```text
@@ -59,13 +77,14 @@ Structured Job Object
 
 ## Technology Stack
 
-* Python
+* Python 3.x
 * FastAPI
 * SQLite
 * OpenAI API
 * Okta Authentication
 * GitHub Actions
 * Pytest
+* Docker
 
 ## Security
 Sensitive information is never committed to source control.
@@ -78,6 +97,32 @@ Examples include:
 * Real job application history
 
 Configuration is managed through environment variables.
+
+## Docker Support
+
+The project is fully reproducible using docker. Everyone executes in an identical env, which eliminates "works on my machine".
+The AI Job Hunter can be built, tested, and executed entirely within Docker, providing a reproducible dev environment.
+
+### Build & Run
+
+```bash
+docker build -t ai-job-hunter .
+```
+
+### Run
+``` bash
+docker run --rm ai-job-hunter 
+
+docker run --rm --env-file .env ai-job-hunter 
+
+docker run --rm ai-job-hunter pytest -v
+
+docker run --rm --env-file .env ai-job-hunter pytest -v
+```
+### Complete Docker Check
+``` bash
+./scripts/docker-check.sh
+```
 
 ## User Roles
 Guest
@@ -120,6 +165,11 @@ pip install -r requirements.txt
 uvicorn src.main:app --reload
 ```
 
+## Running from Docker
+```bash
+docker run -rm --env-file .env ai-job-hunter
+```
+
 ## Future Machine Learning Integration
 This project intentionally separates business logic from scoring logic.
 
@@ -140,6 +190,8 @@ Where Do Engineers Often Go Wrong When Using AI?
 One of the biggest mistakes engineers make when using AI is allowing the AI to generate large amounts of code that they never truly understand.
 
 When I write software manually, I build a mental model of the application as it comes into existence. I know the paths through the code because I created them. I run the software frequently, add print statements, inspect variables, and watch the program execute. Over time, I develop an intuition for the system. I can often predict what the code will do before I run it because I have experienced each part of it being built.
+
+And I carefully add minimal comments, because in 6 months I will have created 14 other apps, and completely forgotten about this one.
 
 AI changes that process.
 

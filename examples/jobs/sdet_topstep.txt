@@ -1,0 +1,80 @@
+SDET III United States Summary:
+
+Topstep is looking for a mid-level Software Development Engineer in Test to help ensure the quality, reliability, and performance of our web, API, mobile, and third-party integrated applications.
+
+In this role, you will work closely with Engineering, Product, and QA throughout the software development lifecycle. You will be responsible for expanding automated test coverage, supporting manual and release validation, identifying quality risks, and helping the team deliver reliable features on schedule.
+
+The ideal candidate has experience testing both web and mobile applications, understands API testing and test automation, and is comfortable working in a fast-paced, collaborative engineering environment.
+
+Key Responsibilities
+
+Ensure the quality of Topstep's web, API, mobile, and third-party integrated applications.
+Design, develop, maintain, and improve automated test coverage across UI, API, and mobile platforms.
+Support manual, smoke, regression, end-to-end, integration, and production validation testing as needed.
+Create and maintain test cases, test plans, test data, automation suites, and other QA documentation.
+Review product requirements and acceptance criteria to identify gaps, risks, dependencies, and testability concerns before development is completed.
+Validate new features and defect fixes before release and provide clear QA sign-off on release readiness.
+Identify, document, reproduce, prioritize, and communicate defects to Engineering, Product, and other stakeholders.
+Support production validation and assist with investigating post-release issues, regressions, and customer-impacting incidents.
+Validate third-party integrations, including payment, billing, authentication, trading, and account-management workflows.
+Document QA processes, testing standards, release validation steps, environment requirements, and troubleshooting guidance in Notion.
+Collaborate with Engineering, Product, and QA team members to improve quality throughout the development lifecycle.
+Help define and follow modern QA practices, including risk-based testing, shift-left testing, test automation, and CI/CD-supported validation.
+Participate in sprint planning, refinement, technical discussions, and release-readiness reviews.
+Support onboarding, mentoring, and knowledge sharing as the QA team grows.
+Deliver high-quality testing within sprint timelines while clearly communicating test progress, risks, blockers, defects, and release status.
+Required Qualifications and Key Competencies
+
+6 + years of experience in software quality assurance, test automation, or an SDET role.
+Experience testing web applications, REST APIs, and mobile applications.
+Hands-on experience developing and maintaining automated test frameworks.
+Experience with UI, API, integration, regression, and end-to-end testing.
+Understanding of software development lifecycles, Agile methodologies, and CI/CD pipelines.
+Experience using API testing tools and validating request and response data.
+Ability to write clear, reproducible defect reports and communicate technical issues effectively.
+Experience reviewing requirements and acceptance criteria for completeness and testability.
+Familiarity with source control, pull requests, build pipelines, logs, and application monitoring tools.
+Strong analytical, troubleshooting, and risk-assessment skills.
+Ability to work independently while collaborating effectively across Engineering, Product, and QA teams.
+Strong written and verbal communication skills.
+Preferred Qualifications:
+
+Experience with both iOS and Android testing.
+Experience with mobile automation frameworks.
+Experience with modern web automation tools such as Playwright, Cypress, or Selenium.
+Experience with API automation and tools such as Postman, REST Assured, or similar technologies.
+Experience integrating automated tests into CI/CD pipelines.
+Experience testing payment processing, subscriptions, billing, financial, trading, or other transaction-based systems.
+Experience validating third-party integrations and asynchronous workflows.
+Familiarity with SQL, databases, logs, event-driven systems, and backend troubleshooting.
+Experience with performance, load, accessibility, or security-focused testing.
+Experience working in a fast-moving product and engineering organization.
+Success in This Role:
+
+Success in this role means:
+
+Automated coverage continues to grow across critical web, API, and mobile workflows.
+Defects and requirement gaps are identified earlier in the development lifecycle.
+QA risks, blockers, and release-readiness status are communicated clearly.
+Regression and release validation become more reliable and efficient.
+Production issues related to insufficient test coverage are reduced.
+Engineering and Product teams receive consistent, scalable QA support.
+High-quality features are delivered on time without compromising release confidence.
+Company Culture & Perks
+
+Topstep is an engaging working environment that ranges from fully remote to hybrid. We foster a culture of collaboration with cameras on during meetings and a robust Slack environment for communication.
+Seven Company-paid Holidays and generous Family Leave. Paid time off is front-loaded.
+Competitive 401(k) matching, health, dental, and vision insurance is offered for full-time employees
+Vacations are encouraged with a bonus for taking 5 consecutive days. Topstep offers a food and groceries budget and contributes towards health and wellness.
+New Hire Base Salary Range
+
+$150,000 - $165,000.
+The compensation offered will take into account the internal compensation structure and may vary depending on the candidate's geographic region, job-related knowledge, skills, and experience, among other factors.
+This position is eligible for a performance-based bonus as provided by the plan terms and governing documents.
+Equal Opportunity Employer
+
+Topstep is an Equal Opportunity Employer. We are committed to fostering an inclusive environment where all employees and applicants are valued. All qualified candidates will receive consideration for employment without regard to race, color, religion, gender, gender identity or expression, sexual orientation, national origin, age, disability, or veteran status, in compliance with applicable federal, state, and local laws.
+
+Interested in the role? Apply today with your resume!
+
+
