@@ -19,7 +19,7 @@ AI Job Hunter automates much of this workflow while maintaining human review and
 ## Features
 Current Features
 
-* Job description parsing
+* Job description parsing using AI
 * Structured job object generation
 * Resume strategy recommendations
 * Cover letter draft generation
@@ -27,6 +27,11 @@ Current Features
 * Role-based access control
 * Public demo mode
 * REST API
+* Resume/job fit scoring
+* Structured JSON output
+* Unit & integration test suite
+* Dockerized dev and test
+* Environment-based config using `.env`
 
 Planned Features
 
@@ -37,6 +42,16 @@ Planned Features
 * Machine learning ranking models
 * Application success analytics
 * Agent-assisted application workflow
+
+## Current Status
+-core parser complete
+-AI fit scoring complete
+-unit and integration testing up to date
+-docker build & execution
+TODO:
+-resume tailoring
+-web interface
+-github actions
 
 ## Architecture
 ```text
@@ -59,13 +74,14 @@ Structured Job Object
 
 ## Technology Stack
 
-* Python
+* Python 3.x
 * FastAPI
 * SQLite
 * OpenAI API
 * Okta Authentication
 * GitHub Actions
 * Pytest
+* Docker
 
 ## Security
 Sensitive information is never committed to source control.
@@ -78,6 +94,17 @@ Examples include:
 * Real job application history
 
 Configuration is managed through environment variables.
+
+## Docker Support
+
+The project is fully reproducible using docker. everyone executes in an identical env, which eliminates "works on my machine".
+The AI Job Hunter can be built, tested, and executed entirely within Docker, providing a reproducible dev environment.
+
+### Build
+
+```bash
+docker build -t ai-job-hunter .
+```
 
 ## User Roles
 Guest
@@ -118,6 +145,11 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 uvicorn src.main:app --reload
+```
+
+## Running from Docker
+```bash
+docker run -rm --env-file .env ai-job-hunter
 ```
 
 ## Future Machine Learning Integration
