@@ -45,14 +45,16 @@ Planned Features
 
 ## Current Status
 
--core parser complete
--AI fit scoring complete
--unit and integration testing up to date
--docker build & execution
-TODO:
--resume tailoring
--web interface
--github actions
+* core parser complete
+* AI fit scoring complete
+* unit and integration testing up to date
+* docker build & execution
+
+### TODO:
+
+* resume tailoring
+* web interface
+* github actions
 
 ## Architecture
 ```text
