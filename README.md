@@ -103,10 +103,25 @@ Configuration is managed through environment variables.
 The project is fully reproducible using docker. Everyone executes in an identical env, which eliminates "works on my machine".
 The AI Job Hunter can be built, tested, and executed entirely within Docker, providing a reproducible dev environment.
 
-### Build
+### Build & Run
 
 ```bash
 docker build -t ai-job-hunter .
+```
+
+### Run
+``` bash
+docker run --rm ai-job-hunter 
+
+docker run --rm --env-file .env ai-job-hunter 
+
+docker run --rm ai-job-hunter pytest -v
+
+docker run --rm --env-file .env ai-job-hunter pytest -v
+```
+### Complete Docker Check
+``` bash
+./scripts/docker-check.sh
 ```
 
 ## User Roles
