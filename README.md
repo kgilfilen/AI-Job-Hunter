@@ -5,7 +5,7 @@ The project was conceived on June 22, 2026, with the goal of delivering a produc
 This project is not about replacing engineers, but accelerating them. 
 
 ## Purpose
-Searching for jobs often involves repetitive work:
+Searching for jobs often involves repetitive work, much of which I HATE:
 
 * Reading job descriptions
 * Identifying required skills
@@ -44,6 +44,7 @@ Planned Features
 * Agent-assisted application workflow
 
 ## Current Status
+
 -core parser complete
 -AI fit scoring complete
 -unit and integration testing up to date
@@ -97,7 +98,7 @@ Configuration is managed through environment variables.
 
 ## Docker Support
 
-The project is fully reproducible using docker. everyone executes in an identical env, which eliminates "works on my machine".
+The project is fully reproducible using docker. Everyone executes in an identical env, which eliminates "works on my machine".
 The AI Job Hunter can be built, tested, and executed entirely within Docker, providing a reproducible dev environment.
 
 ### Build
@@ -172,6 +173,8 @@ Where Do Engineers Often Go Wrong When Using AI?
 One of the biggest mistakes engineers make when using AI is allowing the AI to generate large amounts of code that they never truly understand.
 
 When I write software manually, I build a mental model of the application as it comes into existence. I know the paths through the code because I created them. I run the software frequently, add print statements, inspect variables, and watch the program execute. Over time, I develop an intuition for the system. I can often predict what the code will do before I run it because I have experienced each part of it being built.
+
+And I carefully add minimal comments, because in 6 months I will have created 14 other apps, and completely forgotten about this one.
 
 AI changes that process.
 
