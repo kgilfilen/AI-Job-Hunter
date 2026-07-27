@@ -9,6 +9,7 @@ from parsers.job_opening_parser import parse_job_opening
 from models.candidate_profile import CandidateProfile
 from scoring.fit_scorer import score_job
 from models.fit_analysis import FitAnalysis
+from fetchers.web_fetcher import fetch_job_description
 
 
 JOBS_DIR = Path("examples/jobs")
@@ -32,6 +33,12 @@ def parse_arguments() -> argparse.Namespace:
         "--examples",
         action="store_true",
         help="Process all .txt files in examples/jobs.",
+    )
+
+    input_group.add_argument(
+        "--url",
+        type=str,
+        help="URL of a job description to fetch and process.",
     )
 
     return parser.parse_args()
@@ -111,7 +118,7 @@ def build_candidate_profile() -> CandidateProfile:
     )
 
 
-def get_job_files(args: argparse.Namespace) -> list[Path]:
+def get_job_inputs(args: argparse.Namespace) -> list[tuple[str, str]]:
     if args.file is not None:
         if not args.file.exists():
             raise FileNotFoundError(
@@ -123,7 +130,21 @@ def get_job_files(args: argparse.Namespace) -> list[Path]:
                 f"Job-description path is not a file: {args.file}"
             )
 
-        return [args.file]
+        job_text = args.file.read_text(
+            encoding="utf-8"
+        ).strip()
+
+        if not job_text:
+            raise ValueError(
+                f"Job-description file is empty: {args.file}"
+            )
+
+        return [(args.file.name, job_text)]
+
+    if args.url is not None:
+        job_text = fetch_job_description(args.url)
+
+        return [("fetched_job.txt", job_text)]
 
     job_files = sorted(JOBS_DIR.glob("*.txt"))
 
@@ -132,33 +153,39 @@ def get_job_files(args: argparse.Namespace) -> list[Path]:
             f"No job-description files found in {JOBS_DIR}"
         )
 
-    return job_files
-
+    return [
+        (
+            job_file.name,
+            job_file.read_text(
+                encoding="utf-8"
+            ).strip(),
+        )
+        for job_file in job_files
+    ]
 
 def process_job(
-    job_file: Path,
+    source_name: str,
+    job_text: str,
     profile: CandidateProfile,
 ) -> None:
-    print(f"\n--- Processing {job_file} ---")
-
-    job_text = job_file.read_text(
-        encoding="utf-8"
-    ).strip()
+    print(f"\n--- Processing {source_name} ---")
 
     if not job_text:
         raise ValueError(
-            f"Job-description file is empty: {job_file}"
+            f"Job description is empty: {source_name}"
         )
 
     job_opening = parse_job_opening(
         job_text=job_text,
-        source_file=job_file.name,
+        source_file=source_name,
     )
 
     fit_analysis = score_job(
         job_opening,
         profile,
     )
+
+    output_key = Path(source_name)
 
     print("\033[1mFit Analysis:\033[0m")
     print(
@@ -169,12 +196,12 @@ def process_job(
     )
 
     output_fit_file = save_fit_analysis(
-        job_file,
+        output_key,
         fit_analysis,
     )
 
     output_file = save_job_opening(
-        job_file,
+        output_key,
         job_opening,
     )
 
@@ -193,11 +220,12 @@ def process_job(
 def main() -> None:
     args = parse_arguments()
     profile = build_candidate_profile()
-    job_files = get_job_files(args)
+    job_inputs = get_job_inputs(args)
 
-    for job_file in job_files:
+    for source_name, job_text in job_inputs:
         process_job(
-            job_file,
+            source_name,
+            job_text,
             profile,
         )
 
