@@ -1,11 +1,15 @@
 import json
 from dataclasses import asdict
 from pathlib import Path
-from parsers.job_opening_parser import parse_job_opening
-from models.job_opening import JobOpening
-from models.candidate_profile import CandidateProfile
-from scoring.fit_scorer import score_job
-from constants import VALID_RECOMMENDATIONS
+import pytest
+from src.parsers.job_opening_parser import parse_job_opening
+from src.models.job_opening import JobOpening
+from src.models.candidate_profile import CandidateProfile
+from src.scoring.fit_scorer import score_job
+from src.constants import VALID_RECOMMENDATIONS
+
+# at present all tests in this file are live API tests, so we mark the whole file as such
+pytestmark = pytest.mark.live_api
 
 JOBS_DIR = Path("examples/jobs")
 profile = CandidateProfile(

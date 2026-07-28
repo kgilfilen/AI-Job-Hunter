@@ -1,8 +1,8 @@
-from models.candidate_profile import CandidateProfile
-from models.job_opening import JobOpening
-from models.fit_analysis import FitAnalysis
-from scoring.fit_scorer import score_job
-from constants import Recommendation
+from src.models.candidate_profile import CandidateProfile
+from src.models.job_opening import JobOpening
+from src.models.fit_analysis import FitAnalysis
+from src.scoring.fit_scorer import score_job
+from src.constants import Recommendation
 
 """
 Usage: python3 -m pytest tests/unit -v

@@ -1,12 +1,15 @@
 import json
 from dataclasses import asdict
 from pathlib import Path
-from parsers.job_opening_parser import parse_job_opening
-from models.job_opening import JobOpening
+import pytest
 
+from src.parsers.job_opening_parser import parse_job_opening
+from src.models.job_opening import JobOpening
+
+# at present all tests in this file are live API tests, so we mark the whole file as such
+pytestmark = pytest.mark.live_api
 
 JOBS_DIR = Path("examples/jobs")
-
 
 def test_job_opening_has_title():
     job_file = JOBS_DIR / "sdet_topstep.txt"
