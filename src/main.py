@@ -5,11 +5,12 @@ from dataclasses import asdict
 from enum import Enum
 from pathlib import Path
 
-from parsers.job_opening_parser import parse_job_opening
-from models.candidate_profile import CandidateProfile
-from scoring.fit_scorer import score_job
-from models.fit_analysis import FitAnalysis
-from fetchers.web_fetcher import fetch_job_description
+from src.parsers.job_opening_parser import parse_job_opening
+from src.models.candidate_profile import CandidateProfile
+from src.scoring.fit_scorer import score_job
+from src.models.fit_analysis import FitAnalysis
+from src.fetchers.web_fetcher import fetch_job_description
+from src.profile_loader import load_candidate_profile
 
 
 JOBS_DIR = Path("examples/jobs")
@@ -19,6 +20,12 @@ OUTPUT_DIR = Path("examples/output")
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Parse and score one or more job descriptions."
+    )
+
+    parser.add_argument(
+        "--profile",
+        default="config/candidate_profile.json",
+        help="Path to the candidate profile JSON file.",
     )
 
     input_group = parser.add_mutually_exclusive_group(required=True)
@@ -219,7 +226,7 @@ def process_job(
 
 def main() -> None:
     args = parse_arguments()
-    profile = build_candidate_profile()
+    profile = load_candidate_profile(args.profile)
     job_inputs = get_job_inputs(args)
 
     for source_name, job_text in job_inputs:
