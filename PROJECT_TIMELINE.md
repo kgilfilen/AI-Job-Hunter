@@ -9,13 +9,13 @@ The first public module is AI Job Hunter.
 
 ## Milestone 1 – AI Job Hunter MVP
 
-# Status: ✅ Complete
+Status: ✅ Complete
 
-# Completed: June 30, 2026
+Completed: June 30, 2026
 
 Post-MVP stabilization updated: July 28, 2026
 
-# Project Setup
+### Project Setup
 * Create GitHub repository
 * Python project structure
 * Virtual environment
@@ -23,7 +23,7 @@ Post-MVP stabilization updated: July 28, 2026
 * Git workflow
 * Dockerized development and test environment
 
-# Data Models
+### Data Models
 
 * CandidateProfile
 * JobOpening
@@ -32,7 +32,7 @@ Post-MVP stabilization updated: July 28, 2026
 * Expanded candidate-profile fields
 * Candidate profile loading and validation
 
-# Parsing
+### Parsing
 
 * Job title
 * Company
@@ -44,7 +44,7 @@ Post-MVP stabilization updated: July 28, 2026
 * Preferred skills
 * Responsibilities
 
-# Scoring
+### Scoring
 
 * Required skill matching
 * Preferred skill matching
@@ -52,7 +52,7 @@ Post-MVP stabilization updated: July 28, 2026
 * Confidence values
 * Candidate-profile-aware fit analysis
 
-# Resume Intelligence
+### Resume Intelligence
 
 * Deterministic resume recommendation engine
 * Skills-to-emphasize recommendations
@@ -62,7 +62,7 @@ Post-MVP stabilization updated: July 28, 2026
 * Unit tests for resume recommendations
 * Candidate-to-recommendation pipeline coverage
 
-# Quality and Developer Operations
+### Quality and Developer Operations
 
 * Unit tests
 * Integration tests
@@ -79,7 +79,7 @@ Status: 🚧 In Progress
 
 Sprint 2: July 24–31, 2026
 
-# Resume
+### Resume
 
 * Resume redesign
 * AI Job Hunter project added
@@ -88,7 +88,7 @@ Sprint 2: July 24–31, 2026
 * Create reusable tailored-resume template
 * Perform final content and formatting review
 
-# LinkedIn
+### LinkedIn
 
 * Headline
 * About section
@@ -97,7 +97,7 @@ Sprint 2: July 24–31, 2026
 * Final polish
 * Confirm consistency with résumé and GitHub
 
-# GitHub
+### GitHub
 
 * Public AI Job Hunter repository
 * AI Career Manager repository
@@ -114,7 +114,7 @@ Status: 📋 Planned
 
 The Professional Knowledge Base becomes the source of truth for résumé generation, interview preparation, career analysis, and future AI assistance.
 
-# Initial Structure
+### Initial Structure
 
 * Professional summary
 * Career history
@@ -127,7 +127,7 @@ The Professional Knowledge Base becomes the source of truth for résumé generat
 * Education
 * Certifications
 
-# Initial Implementation
+### Initial Implementation
 
 * Create directory and Markdown structure
 * Define a consistent entry format
@@ -138,12 +138,16 @@ The Professional Knowledge Base becomes the source of truth for résumé generat
 * Add reusable accomplishment statements
 * Add initial STAR stories
 
-# Initial Target:10–20+ pages of structured Markdown.
+### Initial Target:10–20+ pages of structured Markdown.
 
-Milestone 4 – Resume Generator
+## Milestone 4 – Resume Generator
+
 Status: 🚧 Foundation Started
+
 Some foundational components are being developed before the full Professional Knowledge Base is complete. Full résumé generation will depend on the Knowledge Base as its source of truth.
-Completed Foundation
+
+### Completed Foundation
+
 * Parse job description
 * Match candidate skills to job requirements
 * Identify matched and missing skills
@@ -153,11 +157,15 @@ Completed Foundation
 * Identify missing keywords
 * Identify possible candidate concerns
 * Test recommendation behavior
-Current Development
+
+### Current Development
+
 * Format recommendations as readable terminal output
 * Integrate formatted recommendations into the application workflow
 * Add realistic end-to-end examples
-Planned Features
+
+### Planned Features
+
 * Select the best accomplishments from the Knowledge Base
 * Rewrite the professional summary
 * Tailor skills and experience sections
@@ -166,12 +174,14 @@ Planned Features
 * Export Microsoft Word
 * Export PDF
 
-⸻
+## Milestone 5 – Career Dashboard
 
-Milestone 5 – Career Dashboard
 Status: 📋 Planned
+
 Create a daily AI assistant for career management.
-Features
+
+### Features
+
 * Application tracker
 * Recruiter tracker
 * Interview tracker
