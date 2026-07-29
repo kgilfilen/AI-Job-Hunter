@@ -49,7 +49,7 @@ adding partially finished features.
 
 # Daily Development Workflow
 
-Each development session should begin with a brief status update.
+Each development session should begin with a brief status update, specifically to keep the human being focused on a smart timeline, not drifting with the current. We will remind AI of our plans for the sprint, and our plans for today. Things can go SO FAST using AI that a human being can drift pretty far away from sprint goals in a short time. The next sprint can be changed if we need, but we should not drastically change this one, if possible. Certainly not by accident. 
 
 The goal is to spend very little time planning and nearly all available
 time building.
