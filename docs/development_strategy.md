@@ -68,6 +68,20 @@ What changed since yesterday?
 
 How much development time is available today?
 
+### Example:
+
+branch: feature/resume-recommendations-output
+
+milestone: Milestone 2 – Professional Identity
+
+task: resume formatter
+
+blockers: None
+
+Changed since yesterday? Nothing
+
+How much dev time today: 4 hours
+
 ## End of Session
 
 Run tests.
