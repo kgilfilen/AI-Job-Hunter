@@ -7,6 +7,8 @@ Last Updated: July 28, 2026
 Build an AI-powered career platform that helps software engineers manage their careers by combining a Professional Knowledge Base, AI-assisted document generation, job matching, interview preparation, and long-term career planning.
 The first public module is AI Job Hunter.
 
+### Development Sequencing is described in docs/development_strategy.md
+
 ## Milestone 1 – AI Job Hunter MVP
 
 Status: ✅ Complete
