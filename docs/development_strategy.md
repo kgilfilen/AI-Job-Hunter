@@ -85,4 +85,18 @@ Record progress in the development log.
 Identify the next starting task.
 
 
+## Developer Responsibilities
 
+- current git branch
+
+- current project status
+
+- available dev time
+
+- other daily priorities (meetings and interviews and appointments)
+
+- test results
+
+- merge status
+
+- blockers
