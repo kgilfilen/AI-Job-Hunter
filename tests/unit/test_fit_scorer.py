@@ -1,9 +1,9 @@
-from models.candidate_profile import CandidateProfile
-from models.job_opening import JobOpening
-from scoring.fit_scorer import score_job
-from scoring.fit_scorer import normalize_skill
-from scoring.fit_scorer import match_skills
-from constants import Recommendation
+from src.models.candidate_profile import CandidateProfile
+from src.models.job_opening import JobOpening
+from src.scoring.fit_scorer import score_job
+from src.scoring.fit_scorer import normalize_skill
+from src.scoring.fit_scorer import match_skills
+from src.constants import Recommendation
 from tests.helpers import make_test_job
 
 
@@ -112,8 +112,8 @@ def test_recommendation_valid():
     non_rmt_score = score_job(job_without_remote, profile).recommendation
     rmt_score = score_job(job_with_remote, profile).recommendation
 
-    assert rmt_score in Recommendation
-    assert non_rmt_score in Recommendation
+    assert isinstance(rmt_score, Recommendation)
+    assert isinstance(non_rmt_score, Recommendation)
 
 def test_normalize_skill():
     assert normalize_skill("REST API") == "REST API"

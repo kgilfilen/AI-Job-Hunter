@@ -1,0 +1,24 @@
+{
+  "name": "Kenny Gilfilen",
+  "target_titles": [
+    "SDET",
+    "Software Development Engineer in Test",
+    "QA Automation Engineer",
+    "Test Automation Engineer",
+    "Quality Engineer"
+  ],
+  "core_skills": [
+    "Python",
+    "pytest",
+    "Playwright",
+    "Selenium",
+    "API testing",
+    "test automation"
+  ],
+  "preferred_skills": [],
+  "industries": [],
+  "remote_preference": "remote",
+  "has_security_clearance": false,
+  "willing_to_relocate": false,
+  "notes": []
+}

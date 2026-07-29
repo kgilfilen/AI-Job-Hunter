@@ -1,4 +1,4 @@
-from models.job_opening import JobOpening
+from src.models.job_opening import JobOpening
 
 
 def make_test_job(**overrides):

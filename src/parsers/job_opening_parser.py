@@ -1,16 +1,16 @@
 from typing import Any, Dict
 
-from models.job_opening import JobOpening
+from src.models.job_opening import JobOpening
 
-from parsers.title_parser import verify_job_title
-from parsers.company_parser import verify_company_name
-from parsers.location_parser import verify_job_location
-from parsers.remote_status_parser import verify_job_remote_status
-from parsers.employment_type_parser import verify_job_employment_type
-from parsers.security_clearance_parser import verify_job_security_clearance
-from parsers.required_skills_parser import verify_required_skills
-from parsers.preferred_skills_parser import verify_preferred_skills
-from parsers.responsibilities_parser import verify_responsibilities
+from src.parsers.title_parser import verify_job_title
+from src.parsers.company_parser import verify_company_name
+from src.parsers.location_parser import verify_job_location
+from src.parsers.remote_status_parser import verify_job_remote_status
+from src.parsers.employment_type_parser import verify_job_employment_type
+from src.parsers.security_clearance_parser import verify_job_security_clearance
+from src.parsers.required_skills_parser import verify_required_skills
+from src.parsers.preferred_skills_parser import verify_preferred_skills
+from src.parsers.responsibilities_parser import verify_responsibilities
 
 
 def parser_metadata(result: Any) -> Dict[str, Any]:

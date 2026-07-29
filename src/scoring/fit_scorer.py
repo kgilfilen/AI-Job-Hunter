@@ -1,7 +1,7 @@
-from models.candidate_profile import CandidateProfile
-from models.fit_analysis import FitAnalysis
-from models.job_opening import JobOpening
-from constants import Recommendation
+from src.models.candidate_profile import CandidateProfile
+from src.models.fit_analysis import FitAnalysis
+from src.models.job_opening import JobOpening
+from src.constants import Recommendation
 
 
 SKILL_NORMALIZATION_MAP = {
