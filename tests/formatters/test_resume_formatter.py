@@ -4,7 +4,7 @@ from src.models.job_opening import JobOpening
 from src.models.fit_analysis import FitAnalysis
 from tests.helpers import make_test_job
 
-from src.output.resume_formatter import ResumeFormatter
+from src.formatters.resume_formatter import ResumeFormatter
 from src.models.candidate_profile import (
     CandidateProfile,
     Experience,
