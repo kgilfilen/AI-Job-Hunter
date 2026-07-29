@@ -191,12 +191,13 @@ Create a daily AI assistant for career management.
 * Daily activity summary
 * LLM usage and cost visibility
 
-⸻
+## Milestone 6 – Interview Assistant
 
-Milestone 6 – Interview Assistant
 Status: 📋 Planned
+
 Generate interview preparation directly from the user’s own professional experience.
 Features
+
 * STAR stories
 * Technical examples
 * Behavioral questions
@@ -205,18 +206,22 @@ Features
 * Mock interviews
 * Job-specific interview preparation
 
-⸻
+## Milestone 7 – AI Career Manager MVP
 
-Milestone 7 – AI Career Manager MVP
 Status: 📋 Planned
+
 Combine the major components into a single usable application.
-Major Modules
+
+### Major Modules
+
 * Professional Knowledge Base
 * Resume Generator
 * AI Job Hunter
 * Interview Assistant
 * Career Dashboard
-MVP Outcomes
+
+### MVP Outcomes
+
 * Maintain one structured professional source of truth
 * Analyze a job posting
 * Evaluate candidate fit
@@ -224,11 +229,12 @@ MVP Outcomes
 * Generate interview preparation
 * Track applications and follow-up work
 
-⸻
+## Future Ideas and Backlog
 
-Future Ideas and Backlog
 These ideas have been discussed but intentionally postponed until the core platform is complete.
-Artificial Intelligence
+
+### Artificial Intelligence
+
 * RAG search over the Professional Knowledge Base
 * Local vector database
 * Personal Digital Twin
@@ -236,7 +242,9 @@ Artificial Intelligence
 * Career recommendations
 * Machine-learning-assisted job ranking
 * Feedback-based recommendation improvement
-Engineering
+
+### Engineering
+
 * Plugin architecture
 * REST API
 * Web interface
@@ -245,7 +253,9 @@ Engineering
 * Multi-user support
 * Automated job-posting ingestion
 * Data-retention and privacy controls
-Career Features
+
+### Career Features
+
 * Cover-letter generation
 * LinkedIn optimization
 * Networking tracker
@@ -254,11 +264,13 @@ Career Features
 * Application-document history
 * Job-search analytics
 
-⸻
 
-Current Sprint
+# Current Sprint
+
 Sprint 2: July 24–31, 2026
-Completed This Sprint
+
+### Completed This Sprint
+
 * Improve CandidateProfile
 * Add candidate-profile pipeline coverage
 * Add deterministic resume recommendation engine
@@ -269,40 +281,52 @@ Completed This Sprint
 * Run final regression tests
 * Merge feature/improve_candidate_profile
 * Create a clean branch for resume recommendation output
-High Priority
+
+### High Priority
+
 * Build resume recommendation formatter
 * Add formatted recommendations to the command-line workflow
 * Finish Master Resume
 * Build Professional Knowledge Base skeleton
 * Improve GitHub profile for recruiter review
 * Keep roadmap, README, and development logs current
-Medium Priority
+
+### Medium Priority
+
 * Add realistic formatter and workflow tests
 * Complete LinkedIn polish
 * Design the connection between the Knowledge Base and Resume Generator
 * Improve GitHub Project organization
 * Document AI Job Hunter architecture and data flow
-Low Priority
+
+### Low Priority
+
 * UI design
 * Career Dashboard architecture
 * Digital Twin features
 * RAG implementation
 
-⸻
+## Project Notes
 
-Project Notes
 This project began as AI Job Hunter, an application that analyzes software-engineering job postings and evaluates candidate fit.
+
 The first MVP established structured job parsing, candidate modeling, explainable fit analysis, automated testing, and LLM integration.
-Post-MVP development added:
+
+#### Post-MVP development added:
+
 * Dockerized and reproducible execution
 * Improved candidate-profile modeling
 * Organized unit and integration testing
 * API usage reporting
 * Structured résumé recommendations
 * A disciplined feature-branch and commit workflow
+
 As development progressed, we recognized that the larger opportunity was not simply matching candidates with jobs. It was organizing an engineer’s complete professional history into a reusable and maintainable knowledge base.
+
 That insight led to the broader vision of AI Career Manager, where the Professional Knowledge Base becomes the central source of truth.
-From that foundation, the system will eventually generate:
+
+#### From that foundation, the system will eventually generate:
+
 * Tailored résumés
 * Cover letters
 * Interview preparation
@@ -310,12 +334,13 @@ From that foundation, the system will eventually generate:
 * Learning plans
 * Application tracking
 * Long-term professional memory
+
 AI Job Hunter therefore becomes one tested, reusable module inside a larger AI-assisted career platform.
+
 Development does not have to follow the milestones in a perfectly sequential order. Small foundational pieces may be implemented early when they clarify the architecture or provide immediate practical value. However, the Professional Knowledge Base remains the foundation for reliable, fact-based document generation.
 
-⸻
+## Architecture Principles
 
-Architecture Principles
 * Business logic should produce structured data objects.
 * Formatting, presentation, and user-interface concerns should remain separate from business logic.
 * Deterministic processing should be preferred where an LLM is unnecessary.
@@ -323,9 +348,8 @@ Architecture Principles
 * Professional facts should come from a maintained source of truth.
 * Generated documents should remain traceable to supporting professional evidence.
 
-⸻
+## Guiding Principles
 
-Guiding Principles
 * Keep the architecture modular.
 * Build reusable components before adding features.
 * Maintain excellent documentation.
