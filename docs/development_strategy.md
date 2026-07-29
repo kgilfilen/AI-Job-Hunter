@@ -68,6 +68,22 @@ What changed since yesterday?
 
 How much development time is available today?
 
+## End of Session
+
+Run tests.
+
+Update documentation if needed.
+
+Commit logical changes.
+
+Push if appropriate.
+
+Merge completed feature branches.
+
+Record progress in the development log.
+
+Identify the next starting task.
+
 ### Example: 
 
 Next Start:
@@ -84,21 +100,6 @@ Definition of done:
 - regression tests pass
 - commit
 
-## End of Session
-
-Run tests.
-
-Update documentation if needed.
-
-Commit logical changes.
-
-Push if appropriate.
-
-Merge completed feature branches.
-
-Record progress in the development log.
-
-Identify the next starting task.
 
 
 ## Developer Responsibilities
