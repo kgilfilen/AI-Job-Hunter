@@ -68,6 +68,22 @@ What changed since yesterday?
 
 How much development time is available today?
 
+### Example: 
+
+Next Start:
+
+Resume Formatter
+
+Expected time: 1-2 hours
+
+Definition of done:
+
+- formatter implemented
+- tests written and run
+- CLI output updated
+- regression tests pass
+- commit
+
 ## End of Session
 
 Run tests.
