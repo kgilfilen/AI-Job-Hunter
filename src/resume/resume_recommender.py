@@ -2,46 +2,19 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Iterable
+from collections.abc import Iterable
 
-# Adjust these imports if your model files use different paths.
 from src.models.candidate_profile import CandidateProfile
 from src.models.fit_analysis import FitAnalysis
 from src.models.job_opening import JobOpening
-
-
-@dataclass
-class ResumeRecommendations:
-    """Recommended changes for tailoring a resume to a job opening."""
-
-    summary_changes: list[str] = field(default_factory=list)
-    skills_to_emphasize: list[str] = field(default_factory=list)
-    experience_to_highlight: list[str] = field(default_factory=list)
-    keywords_to_add: list[str] = field(default_factory=list)
-    keywords_missing: list[str] = field(default_factory=list)
-    possible_concerns: list[str] = field(default_factory=list)
-
-    @property
-    def has_recommendations(self) -> bool:
-        """Return True when at least one recommendation was generated."""
-        return any(
-            (
-                self.summary_changes,
-                self.skills_to_emphasize,
-                self.experience_to_highlight,
-                self.keywords_to_add,
-                self.keywords_missing,
-                self.possible_concerns,
-            )
-        )
+from src.models.resume_recommendation import ResumeRecommendation
 
 
 def recommend_resume_changes(
     job: JobOpening,
     fit_analysis: FitAnalysis,
     candidate: CandidateProfile,
-) -> ResumeRecommendations:
+) -> ResumeRecommendation:
     """Create resume recommendations from a job and candidate profile.
 
     The recommender does not invent experience. It only recommends emphasizing
@@ -62,7 +35,7 @@ def recommend_resume_changes(
     missing_required = _find_missing(required_skills, candidate_skills)
     missing_preferred = _find_missing(preferred_skills, candidate_skills)
 
-    recommendations = ResumeRecommendations()
+    recommendations = ResumeRecommendation()
 
     recommendations.skills_to_emphasize = _unique_preserving_order(
         matched_required + matched_preferred
@@ -104,6 +77,7 @@ def _candidate_skills(candidate: CandidateProfile) -> list[str]:
         + _normalize_collection(candidate.preferred_skills)
     )
 
+
 def _normalize_collection(values: object) -> list[str]:
     """Convert a string or iterable of values into cleaned strings."""
     if values is None:
@@ -119,6 +93,7 @@ def _normalize_collection(values: object) -> list[str]:
 
     for value in values:
         text = str(value).strip()
+
         if text:
             normalized.append(text)
 
@@ -131,7 +106,8 @@ def _find_matches(
 ) -> list[str]:
     """Return job skills represented in the candidate profile."""
     candidate_normalized = {
-        _normalize_skill(skill) for skill in candidate_skills
+        _normalize_skill(skill)
+        for skill in candidate_skills
     }
 
     return [
@@ -147,7 +123,8 @@ def _find_missing(
 ) -> list[str]:
     """Return job skills not represented in the candidate profile."""
     candidate_normalized = {
-        _normalize_skill(skill) for skill in candidate_skills
+        _normalize_skill(skill)
+        for skill in candidate_skills
     }
 
     return [
@@ -173,12 +150,13 @@ def _build_summary_changes(
 
     if title:
         recommendations.append(
-            f"Align the professional summary with the "
-            f"{title} role without changing your actual title."
+            f"Align the professional summary with the {title} role "
+            f"without changing your actual title."
         )
 
     if matched_skills:
         top_skills = ", ".join(matched_skills[:5])
+
         recommendations.append(
             f"Include the strongest matching skills near the top: "
             f"{top_skills}."
@@ -190,7 +168,8 @@ def _build_summary_changes(
 
     if "remote" in remote_status:
         recommendations.append(
-            "Mention successful remote collaboration and independent delivery."
+            "Mention successful remote collaboration and independent "
+            "delivery."
         )
 
     return recommendations
@@ -267,6 +246,7 @@ def _build_experience_recommendations(
 
     return recommendations
 
+
 def _build_concerns(
     job: JobOpening,
     fit_analysis: FitAnalysis,
@@ -287,26 +267,32 @@ def _build_concerns(
         and not candidate.has_security_clearance
     ):
         clearance_level = (
-            job.security_clearance_level or "unspecified clearance"
+            job.security_clearance_level
+            or "unspecified clearance"
         )
+
         concerns.append(
             f"The role requires {clearance_level}. The candidate profile "
             f"does not indicate an active security clearance."
         )
 
-    for concern in _normalize_collection(fit_analysis.concerns):
-        concerns.append(concern)
+    concerns.extend(
+        _normalize_collection(fit_analysis.concerns)
+    )
 
     if fit_analysis.overall_score < 60:
         concerns.append(
-            "The fit score is below 60. Tailoring may help, but review whether "
-            "this application is worth the time before rewriting the resume."
+            "The fit score is below 60. Tailoring may help, but review "
+            "whether this application is worth the time before rewriting "
+            "the resume."
         )
 
     return _unique_preserving_order(concerns)
 
 
-def _unique_preserving_order(values: list[str]) -> list[str]:
+def _unique_preserving_order(
+    values: list[str],
+) -> list[str]:
     """Remove duplicates while preserving their original order."""
     seen: set[str] = set()
     result: list[str] = []

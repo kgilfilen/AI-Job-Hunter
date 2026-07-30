@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List
 
-
+""" answers the question: How well does the candidate fit the job requirements? """
 @dataclass
 class FitAnalysis:
     overall_score: int

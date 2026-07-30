@@ -7,7 +7,7 @@ from src.parsers.job_opening_parser import parse_job_opening
 from src.models.job_opening import JobOpening
 
 # at present all tests in this file are live API tests, so we mark the whole file as such
-pytestmark = pytest.mark.live_api
+pytestmark = pytest.mark.live_ai
 
 JOBS_DIR = Path("examples/jobs")
 

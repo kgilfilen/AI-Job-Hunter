@@ -4,7 +4,7 @@ from src.scoring.fit_scorer import score_job
 from src.scoring.fit_scorer import normalize_skill
 from src.scoring.fit_scorer import match_skills
 from src.constants import Recommendation
-from tests.helpers import make_test_job
+from tests.helpers.helpers import make_test_job
 
 
 def test_fit_score_is_between_0_and_100():

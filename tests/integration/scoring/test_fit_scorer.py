@@ -9,7 +9,7 @@ from src.scoring.fit_scorer import score_job
 from src.constants import VALID_RECOMMENDATIONS
 
 # at present all tests in this file are live API tests, so we mark the whole file as such
-pytestmark = pytest.mark.live_api
+pytestmark = pytest.mark.live_ai
 
 JOBS_DIR = Path("examples/jobs")
 profile = CandidateProfile(
