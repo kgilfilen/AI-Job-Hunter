@@ -23,6 +23,8 @@ def test_fit_score_is_between_0_and_100():
 
     profile = CandidateProfile(
         name="Test Candidate",
+        linkedin="linkedin.com/in/kennygilfilen",
+        github="github.com/kgilfilen",
         target_titles=[
             "SDET",
             "SDET III",

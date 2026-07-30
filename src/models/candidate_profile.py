@@ -31,6 +31,8 @@ class CandidateProfile:
     phone: Optional[str] = None
     email: Optional[str] = None
     location: Optional[str] = None
+    linkedin: Optional[str] = None
+    github: Optional[str] = None
     summary: Optional[str] = None
 
     target_titles: List[str] = field(default_factory=list)
@@ -48,3 +50,10 @@ class CandidateProfile:
 
     notes: List[str] = field(default_factory=list)
 
+@dataclass
+class Education:
+    degree: str
+    institution: str
+    graduation_date: Optional[str] = None
+    field_of_study: Optional[str] = None
+    location: Optional[str] = None

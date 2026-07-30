@@ -22,8 +22,7 @@ def make_job(
         required_skills=required_skills,
         preferred_skills=preferred_skills or [],
     )
-
-
+    
 def make_fit_analysis(
     overall_score: int = 80,
 ) -> FitAnalysis:
