@@ -14,6 +14,8 @@ pytestmark = pytest.mark.live_ai
 JOBS_DIR = Path("examples/jobs")
 profile = CandidateProfile(
     name="Kenny Gilfilen",
+    linkedin="linkedin.com/in/kennygilfilen",
+    github="github.com/kgilfilen",
     target_titles=[
         "SDET",
         "SDET III",
@@ -47,16 +49,32 @@ def test_job_opening_score():
     assert isinstance(job_opening, JobOpening)
     assert 0 <= fit_analysis.overall_score <= 100
 
-# Test that security clearance lowers score when candidate has no clearance
-def test_job_opening_security_clearance():
+def test_job_opening_does_not_require_security_clearance():
     job_file = JOBS_DIR / "sdet_topstep.txt"
     job_text = job_file.read_text(encoding="utf-8")
 
-    job_opening = parse_job_opening(job_text, source_file=job_file.name)
-    fit_analysis = score_job(job_opening, profile)
+    job_opening = parse_job_opening(
+        job_text,
+        source_file=job_file.name,
+    )
 
     assert isinstance(job_opening, JobOpening)
     assert job_opening.security_clearance_required is False
+
+def test_job_with_many_missing_required_skills_is_not_perfect_match():
+    job_file = JOBS_DIR / "sdet_topstep.txt"
+    job_text = job_file.read_text(encoding="utf-8")
+
+    job_opening = parse_job_opening(
+        job_text,
+        source_file=job_file.name,
+    )
+    fit_analysis = score_job(
+        job_opening,
+        profile,
+    )
+
+    assert fit_analysis.missing_required_skills
     assert fit_analysis.overall_score < 100
 
 # Test that target title match raises score

@@ -41,6 +41,8 @@ def test_job_skills_list_can_be_empty():
             "pytest",
             "Playwright",
         ],
+        linkedin="linkedin.com/in/kennygilfilen",
+        github="github.com/kgilfilen",
         preferred_skills=[],
         industries=[],
         remote_preference="remote",
@@ -60,6 +62,8 @@ def test_candidate_profile_defaults_empty():
     """
     profile = CandidateProfile(
         name="Test Candidate",
+        linkedin="linkedin.com/in/kennygilfilen",
+        github="github.com/kgilfilen",
         remote_preference=None,
         has_security_clearance=False,
         willing_to_relocate=False,
