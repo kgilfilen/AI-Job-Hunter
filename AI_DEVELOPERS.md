@@ -43,3 +43,21 @@ AI is a "mindless" but brilliant computer sitting and waiting for its next task.
 The time WILL come when you make significant changes to a medium sized code base that damage things. If you don't have tests, you may not know what got broken. Other issues might go undetected, you just notice that fit scoring seems optimistic. Good unit tests catch things in cascades, you fix one thing and it points to another issue. 
 
 ### Notice transitions, going from "building features" to "stabilizing a product".
+
+### Occasionally with ChatGPT, ask for a context document for the current thread and leave it and start a new one.
+
+I didn't want a massive thread going into milestone 3, full of all of the crap of the previous project work. I asked it to make a context doc, and said that I would do milestone 3 from the new one.
+
+### I get so much stuff running through my head, being developer, repo manager, deployer, manager, etc, etc. 
+
+You should use every tool at your disposal to keep your mind where it needs to be. If you are having a user day, you should be thinking about how to use the app. If it is a regular development day, you need to stay focused on developing correctly. 
+
+No matter how well you do, a problem will creep up that requires your focus on that problem, and you may forget where you were. This development approach requires that you not lose your path. Drop bread crumbs if you have to.
+
+### My AI tool does not always know what should be next. 
+
+As I bring up ideas and problems, it frequently says "we should fix that next." And then we change our project timeline if we agree about it. 
+
+I had AI create the original timeline, and it was a good timeline, but my AI was not aware of any issues or needs or wishes that might come up during testing or user days. This is why a project MUST BE A COLLABORATION between AI and a human. Not a checked-out human who just lets AI do what it wants. 
+
+It was my idea to have a "user day", and to be able to know if we have seen this position before, so we don't apply twice. We both realized that was pretty important, and this was the right time to work on it because we are touching that part of the codebase in this net sprint.
