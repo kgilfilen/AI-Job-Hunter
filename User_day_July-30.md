@@ -1,5 +1,7 @@
 # Put on your user hat!!
 
+"If I were unemployed and using this every morning, what would annoy me?"
+
 ## Parsing real job posts
 
 I am still doing regular job applications.
@@ -21,3 +23,16 @@ I am still doing regular job applications.
 
 
 ## Gorilla tests
+
+
+# Bugs
+
+
+# Confusing
+
+
+# Slow
+
+
+# Ideas
+
