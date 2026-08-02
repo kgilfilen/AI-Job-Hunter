@@ -10,7 +10,23 @@ The first public module is **AI Job Hunter**.
 
 Development sequencing is described in `docs/development_strategy.md`.
 
----
+## Summary
+
+Milestone 1: Analyze jobs.
+
+Milestone 2: Present yourself professionally.
+
+Milestone 3: Track your job search.
+
+Milestone 4: Build your professional memory.
+
+Milestone 5: Generate evidence-based résumés.
+
+Milestone 6: Manage your career.
+
+Milestone 7: Prepare for interviews.
+
+Milestone 8: Integrate everything into a cohesive AI Career Manager.
 
 # Milestone 1 – AI Job Hunter MVP
 
@@ -366,7 +382,7 @@ Milestone 3 is complete when:
 
 ---
 
-# Milestone 4 – Professional Knowledge Base
+# Milestone 4 – Professional Knowledge Base & Candidate Intelligence
 
 **Status:** 📋 Planned
 
@@ -400,6 +416,34 @@ The Professional Knowledge Base becomes the source of truth for résumé generat
 ## Initial Target
 
 Create 10–20 or more pages of structured Markdown.
+
+## Added Sections (after User day feedback)
+
+### Candidate Skills Inventory
+
+* Canonical skills
+* Skill aliases
+* Related skills
+* Years of experience
+* Last used
+* Evidence/projects
+* Skill notes
+* Confidence level
+
+### Skill Normalization
+
+* Normalize equivalent terminology
+* Maintain alias dictionaries
+* Distinguish aliases from related technologies
+* Reuse normalized skills across parsing, scoring, and résumé generation
+
+### Profile Advisor
+
+* Aggregate recurring missing skills
+* Recommend profile improvements
+* Detect probable aliases
+* Suggest learning priorities
+* Help maintain an accurate Candidate Profile
 
 ## Completion Criteria
 

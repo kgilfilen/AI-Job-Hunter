@@ -1,0 +1,72 @@
+Flagler Health is building the clinical operating system for modern musculoskeletal care.
+
+We partner with MSK provider groups and specialty clinics to help them grow, operate more efficiently, and deliver better longitudinal care across patient acquisition, clinical workflows, and ongoing patient engagement. Our platform sits at the intersection of care delivery and clinic operations, helping providers capture more value across the full patient lifecycle.
+
+We’ve recently raised our Series B and are entering our next phase of growth.
+
+Role
+
+We are hiring an AI Operations Associate to design, build, and scale the AI and automation layer that powers Flagler Health's back-office and clinical operations. This leader will help take the company from ad-hoc scripts and manual workflows to a durable, systematic AI ops engine that compounds in value as the company grows.
+
+Reporting to the Co-Founder & CEO, Albert Katz, and partnering closely with our Co-Founder & CTO Will Hu this leader will own the AI & Automation function while working across BizOps, RCM, and Product to drive measurable operational leverage. This is not a "sit back and manage" role. As AI Operations Associate, you will operate as a player-coach—shipping automations from the front while building the systems, standards, and team that scale them.
+
+You will own the company's automation roadmap, refine and operationalize how we capture and translate workflows into production systems, and help evolve the operating model to support more complex EHR integrations, larger provider footprints, and continued expansion across multi-site organizations. This is a high-impact role at a critical inflection point, with the opportunity to shape how Flagler scales its operational backbone.
+
+Location: Based in New York City.
+
+Key Responsibilities
+
+Automation Ownership: Own the company's automation roadmap and consistently deliver measurable operational leverage against it.
+AI Ops Scaling: Stand up and scale the AI Operations function, with responsibility for hiring, onboarding, and developing additional operators and engineers as the company grows.
+Workflow Discovery: Stay close to the field by shadowing clinical and back-office teams to deeply understand workflows and identify the highest-ROI automation opportunities.
+Automation Playbooks: Refine and operationalize repeatable, scalable processes for capturing workflows, shipping automations, and monitoring them in production.
+EHR Integrations: Lead data integrations across major EHRs (eclinicalworks, athena, nextgen, and others) and own the contracts, error handling, and reliability of those pipelines.
+Tooling Strategy: Evolve the automation stack to match the workflow—APIs and portal integrations where possible, browser and desktop automation where necessary, and screen-level robots for last-mile flows.
+AI Enablement: Stand up and maintain internal AI tooling (LLMs, agent frameworks, knowledge assistants) and train teammates to become power users of AI in their daily work.
+Vendor Management: Lead scoping and execution with automation vendors, holding them to delivery, quality, and reliability standards.
+Cross-Functional Alignment: Partner closely with Engineering to align on integration patterns, data contracts, and what belongs in product vs. ops.
+Team Leadership: Coach and develop the team on AI tools through structured training, hands-on support, and ongoing guidance.
+Hiring & Scaling: Continue building a high-performing AI Ops team with strong culture, accountability, and execution discipline.
+Operational Discipline: Enforce rigorous documentation, monitoring, and change-management practices to support data-driven decision-making and reliable production systems.
+Customer Voice: Serve as a key conduit between operators, clinicians, and internal teams, informing product and roadmap strategy with workflow-level insight.
+Requirements
+
+1–3 years of experience in management consulting, software engineering, product management, or a similar analytical/technical role — ideally with exposure to high-growth or ambiguous environments.
+Strong problem-solving instincts with a bias toward action: comfortable scoping an ambiguous problem, breaking it down, and shipping a working solution end-to-end.
+Genuine fluency with modern AI tooling — LLMs, agent frameworks, prompt engineering — and a clear sense of where AI works well versus where it breaks down.
+Hands-on technical aptitude: comfortable with APIs, light scripting (Python, JavaScript, or similar), and picking up new tools quickly. You don't need to be a senior engineer, but you should be able to read code, write automations, and debug your own work.
+Exposure to healthcare, operations, or regulated industries is a plus, but not required — we care more about how quickly you can learn the domain than what you've already seen.
+Strong written and verbal communication; able to translate between technical and non-technical stakeholders and write clearly for leadership.
+Comfort working cross-functionally with Engineering, Product, and Operations, and an ownership mindset about outcomes rather than scope.
+Bachelor's degree or equivalent practical experience.
+Non-Functional Skills & Cultural Fit
+
+Charismatic and credible leader who can inspire teams while holding a high performance bar.
+Thrives in fast-paced, high-growth environments and is comfortable operating through ambiguity.
+Highly execution-oriented with a willingness to roll up sleeves and stay close to the work.
+Resilient, adaptable, and competitive, with a strong drive to win.
+Balances strategic thinking with operational discipline.
+Reasons to join Flagler Health:
+
+Fast-Growing Leader: Join a company with strong momentum and expanding adoption across provider organizations.
+Leadership Opportunity: Take ownership of and scale a growing sales organization at a critical inflection point.
+Category Creation: Operate in a large, underserved market with limited direct competition.
+Compelling Product: Sell solutions with clear ROI, strong adoption, and increasing deal sizes.
+Meaningful Impact: Help providers improve efficiency, revenue, and patient outcomes.
+High Earning Potential: Strong compensation tied to company growth and sales performance.
+Industry Exposure: Build deep relationships across provider organizations and healthcare ecosystems.
+Compensation & Benefits
+
+OTE (cash): $100,000-$150,000.
+Equity: Competitive equity package.
+PTO: Flexible paid time off policy.
+Benefits: Health, dental, vision insurance.
+Our values
+
+This is what you can expect of your teammates at Flagler:
+
+Persistence + ownership of outcomes: We wear many hats and aren’t afraid to run through walls to solve hard problems.
+Personal + professional growth: We push ourselves to learn new things and embrace challenges, even if it means that we sometimes fail.
+Don’t take things personally: We value and react quickly to constructive feedback.
+Speed is our ally: In the fast-paced world of startups, we understand the value of moving swiftly. We thrive on the adrenaline of working rapidly.
+Be Right: We are highly detailed oriented and try to be right, a lot.

@@ -2,7 +2,7 @@ import json
 from dataclasses import asdict
 from pathlib import Path
 import pytest
-from src.parsers.job_opening_parser import parse_job_opening
+from src.parsers.job_opening_parser import parse_job_opening, parse_job_opening_file
 from src.models.job_opening import JobOpening
 from src.models.candidate_profile import CandidateProfile
 from src.scoring.fit_scorer import score_job
@@ -11,7 +11,7 @@ from src.constants import VALID_RECOMMENDATIONS
 # at present all tests in this file are live API tests, so we mark the whole file as such
 pytestmark = pytest.mark.live_ai
 
-JOBS_DIR = Path("examples/jobs")
+TEST_JOB_DATA="tests/test_data/jobs/"
 profile = CandidateProfile(
     name="Kenny Gilfilen",
     linkedin="linkedin.com/in/kennygilfilen",
@@ -40,34 +40,28 @@ profile = CandidateProfile(
 # Remember that the score is stored on job_desc_fit.txt data, NOT in the job_description
 # Test that score is between 0 and 100
 def test_job_opening_score():
-    job_file = JOBS_DIR / "sdet_topstep.txt"
-    job_text = job_file.read_text(encoding="utf-8")
 
-    job_opening = parse_job_opening(job_text, source_file=job_file.name)
+    job_opening = parse_job_opening_file(
+        Path(TEST_JOB_DATA + "sdet_topstep.txt")
+    )
     fit_analysis = score_job(job_opening, profile)
 
     assert isinstance(job_opening, JobOpening)
     assert 0 <= fit_analysis.overall_score <= 100
 
 def test_job_opening_does_not_require_security_clearance():
-    job_file = JOBS_DIR / "sdet_topstep.txt"
-    job_text = job_file.read_text(encoding="utf-8")
 
-    job_opening = parse_job_opening(
-        job_text,
-        source_file=job_file.name,
+    job_opening = parse_job_opening_file(
+        Path(TEST_JOB_DATA + "sdet_topstep.txt")
     )
 
     assert isinstance(job_opening, JobOpening)
     assert job_opening.security_clearance_required is False
 
 def test_job_with_many_missing_required_skills_is_not_perfect_match():
-    job_file = JOBS_DIR / "sdet_topstep.txt"
-    job_text = job_file.read_text(encoding="utf-8")
 
-    job_opening = parse_job_opening(
-        job_text,
-        source_file=job_file.name,
+    job_opening = parse_job_opening_file(
+        Path(TEST_JOB_DATA + "sdet_topstep.txt")
     )
     fit_analysis = score_job(
         job_opening,
@@ -79,10 +73,10 @@ def test_job_with_many_missing_required_skills_is_not_perfect_match():
 
 # Test that target title match raises score
 def test_job_opening_target_title():
-    job_file = JOBS_DIR / "sdet_topstep.txt"
-    job_text = job_file.read_text(encoding="utf-8")
 
-    job_opening = parse_job_opening(job_text, source_file=job_file.name)
+    job_opening = parse_job_opening_file(
+        Path(TEST_JOB_DATA + "sdet_topstep.txt")
+    )
     fit_analysis = score_job(job_opening, profile)
 
     assert isinstance(job_opening, JobOpening)
@@ -91,10 +85,10 @@ def test_job_opening_target_title():
 
 # Test that recommendation is Apply / Consider / Pass
 def test_job_opening_recommendation():
-    job_file = JOBS_DIR / "sdet_topstep.txt"
-    job_text = job_file.read_text(encoding="utf-8")
 
-    job_opening = parse_job_opening(job_text, source_file=job_file.name)
+    job_opening = parse_job_opening_file(
+        Path(TEST_JOB_DATA + "sdet_topstep.txt")
+    )
     fit_analysis = score_job(job_opening, profile)
 
     assert isinstance(job_opening, JobOpening)

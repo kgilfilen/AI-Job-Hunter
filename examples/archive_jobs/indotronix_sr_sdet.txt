@@ -1,0 +1,56 @@
+SR SDET Remote, Oregon, United States | Posted:7/31/2026
+
+Job Code
+
+JPC - 207165
+
+Posted Date
+
+2026-07-31 09:00:22
+
+Experience
+
+N/A
+
+Primary Skills
+
+Word SR SDET - Senior Software Development Engineer in Test Location: Remote, United States | Contract (C2C)
+
+About the Role Step into a pivotal Senior SDET role where you will shape the quality and delivery of scalable, enterprise-grade software solutions. As a technical leader in Quality Engineering and Test Automation, you'll drive best practices, champion test automation strategies, and collaborate with cross-functional Agile teams. We offer a dynamic remote work environment, exposure to modern tech stacks, and opportunities for professional growth in a highly supportive and innovative culture.
+
+Responsibilities
+
+Lead the design and implementation of robust Java-based test automation frameworks for web, API, backend, and data platforms.
+Develop and integrate automated test suites into CI/CD pipelines to ensure continuous quality.
+Support test strategy creation, risk-based testing approaches, and quality engineering initiatives.
+Conduct in-depth test coverage analysis, defect prevention, and continuous improvement efforts.
+Diagnose and resolve automation issues through debugging, test optimization, and code refactoring.
+Collaborate closely with Product, Development, Architecture, and DevOps teams in Agile ceremonies.
+Ensure compliance with Software Development Standards, Release Governance, and audit-ready documentation.
+Share knowledge and mentor team members on automation standards and engineering excellence.
+Required Skills and Experience
+
+Bachelor's degree in Computer Science, Engineering, Information Technology, or related field.
+3+ years in SDET, Test Automation, or Software Quality Assurance roles.
+Advanced Java programming with solid understanding of OOP, design patterns, and automation architecture.
+Hands-on experience with Selenium WebDriver (POM, advanced locators, synchronization, flaky test remediation).
+Proficiency in API testing using REST Assured, Karate, Postman, or similar tools.
+Strong SQL skills for backend and database validation.
+Experience with TestNG, JUnit, Maven, Git, and modern CI/CD tools (Jenkins, Bitbucket).
+Familiarity with microservices, integration, and distributed system testing.
+Deep knowledge of Agile practices, SDLC, and quality engineering principles.
+Experience with OpenText AQM for test management and evidence tracking.
+Preferred Skills
+
+Exposure to AI-assisted development and testing tools.
+Domain knowledge in Financial Services, Capital Markets, Insurance, or Wealth Management.
+Benefits
+
+100% remote flexibility work from anywhere in the US.
+Join a high-performance Agile team focused on continuous learning and engineering excellence.
+Advance your career with exposure to modern tools, frameworks, and enterprise solutions.
+Contribute to impactful projects with real-world business value.
+How to Apply Ready to elevate quality engineering? Submit your application with your updated resume. Qualified candidates will be contacted for next steps.
+
+Indotronix is an Equal Opportunity Employer. All qualified applicants will receive consideration for employment without regard to age, race, creed/religion, color, national origin, ancestry, marital status, affectional or sexual orientation, gender identity or expression, disability, nationality, or sex.
+

@@ -1,0 +1,89 @@
+McBride|Contract
+
+RFQ 2026-0092 - Support JTS/FAST testing
+Remote Job | Posted on 06/22/2026
+
+Job Information
+IndustryGovernment/Military. Date Opened06/22/2026. Job TypeContract. Required Skills resource planning quality assurance +24 . Remote Job .
+
+.
+
+About McBride.
+McBride Consulting, based in McLean, VA, USA, and with offices in Brussels, BEL and Bucharest; ROU through its wholly owned subsidiary McBride International, is a Prime Contractor on the NCIA Advisory and Assistance Services Plus (AAS+) Framework.We are a management and IT consulting firm with significant professional services experience that includes IT transformation, project management, digital transformation, strategic planning, business process improvement, change management, human capital management, systems engineering, and operations. Due to our excellent relationship with NATO and the first-class, security cleared candidates that we source and supply from all 32 NATO nations, we are extremely privileged to ask you to review this role to assess your suitability of skills. You will be working as a contractor for our client the NATO Communications and Information Agency (NCIA)NATO Communications and Information Agency (NCIA)NCIA was established on 1 July 2012 from a merger of several NATO entities. It has a 65-year legacy of supporting NATO operations, missions, and exercises and is on the frontlines against cyber threats, protecting NATO's networks 24/7. NCIA provides expertise and services that are critical to NATO's ability to fulfill its core tasks of consultation, collective defence, and crisis management.
+
+.
+
+Job Description.
+This is a remote position.
+
+The list below defines the overarching objectives of the engagement and establishes the intended outcomes that the Contractor is expected to achieve through the delivery of the different work packages described in this document. These objectives serve as the guiding principles against which all deliverables shall be measured. The Contractor is expected to align their approach, methodology, and resource planning with these objectives throughout the duration of the engagement.
+
+Under the direction and guidance of the Solution Architect, Service Delivery Manager, Test Manager, and Project Manager, the services to be provided are related to the testing, validation, verification, quality assurance, and test automation of JTS/FAST software modules. It is envisioned that these services shall be provided by one experienced software test engineer.
+
+a) Develop, update, and maintain JTS/FAST test cases, test scenarios, test scripts, and test data in accordance with agreed requirements, priorities, technical direction, release planning, and project objectives.
+
+b) Perform manual, automated, functional, regression, integration, and system testing to support the continued maintenance, validation, and evolution of the JTS/FAST software baseline.
+
+c) Support the full software testing lifecycle of JTS/FAST, including test analysis, test design, test implementation, test execution, defect reporting, retesting, regression testing, and test documentation.
+
+d) Develop, update, and maintain automated test scripts and test automation assets to improve test coverage, repeatability, maintainability, and regression testing capability.
+
+e) Support integration and verification activities to ensure that developed, updated, or maintained JTS/FAST software components operate correctly within the wider JTS/FAST system and in line with agreed interface, interoperability, and operational requirements.
+
+f) Analyse, investigate, document, and report software defects, test failures, anomalies, and quality issues identified during testing, integration, verification, release preparation, or operational support activities.
+
+g) Support the verification of defect fixes and software changes by performing retesting, regression testing, and validation against agreed acceptance criteria and requirements.
+
+h) Develop, update, and maintain test documentation, including test plans, test cases, test execution reports, defect reports, regression test evidence, automation documentation, and other project deliverables as required.
+
+i) Contribute to virtual and in-person meetings, reviews, planning sessions, technical discussions, test coordination activities, and release readiness reviews with NCIA stakeholders and project team members.
+
+j) Ensure that all testing activities, test artefacts, automated scripts, defect reports, and associated deliverables comply with applicable NCIA testing standards, quality requirements, configuration management practices, and agreed project procedures
+
+k) Update and expand the produced test assets, automated test scripts, test data, and documentation as necessary to accommodate new, revised, or emerging requirements throughout the duration of the engagement.
+
+l) Support the improvement of JTS/FAST software quality, reliability, maintainability, interoperability, and operational readiness by providing structured testing, clear test evidence, and timely feedback to the project team
+
+Requirements
+Each contractor personnel must meet the following requirements:
+
+At least 5 years of professional experience in software testing and quality assurance, with a focus on complex software systems, networked applications, or distributed environments.
+
+Proven ability to communicate effectively in English, both orally and in writing, in a clear, structured, and professional manner.
+
+Demonstrated experience in working within Agile/Scrum environments, including participation in sprint planning, test planning, sprint execution, defect triage, sprint reviews, and release preparation activities.
+
+At least 3 years of professional experience in designing, writing, executing, and maintaining manual test cases, including functional, regression, integration, interface, and release-related test scenarios.
+
+At least 3 years of experience in defect identification, defect reporting, retesting, regression testing, and defect verification using issue tracking and test management tools.
+
+At least 2 years of experience testing APIs, or data exchange interfaces, including verification of request/response behaviour, data processing, data filtering, and error handling.
+
+At least 2 years of experience working with interoperability testing, including testing of data exchange, message handling, configuration, integration with external systems, or multi-system test environments.
+
+At least 2 years of professional experience working with test automation frameworks, such as Robot Framework, Gauge, Cucumber, Selenium, Playwright, Cypress, or similar.
+
+At least 1 year of professional experience with scripting or programming languages used to support test automation, test execution, troubleshooting, or environment configuration, such as Java, Python, Linux Bash, Ansible, or similar.
+
+At least 1 year of professional experience working with containerized or virtualized test environments, including Docker, or equivalent technologies.
+
+Demonstrated experience using development, testing, and configuration management tools such as Jira, Zephyr, GitLab, CI/CD pipelines, artifact repositories, or equivalent tools.
+
+Demonstrable experience in preparing and maintaining test documentation, including test plans, test cases, test execution reports, defect reports, verification evidence, regression reports, and release readiness inputs.
+
+Experience in defining test scenarios, acceptance criteria, validation approaches, or verification evidence for software deliverables.
+
+Experience working with distributed systems and multi-component architectures, including integration and testing across multiple data sources, services, interfaces, or external systems.
+
+Familiarity with secure testing practices, controlled test environments, information handling requirements, and working within regulated or accredited environments.
+
+Possession of relevant technical or testing certifications, including ISTQB, TMap, Microsoft, Red Hat, CompTIA, Cisco, or equivalent certifications, is desirable.
+
+The Contractor personnel must be a national of a NATO member nation
+
+.
+
+Education.
+An Active NATO Secret Security Clearance is required.
+
+

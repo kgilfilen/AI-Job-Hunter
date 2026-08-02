@@ -33,6 +33,26 @@ Rules:
 - Prefer the exact name used in the posting.
 - If multiple names appear, choose the most likely official posting name and explain in warning.
 - If no name is clear, use null.
+- When identifying the company, inspect explicitly labeled fields such as:
+        - Company
+        - Employer
+        - Business Unit
+        - Division
+        - Organization
+        - Client
+        - Hiring Company
+
+    Prefer explicitly labeled metadata over inferred company names from narrative text.
+    Do not treat a division as the company when a parent business unit is also provided.
+- When the company is not given in a labeled field, inspect the entire posting for:
+        - full employer names in EEO or legal statements
+        - official careers URLs
+        - recruiting email domains
+        - phrases such as "<Company> office" or "join Team <Brand>"
+        - repeated brand references
+
+        Prefer the most specific full legal or brand name supported by multiple clues.
+        Do not return a shortened brand name when the full company name appears elsewhere.
 
 JOB DESCRIPTION:
 {job_text}

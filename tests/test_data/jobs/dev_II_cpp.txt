@@ -1,0 +1,56 @@
+Original Job Description
+Software Development Engineer II, Search
+
+Location
+Mapbox US; Mapbox Germany; Mapbox Helsinki
+
+Employment Type
+Full time
+
+Location Type
+Remote
+
+Department
+Search Mapbox is the leading real-time location platform for a new generation of location-aware businesses. Mapbox is the only platform that equips organizations with the full set of tools to power the navigation of people, packages, and vehicles everywhere. More than 4 million registered developers have chosen Mapbox because of the platform's flexibility, security and privacy compliance. Organizations use Mapbox applications, data, SDKs and APIs to create customized and immersive experiences that delight their customers.
+
+What We Do
+The Search Box - Offline Search team is responsible for building a robust, high-performance search engine that empowers mobile and automotive customers to find places, addresses, and points of interest seamlessly, even in environments with zero network connectivity. We do this by engineering highly optimized on-device search algorithms, developing advanced data compression and efficient delta update mechanisms, and creating lightweight, scalable tile-based solutions that deliver low-latency results on constrained hardware. Our work ensures that users from drivers navigating remote highways to mobile users in dense urban dead zones experience a reliable, fast, and consistent search experience wherever they go.
+
+As AI becomes embedded in modern engineering workflows, we value engineers who can thoughtfully integrate AI into design, development, and decision-making. Our interview process will include discussion of how you use AI in your engineering workflow.
+
+What You'll Do
+Joining us as a Software Engineer on the Offline Search team, you will play a critical role in bringing world-class search capabilities to embedded systems and mobile devices operating without network connectivity. You will bring your expertise in systems engineering and performance optimization to a passionate, cross-functional team focused on the automotive and mobile mapping space.
+
+Design, code, and optimize core search algorithms tailored for on-device execution, ensuring high-speed query resolution under strict CPU, memory, and storage constraints.
+Take ownership of complex offline data delivery systems, designing and implementing advanced tile compression techniques (e.g., Zstd) and efficient delta update pipelines to minimize payload sizes.
+Collaborate across multiple R&D and backend teams to seamlessly integrate data processing pipelines and ensure parity between our cloud and offline search products.
+Engage directly with trend-setting automotive OEMs in EU, US, Japan, and China, as well as suppliers like automotive Tier 1 companies and Mapping firms to understand hardware specifications, troubleshoot integration challenges, and align technical deliverables with their rollout schedules.
+Collect and monitor deep system telemetry to evaluate performance tradeoffs (e.g., CPU utilization vs. query latency), establish baselines, and drive continuous architectural improvements.
+Play a key role in defining the technical roadmap, scoping complex features, and writing technical design documents for next-generation offline search capabilities.
+What We Believe are Important Traits for This Role
+Bachelor's or Master's degree in Computer Science, Software Engineering, or equivalent practical experience.
+Strong proficiency in C++ (our core engine language), with a solid understanding of memory management, multi-threading, and systems-level programming.
+Experience with Python or other scripting languages commonly used for tooling, data processing, or test automation.
+Proven experience analyzing and optimizing code for performance-constrained environments, thoughtfully balancing tradeoffs between CPU utilization, memory consumption, and query latency.
+Familiarity with data structures, algorithmic efficiency, and binary data formats (experience with data compression like Zstd or delta update mechanisms is a strong plus).
+Strong analytical thinking and the ability to justify technical decisions using system telemetry and data.
+Meticulous attention to detail and a creative, resourceful approach to problem-solving.
+Excellent communication skills in English, with a proven ability to collaborate effectively across cross-functional engineering, product, and data teams.
+Nice to Have Traits for This Role
+Prior experience in the mapping, navigation, or automotive industry.
+Knowledge of machine learning techniques for geospatial data analysis.
+Contributions to open-source geospatial or data analysis projects.
+What We Value
+In addition to our core values, which are not unique to this position and are necessary for Mapbox leaders:
+
+We value high-performing creative individuals who dig into problems and opportunities.
+We believe in individuals being their whole selves at work. We commit to this through supportive health care, parental leave, flexibility for the things that come up in life, and innovating on how we think about supporting our people.
+We emphasize an environment of teaching and learning to equip employees with the tools needed to be successful in their function and the company.
+We strongly believe in the value of growing a diverse team and encourage people of all backgrounds, genders, ethnicities, abilities, and sexual orientations to apply.
+Our annual base compensation for this role ranges from $160,650 - $217,350 for most US locations and 5% to 10% higher for US locations with a higher cost of labor. Job level and actual compensation will be decided based on factors including, but not limited to, individual qualifications objectively assessed during the interview process (including skills and prior relevant experience, potential impact, and scope of role), market demands, and specific work location. Please discuss your specific work location with your recruiter for more information.
+
+By applying for this position, you acknowledge that you have received the Mapbox Non-US Privacy Notice for applicants, which is linked here. Completing this application requires you to provide personal data, such as your name and contact information, which is mandatory for Mapbox to process your application.
+
+We are committed to a fair and equitable hiring process. We do not discriminate against any protected class.
+
+

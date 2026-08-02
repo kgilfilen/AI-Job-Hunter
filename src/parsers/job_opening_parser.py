@@ -1,4 +1,6 @@
 from typing import Any, Dict
+from pathlib import Path
+from hashlib import sha256
 
 from src.models.job_opening import JobOpening
 
@@ -11,6 +13,7 @@ from src.parsers.security_clearance_parser import verify_job_security_clearance
 from src.parsers.required_skills_parser import verify_required_skills
 from src.parsers.preferred_skills_parser import verify_preferred_skills
 from src.parsers.responsibilities_parser import verify_responsibilities
+from src.parsers.employment_type_normalizer import detect_employment_type, normalize_employment_type
 
 
 def parser_metadata(result: Any) -> Dict[str, Any]:
@@ -19,7 +22,6 @@ def parser_metadata(result: Any) -> Dict[str, Any]:
         "evidence": getattr(result, "evidence", None),
         "warning": getattr(result, "warning", None),
     }
-
 
 def parse_job_opening(job_text: str, source_file: str) -> JobOpening:
     title_result = verify_job_title(job_text)
@@ -32,6 +34,13 @@ def parse_job_opening(job_text: str, source_file: str) -> JobOpening:
     preferred_skills_result = verify_preferred_skills(job_text)
     responsibilities_result = verify_responsibilities(job_text)
 
+    employment_type = normalize_employment_type(
+        employment_type_result.employment_type
+    )
+
+    if employment_type is None:
+        employment_type = detect_employment_type(job_text)
+
     return JobOpening(
         source_file=source_file,
 
@@ -40,7 +49,7 @@ def parse_job_opening(job_text: str, source_file: str) -> JobOpening:
         location=location_result.location,
 
         remote_status=remote_status_result.status,
-        employment_type=employment_type_result.employment_type,
+        employment_type=employment_type,
 
         security_clearance_required=security_clearance_result.required,
         security_clearance_level=security_clearance_result.level,
@@ -58,9 +67,23 @@ def parse_job_opening(job_text: str, source_file: str) -> JobOpening:
             "location": parser_metadata(location_result),
             "remote_status": parser_metadata(remote_status_result),
             "employment_type": parser_metadata(employment_type_result),
-            "security_clearance": parser_metadata(security_clearance_result),
+            "security_clearance": parser_metadata(
+                security_clearance_result
+            ),
             "required_skills": parser_metadata(required_skills_result),
             "preferred_skills": parser_metadata(preferred_skills_result),
-            "responsibilities": parser_metadata(responsibilities_result),
+            "responsibilities": parser_metadata(
+                responsibilities_result
+            ),
         },
+    )
+
+def parse_job_opening_file(path: Path) -> JobOpening:
+    """Load and parse a job-description file."""
+
+    job_text = path.read_text(encoding="utf-8")
+
+    return parse_job_opening(
+        job_text=job_text,
+        source_file=path.name,
     )
