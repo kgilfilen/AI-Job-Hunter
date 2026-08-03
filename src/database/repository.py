@@ -1,15 +1,20 @@
 """SQLite repository for persisted job records."""
 
 from datetime import datetime, timezone
+from enum import Enum
 from hashlib import sha256
 from pathlib import Path
 from typing import Dict, Optional, Union
 
 from src.database.database import DATABASE_PATH, get_connection
-
-
+from src.models.fit_analysis import FitAnalysis
+from src.models.job_opening import JobOpening
 PathLike = Union[str, Path]
 
+
+def _validate_job_id(job_id: int) -> None:
+    if job_id <= 0:
+        raise ValueError("job_id must be greater than zero")
 
 class SQLiteJobRepository:
     """Store and retrieve jobs using SQLite."""
@@ -76,6 +81,7 @@ class SQLiteJobRepository:
         job_id: int,
     ) -> Optional[Dict[str, object]]:
         """Return one stored job, or None if the ID does not exist."""
+        _validate_job_id(job_id)
 
         with get_connection(self.database_path) as connection:
             row = connection.execute(
@@ -86,6 +92,11 @@ class SQLiteJobRepository:
                     source_url,
                     description_hash,
                     original_description,
+                    title,
+                    company,
+                    location,
+                    fit_score,
+                    recommendation,
                     status,
                     created_at,
                     updated_at
@@ -99,3 +110,78 @@ class SQLiteJobRepository:
             return None
 
         return dict(row)
+
+    def update_parsed_job(
+        self,
+        job_id: int,
+        job_opening: JobOpening,
+    ) -> None:
+        """Update a stored job with parser results."""
+        _validate_job_id(job_id)
+
+        timestamp = datetime.now(timezone.utc).isoformat()
+
+        with get_connection(self.database_path) as connection:
+            cursor = connection.execute(
+                """
+                UPDATE jobs
+                SET
+                    title = ?,
+                    company = ?,
+                    location = ?,
+                    updated_at = ?
+                WHERE id = ?
+                """,
+                (
+                    job_opening.title,
+                    job_opening.company,
+                    job_opening.location,
+                    timestamp,
+                    job_id,
+                ),
+            )
+
+        if cursor.rowcount == 0:
+            raise ValueError(
+                f"Job ID does not exist: {job_id}"
+            )
+
+    def update_fit_analysis(
+        self,
+        job_id: int,
+        fit_analysis: FitAnalysis,
+    ) -> None:
+        """Update a stored job with fit-analysis results."""
+        _validate_job_id(job_id)
+
+        timestamp = datetime.now(timezone.utc).isoformat()
+
+        recommendation = fit_analysis.recommendation
+
+        if isinstance(recommendation, Enum):
+            recommendation = recommendation.value
+
+        if recommendation is not None:
+            recommendation = str(recommendation)
+
+        with get_connection(self.database_path) as connection:
+            cursor = connection.execute(
+                """
+                UPDATE jobs
+                SET
+                    fit_score = ?,
+                    recommendation = ?,
+                    updated_at = ?
+                WHERE id = ?
+                """,
+                (
+                    fit_analysis.overall_score,
+                    recommendation,
+                    timestamp,
+                    job_id,
+                ),
+            )
+
+        if cursor.rowcount == 0:
+            raise ValueError(f"Job ID does not exist: {job_id}")
+

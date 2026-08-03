@@ -20,6 +20,13 @@ CREATE TABLE IF NOT EXISTS jobs (
     description_hash TEXT NOT NULL,
     original_description TEXT NOT NULL,
 
+    title TEXT,
+    company TEXT,
+    location TEXT,
+
+    fit_score INTEGER,
+    recommendation TEXT,
+
     status TEXT NOT NULL DEFAULT 'NEW',
 
     created_at TEXT NOT NULL,

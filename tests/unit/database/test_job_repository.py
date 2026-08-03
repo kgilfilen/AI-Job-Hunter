@@ -1,11 +1,13 @@
 """Unit tests for SQLiteJobRepository."""
 import pytest
 from typing import Callable
-from unittest.mock import Mock, call
+from unittest.mock import Mock, call, patch
 
-from src.main import _store_original_job
+from src.main import _store_original_job, process_job_text
 from src.database.database import initialize_database
 from src.database.repository import SQLiteJobRepository
+from src.models.job_opening import JobOpening
+
 
 
 @pytest.fixture
@@ -116,37 +118,73 @@ def test_original_job_is_stored_before_parsing() -> None:
     assert parsed_job is not None
     assert events == ["stored", "parsed"]
 
-from unittest.mock import Mock, patch
 
-from src.main import process_job_text
+def test_update_parsed_job(repository) -> None:
+    description = "Original job description."
 
-
-@patch("src.main.parse_job_opening")
-def test_process_job_text_stores_before_parsing(
-    mock_parse_job_opening,
-) -> None:
-    events = []
-
-    repository = Mock()
-
-    def save_original_job(**kwargs):
-        events.append("stored")
-        return 17
-
-    def parse_job_opening(**kwargs):
-        events.append("parsed")
-        return Mock()
-
-    repository.save_original_job.side_effect = save_original_job
-    mock_parse_job_opening.side_effect = parse_job_opening
-
-    job_id, job_opening = process_job_text(
-        job_text="Untouched original text",
-        source_file="sample.txt",
-        repository=repository,
-        source="file",
+    job_id = repository.save_original_job(
+        original_description=description,
+        source="manual",
     )
 
-    assert job_id == 17
-    assert job_opening is not None
-    assert events == ["stored", "parsed"]
+    job_opening = JobOpening(
+        source_file="sample.txt",
+        title="Senior SDET",
+        company="Applied Systems",
+        location="Remote",
+        remote_status="remote",
+        employment_type="full-time",
+        security_clearance_required=False,
+        security_clearance_level=None,
+        required_skills=[],
+        preferred_skills=[],
+        responsibilities=[],
+        salary_range=None,
+        notes=[],
+        parser_metadata={},
+    )
+
+    repository.update_parsed_job(
+        job_id=job_id,
+        job_opening=job_opening,
+    )
+
+    stored = repository.get_job(job_id)
+
+    assert stored["title"] == "Senior SDET"
+    assert stored["company"] == "Applied Systems"
+    assert stored["location"] == "Remote"
+
+def test_update_parsed_job_rejects_unknown_job(
+    tmp_path,
+) -> None:
+    database_path = tmp_path / "test.db"
+    initialize_database(database_path)
+
+    repository = SQLiteJobRepository(database_path)
+
+    job_opening = JobOpening(
+        source_file="sample.txt",
+        title="Senior SDET",
+        company="Applied Systems",
+        location="Remote",
+        remote_status="remote",
+        employment_type="full-time",
+        security_clearance_required=False,
+        security_clearance_level=None,
+        required_skills=[],
+        preferred_skills=[],
+        responsibilities=[],
+        salary_range=None,
+        notes=[],
+        parser_metadata={},
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="Job ID does not exist: 999999",
+    ):
+        repository.update_parsed_job(
+            job_id=999999,
+            job_opening=job_opening,
+        )

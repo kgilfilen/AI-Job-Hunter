@@ -418,6 +418,10 @@ def process_job_text(
         source_file=source_file,
     )
 
+    repository.update_parsed_job(
+        job_id=job_id,
+        job_opening=job_opening,
+    )
     return (
         job_id,
         job_artifact_directory,
