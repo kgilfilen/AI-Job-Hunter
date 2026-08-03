@@ -19,6 +19,12 @@ IDEs
 .vscode/
 .idea/
 
+Data
+
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+
 Testing
 
 .pytest_cache/
@@ -48,6 +54,7 @@ output/
 outputs/
 generated/
 reports/
+!outputs/.gitkeep
 
 Personal / Private Data
 
