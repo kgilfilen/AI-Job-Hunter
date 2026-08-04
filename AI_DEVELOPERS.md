@@ -61,3 +61,9 @@ As I bring up ideas and problems, it frequently says "we should fix that next." 
 I had AI create the original timeline, and it was a good timeline, but my AI was not aware of any issues or needs or wishes that might come up during testing or user days. This is why a project MUST BE A COLLABORATION between AI and a human. Not a checked-out human who just lets AI do what it wants. 
 
 It was my idea to have a "user day", and to be able to know if we have seen this position before, so we don't apply twice. We both realized that was pretty important, and this was the right time to work on it because we are touching that part of the codebase in this net sprint.
+
+## Test cases used to be one of the necessary pains of development. 
+
+Now you can have AI create two or five new tests after EVERY new development. There is NO EXCUSE now, for not having ALL of the test triangle fully developed. You used to have two people developing test cases every day. Now, the dev can be creating 10 tests every day, 2 integration tests, and 8 unit tests. 
+
+This part of the landscape has changed. QA engineers are seeing their old way of making a living disappear. They MUST adapt and evolve.

@@ -92,7 +92,7 @@ def test_store_original_job_passes_untouched_text_to_repository(
     )
 
     captured = capsys.readouterr()
-    assert "Stored original job as database ID 42" in captured.out
+    assert "Created job record 42." in captured.out    
     
 def test_original_job_is_stored_before_parsing() -> None:
     events = []

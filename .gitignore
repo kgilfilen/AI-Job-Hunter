@@ -1,4 +1,4 @@
-pycache/
+_pycache_/
 *.py[cod]
 *.pyo
 
@@ -19,17 +19,14 @@ IDEs
 .vscode/
 .idea/
 
-Data
-
-data/*.db
-data/*.sqlite
-data/*.sqlite3
-
 Testing
 
 .pytest_cache/
 .coverage
 htmlcov/
+test-results/
+.mypy_cache/
+.ruff_cache/
 
 Build Artifacts
 
@@ -73,6 +70,7 @@ OS Files
 .DS_Store
 Thumbs.db
 
-applications/
-
-
+# Editor temp files
+*.swp
+*.swo
+*~
