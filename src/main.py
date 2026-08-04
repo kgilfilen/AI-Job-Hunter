@@ -173,14 +173,22 @@ def _store_original_job(
 
     if result.created:
         print(
-            "Stored original job as database ID "
-            f"{result.job_id}"
+            f"Created job record {result.job_id}."
         )
     else:
+        reason_labels = {
+            "source_url": "same source URL",
+            "description_hash": "identical job description",
+        }
+
+        reason = reason_labels.get(
+            result.duplicate_reason,
+            "existing job",
+        )
+
         print(
-            "Job already exists as database ID "
-            f"{result.job_id} "
-            f"(matched by {result.duplicate_reason})"
+            f"Duplicate found: job {result.job_id} "
+            f"matched by {reason}."
         )
 
     return result
@@ -448,8 +456,9 @@ def process_job_text(
 
     if not save_result.created and not reprocess:
         print(
-            f"Skipping duplicate job {job_id}. "
-            "Use --reprocess to regenerate artifacts."
+            f"Skipping job {job_id}. "
+            "Use --reprocess to regenerate its analysis "
+            "and artifacts."
         )
 
         return (

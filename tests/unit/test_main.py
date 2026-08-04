@@ -61,6 +61,7 @@ def test_process_job_text_stores_before_parsing(
 def test_process_job_text_skips_duplicate_without_reprocess(
     mock_parse_job_opening,
     tmp_path,
+    capsys,
 ) -> None:
     repository = Mock()
     repository.save_original_job.return_value = SaveJobResult(
@@ -91,18 +92,32 @@ def test_process_job_text_skips_duplicate_without_reprocess(
             reprocess=False,
         )
 
+    captured = capsys.readouterr()
+
     assert job_id == 17
     assert job_artifact_directory == artifact_directory
     assert job_opening is None
+
+    assert (
+        "Duplicate found: job 17 matched by same source URL."
+        in captured.out
+    )
+    assert (
+        "Skipping job 17. "
+        "Use --reprocess to regenerate its analysis and artifacts."
+        in captured.out
+    )
 
     mock_parse_job_opening.assert_not_called()
     mock_write_original.assert_not_called()
     repository.update_parsed_job.assert_not_called()
 
+
 @patch("src.main.parse_job_opening")
 def test_process_job_text_reprocesses_duplicate_when_requested(
     mock_parse_job_opening,
     tmp_path,
+    capsys,
 ) -> None:
     repository = Mock()
     repository.save_original_job.return_value = SaveJobResult(
@@ -138,9 +153,18 @@ def test_process_job_text_reprocesses_duplicate_when_requested(
             reprocess=True,
         )
 
+    captured = capsys.readouterr()
+
     assert job_id == 17
     assert job_artifact_directory == artifact_directory
     assert job_opening is parsed_job
+
+    assert (
+        "Duplicate found: job 17 matched by same source URL."
+        in captured.out
+    )
+    assert "Reprocessing existing job 17." in captured.out
+    assert "Skipping job 17." not in captured.out
 
     mock_write_original.assert_called_once_with(
         job_id=17,
