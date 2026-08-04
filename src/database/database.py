@@ -34,6 +34,16 @@ CREATE TABLE IF NOT EXISTS jobs (
 )
 """
 
+JOBS_SOURCE_URL_INDEX = """
+CREATE INDEX IF NOT EXISTS idx_jobs_source_url
+ON jobs (source_url)
+"""
+
+JOBS_DESCRIPTION_HASH_INDEX = """
+CREATE INDEX IF NOT EXISTS idx_jobs_description_hash
+ON jobs (description_hash)
+"""
+
 
 def get_connection(
     database_path: PathLike = DATABASE_PATH,
@@ -56,3 +66,5 @@ def initialize_database(
 
     with get_connection(database_path) as connection:
         connection.execute(JOBS_TABLE_SCHEMA)
+        connection.execute(JOBS_SOURCE_URL_INDEX)
+        connection.execute(JOBS_DESCRIPTION_HASH_INDEX)

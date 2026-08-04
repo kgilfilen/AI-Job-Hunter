@@ -7,7 +7,7 @@ from src.main import _store_original_job, process_job_text
 from src.database.database import initialize_database
 from src.database.repository import SQLiteJobRepository
 from src.models.job_opening import JobOpening
-
+from src.database.save_job_result import SaveJobResult
 
 
 @pytest.fixture
@@ -28,11 +28,14 @@ def test_save_and_retrieve_original_job(repository) -> None:
     Build and maintain automated tests for web and API systems.
     """
 
-    job_id = repository.save_original_job(
+    result = repository.save_original_job(
         original_description=description,
         source="manual",
         source_url=None,
     )
+    job_id = result.job_id
+
+    assert result.created is True
 
     stored_job = repository.get_job(job_id)
 
@@ -63,18 +66,24 @@ def test_store_original_job_passes_untouched_text_to_repository(
     capsys,
 ) -> None:
     repository = Mock()
-    repository.save_original_job.return_value = 42
+    repository.save_original_job.return_value = SaveJobResult(
+        job_id=42,
+        created=True,
+    )
 
     job_text = "Original job text\nwith exact formatting.\n"
 
-    job_id = _store_original_job(
+    result = _store_original_job(
         repository=repository,
         job_text=job_text,
         source="url",
         source_url="https://example.com/jobs/42",
     )
 
-    assert job_id == 42
+    assert result == SaveJobResult(
+        job_id=42,
+        created=True,
+    )
 
     repository.save_original_job.assert_called_once_with(
         original_description=job_text,
@@ -83,9 +92,8 @@ def test_store_original_job_passes_untouched_text_to_repository(
     )
 
     captured = capsys.readouterr()
-
     assert "Stored original job as database ID 42" in captured.out
-
+    
 def test_original_job_is_stored_before_parsing() -> None:
     events = []
 
@@ -93,8 +101,10 @@ def test_original_job_is_stored_before_parsing() -> None:
 
     def save_job(**kwargs):
         events.append("stored")
-        return 7
-
+        return SaveJobResult(
+            job_id=7,
+            created=True,
+        )
     def parse_job(**kwargs):
         events.append("parsed")
         return Mock()
@@ -103,11 +113,14 @@ def test_original_job_is_stored_before_parsing() -> None:
 
     job_text = "Complete original description"
 
-    job_id = repository.save_original_job(
+    result = repository.save_original_job(
         original_description=job_text,
         source="manual",
         source_url=None,
     )
+    job_id = result.job_id
+
+    assert result.created is True
 
     parsed_job = parse_job(
         job_text=job_text,
@@ -122,10 +135,13 @@ def test_original_job_is_stored_before_parsing() -> None:
 def test_update_parsed_job(repository) -> None:
     description = "Original job description."
 
-    job_id = repository.save_original_job(
+    result = repository.save_original_job(
         original_description=description,
         source="manual",
     )
+    job_id = result.job_id
+
+    assert result.created is True
 
     job_opening = JobOpening(
         source_file="sample.txt",
@@ -188,3 +204,77 @@ def test_update_parsed_job_rejects_unknown_job(
             job_id=999999,
             job_opening=job_opening,
         )
+
+def test_same_source_url_returns_existing_job(
+    repository,
+) -> None:
+    first = repository.save_original_job(
+        original_description="First description",
+        source="url",
+        source_url="https://example.com/jobs/123",
+    )
+
+    second = repository.save_original_job(
+        original_description="Updated or different page text",
+        source="url",
+        source_url="https://example.com/jobs/123",
+    )
+
+    assert first.created is True
+    assert second.created is False
+    assert second.job_id == first.job_id
+    assert second.duplicate_reason == "source_url"
+
+def test_same_description_hash_returns_existing_job(
+    repository,
+) -> None:
+    description = "Identical complete job description."
+
+    first = repository.save_original_job(
+        original_description=description,
+        source="url",
+        source_url="https://example.com/jobs/one",
+    )
+
+    second = repository.save_original_job(
+        original_description=description,
+        source="url",
+        source_url="https://another.example/jobs/two",
+    )
+
+    assert first.created is True
+    assert second.created is False
+    assert second.job_id == first.job_id
+    assert second.duplicate_reason == "description_hash"
+
+def test_different_descriptions_create_different_jobs(
+    repository,
+) -> None:
+    first = repository.save_original_job(
+        original_description="First job description.",
+        source="manual",
+    )
+
+    second = repository.save_original_job(
+        original_description="Second job description.",
+        source="manual",
+    )
+
+    assert first.created is True
+    assert second.created is True
+    assert second.job_id != first.job_id
+
+def test_blank_source_url_is_stored_as_none(
+    repository,
+) -> None:
+    result = repository.save_original_job(
+        original_description="A unique job description.",
+        source="manual",
+        source_url="   ",
+    )
+
+    stored = repository.get_job(result.job_id)
+
+    assert stored is not None
+    assert stored["source_url"] is None
+

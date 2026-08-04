@@ -1,4 +1,5 @@
 from urllib.parse import urlparse
+from typing import Dict, Optional
 
 import requests
 from bs4 import BeautifulSoup
@@ -17,46 +18,158 @@ REQUEST_HEADERS = {
 }
 
 
-def fetch_job_description(url: str) -> str:
-    """
-    Download a web page and return its visible text.
+"""Fetch job-description content from web pages."""
 
-    This initial implementation works best with static HTML pages.
-    JavaScript-rendered job sites may require a browser-based fetcher later.
+from typing import Dict, Optional
 
-    Args:
-        url: Public HTTP or HTTPS URL containing a job posting.
+import requests
+from bs4 import BeautifulSoup
 
-    Returns:
-        Extracted visible page text.
+from src.models.fetched_job_page import FetchedJobPage
 
-    Raises:
-        ValueError: If the URL is invalid or no useful text is found.
-        RuntimeError: If the page cannot be downloaded.
-    """
+
+def _get_meta_content(
+    soup: BeautifulSoup,
+    *,
+    name: Optional[str] = None,
+    property_name: Optional[str] = None,
+) -> Optional[str]:
+    """Return content from a matching HTML meta tag."""
+
+    attributes = {}
+
+    if name is not None:
+        attributes["name"] = name
+
+    if property_name is not None:
+        attributes["property"] = property_name
+
+    tag = soup.find("meta", attrs=attributes)
+
+    if tag is None:
+        return None
+
+    content = tag.get("content")
+
+    if not isinstance(content, str):
+        return None
+
+    content = content.strip()
+
+    return content or None
+
+
+def _extract_metadata(
+    soup: BeautifulSoup,
+) -> Dict[str, str]:
+    """Extract useful page-level metadata."""
+
+    candidates = {
+        "description": _get_meta_content(
+            soup,
+            name="description",
+        ),
+        "og:title": _get_meta_content(
+            soup,
+            property_name="og:title",
+        ),
+        "og:description": _get_meta_content(
+            soup,
+            property_name="og:description",
+        ),
+        "og:site_name": _get_meta_content(
+            soup,
+            property_name="og:site_name",
+        ),
+    }
+
+    return {
+        key: value
+        for key, value in candidates.items()
+        if value is not None
+    }
+
+
+def _extract_canonical_url(
+    soup: BeautifulSoup,
+) -> Optional[str]:
+    """Extract the page's canonical URL."""
+
+    tag = soup.find(
+        "link",
+        attrs={"rel": "canonical"},
+    )
+
+    if tag is None:
+        return None
+
+    href = tag.get("href")
+
+    if not isinstance(href, str):
+        return None
+
+    href = href.strip()
+
+    return href or None
+
+
+def fetch_job_description(
+    url: str,
+) -> FetchedJobPage:
+    """Fetch a job page and retain text plus page metadata."""
+
     validate_url(url)
 
     try:
+
         response = requests.get(
             url,
-            headers=REQUEST_HEADERS,
-            timeout=DEFAULT_TIMEOUT_SECONDS,
+            timeout=30,
+            headers={
+                "User-Agent": (
+                    "Mozilla/5.0 "
+                    "(compatible; AI-Career-Manager/1.0)"
+                )
+            },
         )
+
         response.raise_for_status()
-    except requests.RequestException as exc:
+    except requests.RequestException as e:
         raise RuntimeError(
-            f"Unable to download job posting from {url}: {exc}"
-        ) from exc
+            f"Failed to fetch job description: {e}"
+        ) from e
 
-    text = extract_visible_text(response.text)
+    soup = BeautifulSoup(
+        response.text,
+        "html.parser",
+    )
 
-    if not text:
-        raise ValueError(
-            f"No readable job-description text was found at {url}"
-        )
+    for element in soup(
+        ["script", "style", "noscript"]
+    ):
+        element.decompose()
 
-    return text
+    visible_text = soup.get_text(
+        separator="\n",
+        strip=True,
+    )
 
+    page_title = None
+
+    if soup.title is not None:
+        page_title = soup.title.get_text(
+            strip=True
+        ) or None
+
+    return FetchedJobPage(
+        requested_url=url,
+        visible_text=visible_text,
+        page_title=page_title,
+        canonical_url=_extract_canonical_url(
+            soup
+        ),
+        metadata=_extract_metadata(soup),
+    )
 
 def validate_url(url: str) -> None:
     """

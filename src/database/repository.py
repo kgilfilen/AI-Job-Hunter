@@ -9,8 +9,9 @@ from typing import Dict, Optional, Union
 from src.database.database import DATABASE_PATH, get_connection
 from src.models.fit_analysis import FitAnalysis
 from src.models.job_opening import JobOpening
-PathLike = Union[str, Path]
+from src.database.save_job_result import SaveJobResult
 
+PathLike = Union[str, Path]
 
 def _validate_job_id(job_id: int) -> None:
     if job_id <= 0:
@@ -30,17 +31,46 @@ class SQLiteJobRepository:
         original_description: str,
         source: Optional[str] = None,
         source_url: Optional[str] = None,
-    ) -> int:
-        """Save the original job description and return its row ID."""
+    ) -> SaveJobResult:
+        """Save a job or return the existing duplicate record."""
 
         if not original_description.strip():
             raise ValueError("original_description cannot be empty")
 
-        timestamp = datetime.now(timezone.utc).isoformat()
+        normalized_source_url = (
+            source_url.strip()
+            if source_url is not None and source_url.strip()
+            else None
+        )
 
         description_hash = sha256(
             original_description.encode("utf-8")
         ).hexdigest()
+
+        if normalized_source_url is not None:
+            existing_job = self.find_by_source_url(
+                normalized_source_url
+            )
+
+            if existing_job is not None:
+                return SaveJobResult(
+                    job_id=int(existing_job["id"]),
+                    created=False,
+                    duplicate_reason="source_url",
+                )
+
+        existing_job = self.find_by_description_hash(
+            description_hash
+        )
+
+        if existing_job is not None:
+            return SaveJobResult(
+                job_id=int(existing_job["id"]),
+                created=False,
+                duplicate_reason="description_hash",
+            )
+
+        timestamp = datetime.now(timezone.utc).isoformat()
 
         with get_connection(self.database_path) as connection:
             cursor = connection.execute(
@@ -58,7 +88,7 @@ class SQLiteJobRepository:
                 """,
                 (
                     source,
-                    source_url,
+                    normalized_source_url,
                     description_hash,
                     original_description,
                     "NEW",
@@ -74,7 +104,10 @@ class SQLiteJobRepository:
                 "SQLite did not return an ID for the saved job"
             )
 
-        return job_id
+        return SaveJobResult(
+            job_id=job_id,
+            created=True,
+        )
 
     def get_job(
         self,
@@ -185,3 +218,81 @@ class SQLiteJobRepository:
         if cursor.rowcount == 0:
             raise ValueError(f"Job ID does not exist: {job_id}")
 
+
+    def find_by_source_url(
+        self,
+        source_url: str,
+    ) -> Optional[Dict[str, object]]:
+        """Return the job with an exact source URL, if one exists."""
+
+        normalized_url = source_url.strip()
+
+        if not normalized_url:
+            return None
+
+        with get_connection(self.database_path) as connection:
+            row = connection.execute(
+                """
+                SELECT
+                    id,
+                    source,
+                    source_url,
+                    description_hash,
+                    original_description,
+                    title,
+                    company,
+                    location,
+                    fit_score,
+                    recommendation,
+                    status,
+                    created_at,
+                    updated_at
+                FROM jobs
+                WHERE source_url = ?
+                ORDER BY id
+                LIMIT 1
+                """,
+                (normalized_url,),
+            ).fetchone()
+
+        if row is None:
+            return None
+
+        return dict(row)
+
+
+    def find_by_description_hash(
+        self,
+        description_hash: str,
+    ) -> Optional[Dict[str, object]]:
+        """Return the job with an exact description hash, if one exists."""
+
+        with get_connection(self.database_path) as connection:
+            row = connection.execute(
+                """
+                SELECT
+                    id,
+                    source,
+                    source_url,
+                    description_hash,
+                    original_description,
+                    title,
+                    company,
+                    location,
+                    fit_score,
+                    recommendation,
+                    status,
+                    created_at,
+                    updated_at
+                FROM jobs
+                WHERE description_hash = ?
+                ORDER BY id
+                LIMIT 1
+                """,
+                (description_hash,),
+            ).fetchone()
+
+        if row is None:
+            return None
+
+        return dict(row)
