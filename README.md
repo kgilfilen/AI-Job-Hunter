@@ -40,7 +40,7 @@ Planned Features
 
 * JSON-LD and ATS metadata extraction 
 
-     * Enhanced metadata extraction from modern recruiting platforms -- AI Career Manager extracts structured job information (such as company, title, employment type, and location) from recruiting platforms like Greenhouse, Lever, Workday, and other modern ATS systems to improve parsing accuracy.)
+     * Enhanced metadata extraction from modern recruiting platforms -- AI Career Manager extracts structured job information (such as company, title, employment type, and location) from recruiting platforms like Greenhouse, Lever, Workday, and other modern ATS systems to improve parsing accuracy.
 * Interview preparation assistant
 * Application status and interview tracking
 * Resume version history
