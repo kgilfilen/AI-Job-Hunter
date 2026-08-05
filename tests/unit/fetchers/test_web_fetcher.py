@@ -41,8 +41,21 @@ HTML = """
 <body>
     <h1>Senior Software Development Engineer in Test</h1>
 </body>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    "title": "Senior QA Engineer",
+    "hiringOrganization": {
+        "@type": "Organization",
+        "name": "Applied Systems"
+    },
+    "employmentType": "FULL_TIME"
+}
+</script>
 </html>
 """
+
 
 def test_validate_url_accepts_https():
     validate_url("https://example.com/jobs/123")
@@ -130,7 +143,7 @@ def test_fetch_job_description_wraps_request_errors(
         fetch_job_description(
             "https://example.com/job"
         )
-        
+
 def test_extract_page_metadata() -> None:
     soup = BeautifulSoup(
         HTML,
@@ -186,4 +199,13 @@ def test_fetch_job_description_returns_page_evidence(
     )
     assert result.metadata["og:site_name"] == (
         "Applied Systems"
+    )
+    assert result.job_metadata.title == (
+        "Senior QA Engineer"
+    )
+    assert result.job_metadata.company == (
+        "Applied Systems"
+    )
+    assert result.job_metadata.employment_type == (
+        "FULL_TIME"
     )

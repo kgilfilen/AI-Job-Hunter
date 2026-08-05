@@ -28,6 +28,34 @@ def build_parser_input(page: FetchedJobPage) -> str:
             ]
         )
 
+    job_metadata = page.job_metadata
+
+    structured_values = {
+        "Title": job_metadata.title,
+        "Company": job_metadata.company,
+        "Location": job_metadata.location,
+        "Employment Type": job_metadata.employment_type,
+        "Date Posted": job_metadata.date_posted,
+        "Valid Through": job_metadata.valid_through,
+    }
+
+    if any(
+        value is not None
+        for value in structured_values.values()
+    ):
+        sections.extend(
+            [
+                "",
+                "Structured Job Metadata:",
+            ]
+        )
+
+        for key, value in structured_values.items():
+            if value is not None:
+                sections.append(
+                    f"{key}: {value}"
+                )
+
     if page.metadata:
         sections.extend(
             [

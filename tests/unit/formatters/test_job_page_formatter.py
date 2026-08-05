@@ -4,6 +4,7 @@ from src.formatters.job_page_formatter import (
     build_parser_input,
 )
 from src.models.fetched_job_page import FetchedJobPage
+from src.models.job_metadata import JobMetadata
 
 
 def test_build_parser_input_includes_page_evidence() -> None:
@@ -103,3 +104,37 @@ def test_build_parser_input_sorts_metadata_keys() -> None:
     )
 
     assert description_position < title_position
+
+def test_build_parser_input_includes_structured_job_metadata() -> None:
+    page = FetchedJobPage(
+        requested_url="https://example.com/jobs/123",
+        visible_text="Full visible job description.",
+        job_metadata=JobMetadata(
+            title="Senior QA Engineer",
+            company="Applied Systems",
+            location="Denver, CO, US",
+            employment_type="FULL_TIME",
+            date_posted="2026-08-01",
+            valid_through="2026-09-01",
+        ),
+    )
+
+    parser_input = build_parser_input(page)
+
+    assert "Structured Job Metadata:" in parser_input
+    assert "Title: Senior QA Engineer" in parser_input
+    assert "Company: Applied Systems" in parser_input
+    assert "Location: Denver, CO, US" in parser_input
+    assert "Employment Type: FULL_TIME" in parser_input
+    assert "Date Posted: 2026-08-01" in parser_input
+    assert "Valid Through: 2026-09-01" in parser_input
+
+def test_build_parser_input_omits_empty_structured_metadata() -> None:
+    page = FetchedJobPage(
+        requested_url="https://example.com/job",
+        visible_text="Job description.",
+    )
+
+    parser_input = build_parser_input(page)
+
+    assert "Structured Job Metadata:" not in parser_input
