@@ -4,6 +4,11 @@ from typing import Dict, Optional
 import requests
 from bs4 import BeautifulSoup
 
+from src.fetchers.job_metadata_extractor import (
+    extract_json_ld,
+    extract_job_metadata,
+)
+
 
 DEFAULT_TIMEOUT_SECONDS = 15
 
@@ -139,6 +144,14 @@ def fetch_job_description(
             f"Failed to fetch job description: {e}"
         ) from e
 
+    json_ld_blocks = extract_json_ld(
+        response.text
+    )
+
+    job_metadata = extract_job_metadata(
+        json_ld_blocks
+    )
+
     soup = BeautifulSoup(
         response.text,
         "html.parser",
@@ -163,12 +176,15 @@ def fetch_job_description(
 
     return FetchedJobPage(
         requested_url=url,
-        visible_text=visible_text,
+        visible_text=extract_visible_text(
+            response.text
+        ),
         page_title=page_title,
         canonical_url=_extract_canonical_url(
             soup
         ),
         metadata=_extract_metadata(soup),
+        job_metadata=job_metadata,
     )
 
 def validate_url(url: str) -> None:
