@@ -1,8 +1,10 @@
-# AI Job Hunter
-AI Job Hunter is a Python-based application that automates portions of the job search process, including job description analysis, resume tailoring, cover letter generation, application tracking, and future machine learning-based job ranking.
-The project was conceived on June 22, 2026, with the goal of delivering a production-ready MVP by June 30, 2026.
+# AI Career Manager
 
-This project is not about replacing engineers, but accelerating them. 
+AI Career Manager is a Python-based application that preserves, analyzes, and manages job opportunities throughout the hiring process. It automates job acquisition, AI-assisted job analysis, resume tailoring, fit scoring, and long-term application tracking.
+
+The project began on June 22, 2026, as "AI Job Hunter" and has evolved into a persistent career management system rather than simply a resume tailoring tool.
+
+This project is not about replacing engineers, but accelerating them.
 
 ## Purpose
 Searching for jobs often involves repetitive work, much of which I HATE:
@@ -17,39 +19,61 @@ Searching for jobs often involves repetitive work, much of which I HATE:
 AI Job Hunter automates much of this workflow while maintaining human review and approval.
 
 ## Features
+
 Current Features
 
-* Job description parsing using AI
-* Structured job object generation
-* Resume strategy recommendations
-* Cover letter draft generation
-* Application tracking
-* Role-based access control
-* Public demo mode
-* REST API
-* Resume/job fit scoring
-* Structured JSON output
-* Unit & integration test suite
-* Dockerized dev and test
-* Environment-based config using `.env`
+* Import jobs from local files or URLs
+* Intelligent web page extraction
+* AI-powered job description parsing
+* Structured JobOpening model generation
+* Resume fit scoring
+* Resume recommendation generation
+* Tailored resume generation (Markdown)
+* Permanent SQLite job history
+* Duplicate detection using URL and SHA-256 hashing
+* Artifact generation for every imported job
+* Safe reprocessing of existing jobs
+* Comprehensive unit and integration test suite
+* Docker-based reproducible development environment
 
 Planned Features
 
-* Automated job discovery
-* Resume tailoring
-* Interview question generation
-* Job recommendation engine
+* JSON-LD and ATS metadata extraction 
+
+     * Enhanced metadata extraction from modern recruiting platforms -- AI Career Manager extracts structured job information (such as company, title, employment type, and location) from recruiting platforms like Greenhouse, Lever, Workday, and other modern ATS systems to improve parsing accuracy.
+* Interview preparation assistant
+* Application status and interview tracking
+* Resume version history
+* Cover letter generation
+* Web interface
 * Machine learning ranking models
-* Application success analytics
-* Agent-assisted application workflow
+* AI agent-assisted job search workflow
 
 ## Current Status
 
-* core parser complete
-* AI fit scoring complete
-* unit and integration testing up to date
-* docker build & execution
+Completed
 
+* AI parser
+* Resume fit scoring
+* Resume recommendations
+* Persistent SQLite database
+* Duplicate detection
+* URL acquisition pipeline
+* Artifact management
+* Comprehensive automated testing
+* Docker support
+
+In Progress
+
+* Rich metadata extraction
+* Application workflow
+* Interview preparation
+
+Future
+
+* Web UI
+* GitHub Actions CI
+* ML-assisted recommendation engine
 ### TODO:
 
 * resume tailoring
@@ -58,21 +82,30 @@ Planned Features
 
 ## Architecture
 ```text
-Job Description
-       |
-       v
-Job Parser
-       |
-       v
-Structured Job Object
-       |
-       +-------> Resume Strategy
-       |
-       +-------> Cover Letter Generator
-       |
-       +-------> Application Tracker
-       |
-       +-------> Future ML Scoring
+                Job File
+                    │
+                or URL
+                    │
+          Fetch / Read Input
+                    │
+          Build JobInput Model
+                    │
+          Duplicate Detection
+                    │
+         Store Original Job
+             (SQLite)
+                    │
+          Parse Job Description
+                    │
+          Structured JobOpening
+                    │
+          Resume Fit Analysis
+                    │
+     Resume Recommendation Engine
+                    │
+      Tailored Resume Generator
+                    │
+        Persistent Artifacts
 ```
 
 ## Technology Stack
@@ -85,6 +118,47 @@ Structured Job Object
 * GitHub Actions
 * Pytest
 * Docker
+
+## Persistent Job History
+
+Every imported job receives a permanent database record.
+
+Each job stores:
+
+* Original job description
+* Source URL (when applicable)
+* Description hash
+* Parsed job information
+* Resume fit analysis
+* Resume recommendations
+* Artifact directory
+* Creation and update timestamps
+
+Duplicate jobs are detected using:
+
+* Source URL
+* SHA-256 hash of the original job description
+
+Existing jobs may be intentionally regenerated using:
+
+```bash
+python3 -m src.main --reprocess
+```
+
+## Testing
+
+The project is developed test-first whenever practical.
+
+Current automated coverage includes:
+
+* Unit tests
+* Integration tests
+* Regression tests
+* Repository tests
+* Parser tests
+* URL fetcher tests
+
+Test reports are automatically generated in JUnit XML format for future CI integration.
 
 ## Security
 Sensitive information is never committed to source control.
@@ -145,13 +219,24 @@ Developer
 ## Repository Structure
 ```text
 src/
-tests/
-examples/
-docs/
+    artifacts/
+    database/
+    fetchers/
+    formatters/
+    models/
+    parsers/
+    resume/
+    scoring/
 
-README.md
-LICENSE
-requirements.txt
+tests/
+
+examples/
+
+outputs/
+
+config/
+
+docs/
 ```
 
 ## Running Locally
@@ -218,6 +303,8 @@ This project was created with AI assistance, but it was engineered intentionally
 ## Why This Project Matters
 
 One of the most interesting aspects of this project is not the Python code, the API integration, or the user interface. It is the ability to extract meaning from unstructured text.
+
+Well, now it is preserving and managing knowledge throughout a job search.
 
 A simple example is identifying the correct job title from a job description.
 

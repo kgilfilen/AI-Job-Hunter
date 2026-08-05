@@ -1,0 +1,105 @@
+"""Unit tests for fetched job-page formatting."""
+
+from src.formatters.job_page_formatter import (
+    build_parser_input,
+)
+from src.models.fetched_job_page import FetchedJobPage
+
+
+def test_build_parser_input_includes_page_evidence() -> None:
+    page = FetchedJobPage(
+        requested_url=(
+            "https://jobs.example.com/posting/123"
+        ),
+        canonical_url=(
+            "https://example.com/careers/123"
+        ),
+        page_title=(
+            "Senior SDET | Applied Systems"
+        ),
+        metadata={
+            "og:site_name": "Applied Systems",
+            "og:title": "Senior SDET",
+            "description": (
+                "Join Applied Systems as a Senior SDET."
+            ),
+        },
+        visible_text=(
+            "Software Development Engineer in Test\n"
+            "Build automated Playwright tests."
+        ),
+    )
+
+    parser_input = build_parser_input(page)
+
+    assert (
+        "Requested URL: "
+        "https://jobs.example.com/posting/123"
+        in parser_input
+    )
+
+    assert (
+        "Canonical URL: "
+        "https://example.com/careers/123"
+        in parser_input
+    )
+
+    assert (
+        "Senior SDET | Applied Systems"
+        in parser_input
+    )
+
+    assert (
+        "og:site_name: Applied Systems"
+        in parser_input
+    )
+
+    assert (
+        "Join Applied Systems as a Senior SDET."
+        in parser_input
+    )
+
+    assert (
+        "Build automated Playwright tests."
+        in parser_input
+    )
+
+
+def test_build_parser_input_handles_missing_optional_data() -> None:
+    page = FetchedJobPage(
+        requested_url="https://example.com/job",
+        visible_text="A complete job description.",
+    )
+
+    parser_input = build_parser_input(page)
+
+    assert (
+        "Requested URL: https://example.com/job"
+        in parser_input
+    )
+    assert "A complete job description." in parser_input
+    assert "Canonical URL:" not in parser_input
+    assert "Page Title:" not in parser_input
+    assert "Page Metadata:" not in parser_input
+
+
+def test_build_parser_input_sorts_metadata_keys() -> None:
+    page = FetchedJobPage(
+        requested_url="https://example.com/job",
+        visible_text="Job text",
+        metadata={
+            "og:title": "Senior SDET",
+            "description": "Description",
+        },
+    )
+
+    parser_input = build_parser_input(page)
+
+    description_position = parser_input.index(
+        "description: Description"
+    )
+    title_position = parser_input.index(
+        "og:title: Senior SDET"
+    )
+
+    assert description_position < title_position

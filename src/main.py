@@ -4,22 +4,28 @@ import json
 from dataclasses import asdict
 from enum import Enum
 from pathlib import Path
+from typing import Optional
 
 from src.fetchers.web_fetcher import fetch_job_description
 from src.formatters.resume_formatter import ResumeFormatter
+from src.formatters.job_page_formatter import build_parser_input
 from src.models.candidate_profile import CandidateProfile
 from src.models.fit_analysis import FitAnalysis
 from src.models.job_opening import JobOpening
 from src.models.resume_recommendation import ResumeRecommendation
+from src.models.job_input import JobInput
 from src.parsers.job_opening_parser import parse_job_opening
 from src.profile_loader import load_candidate_profile
 from src.resume.resume_recommender import recommend_resume_changes
 from src.scoring.fit_scorer import score_job
+from src.database.database import initialize_database
+from src.database.repository import SQLiteJobRepository
+from src.artifacts.job_artifacts import write_original_job_artifact
+from src.artifacts.job_artifacts import get_job_artifact_directory
+from src.database.save_job_result import SaveJobResult
 
 
 JOBS_DIR = Path("examples/jobs")
-OUTPUT_DIR = Path("examples/output")
-
 
 def parse_arguments() -> argparse.Namespace:
     """Parse command-line arguments."""
@@ -36,6 +42,11 @@ def parse_arguments() -> argparse.Namespace:
         help="Path to the candidate profile JSON file.",
     )
 
+    parser.add_argument(
+        "--reprocess",
+        action="store_true",
+        help="Reprocess an existing job if it already exists.",
+    )
     input_group = parser.add_mutually_exclusive_group(required=True)
 
     input_group.add_argument(
@@ -60,11 +71,12 @@ def parse_arguments() -> argparse.Namespace:
 
 
 def save_job_opening(
-    output_key: Path,
     job_opening: JobOpening,
+    job_artifact_directory: Path,
 ) -> Path:
-    """Save a parsed job opening as JSON."""
-    output_file = OUTPUT_DIR / f"{output_key.stem}.json"
+    """Save the parsed job opening as JSON."""
+
+    output_file = job_artifact_directory / "job.json"
 
     _write_json(
         output_file=output_file,
@@ -72,14 +84,14 @@ def save_job_opening(
     )
 
     return output_file
-
-
+    
 def save_fit_analysis(
-    output_key: Path,
     fit_analysis: FitAnalysis,
+    job_artifact_directory: Path,
 ) -> Path:
-    """Save a fit analysis as JSON."""
-    output_file = OUTPUT_DIR / f"{output_key.stem}_fit.json"
+    """Save the fit analysis as JSON."""
+
+    output_file = job_artifact_directory / "fit_analysis.json"
 
     _write_json(
         output_file=output_file,
@@ -90,13 +102,14 @@ def save_fit_analysis(
 
 
 def save_resume_recommendation(
-    output_key: Path,
     recommendation: ResumeRecommendation,
+    job_artifact_directory: Path,
 ) -> Path:
     """Save resume-tailoring recommendations as JSON."""
+
     output_file = (
-        OUTPUT_DIR
-        / f"{output_key.stem}_resume_recommendation.json"
+        job_artifact_directory
+        / "resume_recommendation.json"
     )
 
     _write_json(
@@ -107,16 +120,16 @@ def save_resume_recommendation(
     return output_file
 
 
+
 def save_tailored_resume(
-    output_key: Path,
     resume_text: str,
+    job_artifact_directory: Path,
 ) -> Path:
-    """Save a tailored resume as Markdown."""
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    """Save the tailored resume as Markdown."""
 
     output_file = (
-        OUTPUT_DIR
-        / f"{output_key.stem}_tailored_resume.md"
+        job_artifact_directory
+        / "tailored_resume.md"
     )
 
     output_file.write_text(
@@ -126,13 +139,16 @@ def save_tailored_resume(
 
     return output_file
 
-
 def _write_json(
     output_file: Path,
     value: object,
 ) -> None:
-    """Serialize a dataclass value to a formatted JSON file."""
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    """Serialize a dataclass value to formatted JSON."""
+
+    output_file.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
 
     safe_dict = make_json_safe(asdict(value))
 
@@ -141,6 +157,41 @@ def _write_json(
         encoding="utf-8",
     )
 
+def _store_original_job(
+    repository: SQLiteJobRepository,
+    job_text: str,
+    source: str,
+    source_url: Optional[str] = None,
+) -> SaveJobResult:
+    """Persist untouched job text or identify an existing job."""
+
+    result = repository.save_original_job(
+        original_description=job_text,
+        source=source,
+        source_url=source_url,
+    )
+
+    if result.created:
+        print(
+            f"Created job record {result.job_id}."
+        )
+    else:
+        reason_labels = {
+            "source_url": "same source URL",
+            "description_hash": "identical job description",
+        }
+
+        reason = reason_labels.get(
+            result.duplicate_reason,
+            "existing job",
+        )
+
+        print(
+            f"Duplicate found: job {result.job_id} "
+            f"matched by {reason}."
+        )
+
+    return result
 
 def make_json_safe(value: object) -> object:
     """Convert enums and nested collections into JSON-safe values."""
@@ -164,17 +215,20 @@ def make_json_safe(value: object) -> object:
 
 def get_job_inputs(
     args: argparse.Namespace,
-) -> list[tuple[str, str]]:
-    """Load job-description text from the selected input source."""
+) -> list[JobInput]:
+    """Load original and parser-ready job input."""
+
     if args.file is not None:
         if not args.file.exists():
             raise FileNotFoundError(
-                f"Job-description file does not exist: {args.file}"
+                "Job-description file does not exist: "
+                f"{args.file}"
             )
 
         if not args.file.is_file():
             raise ValueError(
-                f"Job-description path is not a file: {args.file}"
+                "Job-description path is not a file: "
+                f"{args.file}"
             )
 
         job_text = args.file.read_text(
@@ -186,26 +240,58 @@ def get_job_inputs(
                 f"Job-description file is empty: {args.file}"
             )
 
-        return [(args.file.name, job_text)]
+        return [
+            JobInput(
+                source_name=args.file.name,
+                original_text=job_text,
+                parser_text=job_text,
+                source="file",
+                source_url=None,
+            )
+        ]
 
     if args.url is not None:
-        job_text = fetch_job_description(args.url).strip()
+        fetched_job = fetch_job_description(
+            args.url
+        )
 
-        if not job_text:
+        original_text = fetched_job.visible_text.strip()
+
+        if not original_text:
             raise ValueError(
-                f"Fetched job description is empty: {args.url}"
+                "Fetched job description is empty: "
+                f"{args.url}"
             )
 
-        return [("fetched_job.txt", job_text)]
+        parser_text = build_parser_input(
+            fetched_job
+        )
 
-    job_files = sorted(JOBS_DIR.glob("*.txt"))
+        source_url = (
+            fetched_job.canonical_url
+            or fetched_job.requested_url
+        )
+
+        return [
+            JobInput(
+                source_name="fetched_job.txt",
+                original_text=original_text,
+                parser_text=parser_text,
+                source="url",
+                source_url=source_url,
+            )
+        ]
+
+    job_files = sorted(
+        JOBS_DIR.glob("*.txt")
+    )
 
     if not job_files:
         raise FileNotFoundError(
             f"No job-description files found in {JOBS_DIR}"
         )
 
-    job_inputs: list[tuple[str, str]] = []
+    job_inputs: list[JobInput] = []
 
     for job_file in job_files:
         job_text = job_file.read_text(
@@ -218,33 +304,66 @@ def get_job_inputs(
             )
 
         job_inputs.append(
-            (job_file.name, job_text)
+            JobInput(
+                source_name=job_file.name,
+                original_text=job_text,
+                parser_text=job_text,
+                source="example",
+                source_url=None,
+            )
         )
 
     return job_inputs
 
-
 def process_job(
     source_name: str,
-    job_text: str,
+    original_text: str,
+    parser_text: str,
     profile: CandidateProfile,
+    repository: SQLiteJobRepository,
+    source: str,
+    source_url: Optional[str] = None,
+    reprocess: bool = False,
 ) -> None:
-    """Process one job description and save all generated artifacts."""
+    """Process one job and save all generated artifacts."""
+
     print(f"\n--- Processing {source_name} ---")
 
-    if not job_text:
+    if not original_text:
         raise ValueError(
             f"Job description is empty: {source_name}"
         )
 
-    job_opening = parse_job_opening(
-        job_text=job_text,
+    if not parser_text:
+        raise ValueError(
+            f"Parser input is empty: {source_name}"
+        )
+
+    (
+        job_id,
+        job_artifact_directory,
+        job_opening,
+    ) = process_job_text(
+        original_text=original_text,
+        parser_text=parser_text,
         source_file=source_name,
+        repository=repository,
+        source=source,
+        source_url=source_url,
+        reprocess=reprocess,
     )
+
+    if job_opening is None:
+        return
 
     fit_analysis = score_job(
         job_opening,
         profile,
+    )
+
+    repository.update_fit_analysis(
+        job_id=job_id,
+        fit_analysis=fit_analysis,
     )
 
     recommendation = recommend_resume_changes(
@@ -260,26 +379,24 @@ def process_job(
         recommendations=recommendation,
     )
 
-    output_key = Path(source_name)
-
     job_output_file = save_job_opening(
-        output_key,
-        job_opening,
+        job_opening=job_opening,
+        job_artifact_directory=job_artifact_directory,
     )
 
     fit_output_file = save_fit_analysis(
-        output_key,
-        fit_analysis,
+        fit_analysis=fit_analysis,
+        job_artifact_directory=job_artifact_directory,
     )
 
     recommendation_output_file = save_resume_recommendation(
-        output_key,
-        recommendation,
+        recommendation=recommendation,
+        job_artifact_directory=job_artifact_directory,
     )
 
     resume_output_file = save_tailored_resume(
-        output_key,
-        resume_text,
+        resume_text=resume_text,
+        job_artifact_directory=job_artifact_directory,
     )
 
     print("\033[1mJob Opening:\033[0m")
@@ -307,14 +424,83 @@ def process_job(
     )
 
     print("\033[1mGenerated Files:\033[0m")
+    print(f"Database job ID: {job_id}")
     print(f"Saved: {job_output_file}")
     print(f"Saved: {fit_output_file}")
     print(f"Saved: {recommendation_output_file}")
     print(f"Saved: {resume_output_file}")
 
+def process_job_text(
+    original_text: str,
+    parser_text: str,
+    source_file: str,
+    repository: SQLiteJobRepository,
+    source: str,
+    source_url: Optional[str] = None,
+    reprocess: bool = False,
+) -> tuple[int, Path, Optional[JobOpening]]:
+    """Store original input and parse it unless it is a skipped duplicate."""
 
+    save_result = _store_original_job(
+        repository=repository,
+        job_text=original_text,
+        source=source,
+        source_url=source_url,
+    )
+
+    job_id = save_result.job_id
+
+    job_artifact_directory = get_job_artifact_directory(
+        job_id
+    )
+
+    if not save_result.created and not reprocess:
+        print(
+            f"Skipping job {job_id}. "
+            "Use --reprocess to regenerate its analysis "
+            "and artifacts."
+        )
+
+        return (
+            job_id,
+            job_artifact_directory,
+            None,
+        )
+
+    if not save_result.created:
+        print(f"Reprocessing existing job {job_id}.")
+
+    original_artifact_path = write_original_job_artifact(
+        job_id=job_id,
+        job_text=original_text,
+    )
+
+    print(
+        "Saved original job artifact to "
+        f"{original_artifact_path}"
+    )
+
+    job_opening = parse_job_opening(
+        job_text=parser_text,
+        source_file=source_file,
+    )
+
+    repository.update_parsed_job(
+        job_id=job_id,
+        job_opening=job_opening,
+    )
+
+    return (
+        job_id,
+        job_artifact_directory,
+        job_opening,
+    )
+    
+    
 def main() -> None:
     """Run the job-analysis and resume-tailoring workflow."""
+    initialize_database()
+    job_repository = SQLiteJobRepository()
     args = parse_arguments()
 
     profile = load_candidate_profile(
@@ -323,13 +509,16 @@ def main() -> None:
 
     job_inputs = get_job_inputs(args)
 
-    for source_name, job_text in job_inputs:
+    for job_input in job_inputs:
         process_job(
-            source_name=source_name,
-            job_text=job_text,
+            source_name=job_input.source_name,
+            original_text=job_input.original_text,
+            parser_text=job_input.parser_text,
             profile=profile,
+            repository=job_repository,
+            source=job_input.source,
+            source_url=job_input.source_url,
+            reprocess=args.reprocess,
         )
-
-
 if __name__ == "__main__":
     main()

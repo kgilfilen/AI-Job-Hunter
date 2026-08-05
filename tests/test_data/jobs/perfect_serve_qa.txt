@@ -1,0 +1,78 @@
+QA Engineer - US Remote
+Remote
+
+What is PerfectServe?
+PerfectServe is a leading provider of clinical communication and physician scheduling solutions in the health IT space. The company was founded in 1997 and has grown steadily since then, with a notable jump after several major acquisitions were announced in 2019. PerfectServe now has 400+ employees, 30,000+ customers spanning medical practices, hospitals, and health systems and $100 million+ in annual revenue.
+
+PerfectServe's mission is to accelerate speed to care by optimizing provider schedules and routing communications including messages, pages, calls, and alerts to the right place at the right time in any care setting. By facilitating real-time information sharing, building better schedules, and automating important clinical workflows, we believe we can help our customers advance patient care and improve the well-being of their clinicians.
+
+Leading analyst firms like Gartner and KLAS Research have consistently validated our approach:
+
+In 2026, PerfectServe was named highest in execution and furthest in vision in the Gartner Magic Quadrant for Clinical Communication and Collaboration the clear segment leader.
+PerfectServe also received two Best in KLAS awards in 2026 one for physician scheduling and another for ambulatory clinical communications. That makes for 11 Best in KLAS awards over the past 9 years.
+At PerfectServe, you'll have a unique opportunity to join a collaborative team with decades of experience that finds new ways to delight our customers every day. This involves consistent efforts to stay on the cutting edge of product development, which includes everything from implementing AI in new and existing solutions to brainstorming with customers about novel workflows. But you don't have to be in product to make in impact everybody at PerfectServe contributes to important work that moves the business forward.
+
+If you're looking for a well-established, tech-forward company full of smart people doing meaningful work, you've found the right place!
+
+PerfectServe is seeking a QA Engineer to ensure the quality, reliability, and safety of PerfectServe's products through rigorous manual and automated testing. As an individual contributor, you will deliver work independently within your team and grow toward owning more complex problems.
+
+In a healthcare SaaS environment where reliability and security affect patient care, this role is held to a high standard. Success means consistently demonstrating the responsibilities below combining technical depth with collaboration, communication, and sound judgment rather than excelling in any one area alone.
+
+Core Responsibilities
+Technical
+Execute manual test cases
+Document defects clearly
+Write automation scripts
+Apply API testing tools
+Integrate tests in CI/CD
+Architecture & Design
+Understand system under test
+Delivery & Execution
+Execute assigned test plans
+Write own test plans
+Manage test coverage
+Manage QA environment integrity
+Quality & Standards
+Follow test standards
+Ensure HIPAA test coverage
+Collaboration
+Participate in ceremonies
+Partner with dev engineers
+Collaborate with product team
+Communication
+Report defect status
+Communicate test results
+Write test documentation
+Leadership & Mentorship
+Learn QA best practices
+Strategy & Vision
+Understand release goals
+Contribute to QA planning
+Qualifications
+Required
+2-4 years of professional QA engineering experience.
+Hands-on experience executing test cases and documenting defects clearly.
+Experience with test automation, API testing, and CI/CD integration.
+Understanding of QA methodologies and quality metrics.
+Clear written and verbal communication, with a willingness to learn and act on feedback.
+Preferred
+Experience testing in a HIPAA/HITRUST-regulated healthcare environment.
+Performance and security testing experience.
+Experience building test frameworks from the ground up.
+Why This Role
+This role offers the chance to grow both your impact and your craft. You will take on progressively harder problems, work alongside strong colleagues, and see your contributions matter beyond your immediate team because quality engineering done well is a direct contribution to safer, more reliable care.
+
+Why Join PerfectServe?
+
+At PerfectServe, we are transforming healthcare communication and collaboration to help clinicians deliver better care. You'll work with a dedicated and mission driven team in an environment that values growth, transparency, and innovation.
+
+We offer a salary range of $90,000-$120,000 USD per year, with compensation tailored to your background, strengths, and growth potential. This range reflects our commitment to pay transparency and is based on market data, internal equity, and the scope of responsibilities. Compensation is determined by several factors, including experience, skills, and team impact. We regularly review compensation to ensure fairness and consistency. Current employees with questions are encouraged to connect with their manager or People Operations.
+
+Benefits:
+Remote first work environment
+Health, Dental, Vision, Life and Disability Insurance options available day one.
+401K - with match and immediately vested.
+17 company holidays, 2 floating holidays plus competitive paid time off policy
+Internal Advancement Opportunities
+PerfectServe offers unified healthcare communication solutions to help physicians, nurses, and care team members provide exceptional patient care. PerfectServe's cloud-based solutions enhance patient safety and reduce provider burnout by automating workflows, speeding time to treatment, optimizing shift schedules, empowering nurse mobility, and engaging patients in their own care.
+

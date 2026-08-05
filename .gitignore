@@ -1,4 +1,4 @@
-pycache/
+_pycache_/
 *.py[cod]
 *.pyo
 
@@ -24,6 +24,9 @@ Testing
 .pytest_cache/
 .coverage
 htmlcov/
+test-results/
+.mypy_cache/
+.ruff_cache/
 
 Build Artifacts
 
@@ -48,6 +51,7 @@ output/
 outputs/
 generated/
 reports/
+!outputs/.gitkeep
 
 Personal / Private Data
 
@@ -66,6 +70,7 @@ OS Files
 .DS_Store
 Thumbs.db
 
-applications/
-
-
+# Editor temp files
+*.swp
+*.swo
+*~
