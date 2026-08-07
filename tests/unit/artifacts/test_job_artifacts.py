@@ -1,11 +1,14 @@
 """Unit tests for job artifact organization."""
 
+import json
 import pytest
 
 from src.artifacts.job_artifacts import (
     get_job_artifact_directory,
     write_original_job_artifact,
 )
+from src.models.job_opening import JobOpening
+from src.artifacts.analysis_artifacts import _write_json
 
 
 def test_get_job_artifact_directory_uses_zero_padded_job_id(
@@ -46,3 +49,27 @@ def test_write_original_job_artifact_preserves_exact_text(
 
     assert output_path == tmp_path / "000042" / "original_job.txt"
     assert output_path.read_text(encoding="utf-8") == job_text
+    
+def test_write_json_includes_company(tmp_path) -> None:
+    job = JobOpening(
+        source_file="applied_systems_sdet.txt",
+        title="Software Development Engineer in Test",
+        company="Applied Systems",
+        location="Remote",
+        remote_status="Remote",
+        employment_type="Full-time",
+        security_clearance_required=False,
+        security_clearance_level=None,
+    )
+
+    output_file = tmp_path / "job.json"
+
+    _write_json(
+        output_file=output_file,
+        value=job,
+    )
+
+    saved = json.loads(output_file.read_text(encoding="utf-8"))
+
+    assert saved["company"] == "Applied Systems"
+

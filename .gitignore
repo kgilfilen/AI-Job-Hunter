@@ -52,6 +52,8 @@ outputs/
 generated/
 reports/
 !outputs/.gitkeep
+config/profile_history/
+config/candidate_profile.json
 
 Personal / Private Data
 

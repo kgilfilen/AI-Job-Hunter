@@ -7,3 +7,9 @@ https://www.remotehunter.com/apply-with-ai/bce5424b-a5d7-4e44-9947-26c15984317c?
 https://www.virtualvocations.com/job/senior-qa-engineer-3171483-i.html
 
 https://www.virtualvocations.com/job/software-development-engineer-in-test-3172844-i.html
+
+python3 src/main.py --url "https://www.virtualvocations.com/job/qa-engineer-3145319-i.html"
+
+python3 -m pytest -v
+
+

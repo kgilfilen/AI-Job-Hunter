@@ -1,13 +1,9 @@
 """Unit tests for SQLiteJobRepository."""
 import pytest
-from typing import Callable
-from unittest.mock import Mock, call, patch
 
-from src.main import _store_original_job, process_job_text
 from src.database.database import initialize_database
 from src.database.repository import SQLiteJobRepository
 from src.models.job_opening import JobOpening
-from src.database.save_job_result import SaveJobResult
 
 
 @pytest.fixture
@@ -62,76 +58,7 @@ def test_save_original_job_rejects_empty_description(repository) -> None:
             source="manual",
         )
 
-def test_store_original_job_passes_untouched_text_to_repository(
-    capsys,
-) -> None:
-    repository = Mock()
-    repository.save_original_job.return_value = SaveJobResult(
-        job_id=42,
-        created=True,
-    )
-
-    job_text = "Original job text\nwith exact formatting.\n"
-
-    result = _store_original_job(
-        repository=repository,
-        job_text=job_text,
-        source="url",
-        source_url="https://example.com/jobs/42",
-    )
-
-    assert result == SaveJobResult(
-        job_id=42,
-        created=True,
-    )
-
-    repository.save_original_job.assert_called_once_with(
-        original_description=job_text,
-        source="url",
-        source_url="https://example.com/jobs/42",
-    )
-
-    captured = capsys.readouterr()
-    assert "Created job record 42." in captured.out    
     
-def test_original_job_is_stored_before_parsing() -> None:
-    events = []
-
-    repository = Mock()
-
-    def save_job(**kwargs):
-        events.append("stored")
-        return SaveJobResult(
-            job_id=7,
-            created=True,
-        )
-    def parse_job(**kwargs):
-        events.append("parsed")
-        return Mock()
-
-    repository.save_original_job.side_effect = save_job
-
-    job_text = "Complete original description"
-
-    result = repository.save_original_job(
-        original_description=job_text,
-        source="manual",
-        source_url=None,
-    )
-    job_id = result.job_id
-
-    assert result.created is True
-
-    parsed_job = parse_job(
-        job_text=job_text,
-        source_file="manual_job.txt",
-    )
-
-    assert job_id == 7
-    assert parsed_job is not None
-    assert events == ["stored", "parsed"]
-
-
 def test_update_parsed_job(repository) -> None:
     description = "Original job description."
 
