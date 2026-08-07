@@ -114,6 +114,9 @@ def test_build_parser_input_includes_structured_job_metadata() -> None:
             company="Applied Systems",
             location="Denver, CO, US",
             employment_type="FULL_TIME",
+            salary="110000–145000",
+            salary_currency="USD",
+            salary_interval="YEAR",
             date_posted="2026-08-01",
             valid_through="2026-09-01",
         ),
@@ -128,6 +131,10 @@ def test_build_parser_input_includes_structured_job_metadata() -> None:
     assert "Employment Type: FULL_TIME" in parser_input
     assert "Date Posted: 2026-08-01" in parser_input
     assert "Valid Through: 2026-09-01" in parser_input
+    assert (
+        "Salary: USD 110000–145000 per YEAR"
+        in parser_input
+    )
 
 def test_build_parser_input_omits_empty_structured_metadata() -> None:
     page = FetchedJobPage(

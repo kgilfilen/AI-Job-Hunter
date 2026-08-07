@@ -150,6 +150,16 @@ def test_extract_job_metadata_from_job_posting() -> None:
                     "addressCountry": "US",
                 },
             },
+            "baseSalary": {
+                "@type": "MonetaryAmount",
+                "currency": "USD",
+                "value": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 110000,
+                    "maxValue": 145000,
+                    "unitText": "YEAR",
+                },
+            },
         }
     ]
 
@@ -162,8 +172,10 @@ def test_extract_job_metadata_from_job_posting() -> None:
         employment_type="FULL_TIME",
         date_posted="2026-08-01",
         valid_through="2026-09-01",
+        salary="110000–145000",
+        salary_currency="USD",
+        salary_interval="YEAR",
     )
-
 
 def test_extract_job_metadata_returns_empty_model_without_job() -> None:
     metadata = extract_job_metadata(
@@ -176,3 +188,74 @@ def test_extract_job_metadata_returns_empty_model_without_job() -> None:
     )
 
     assert metadata == JobMetadata()
+
+def test_extract_job_metadata_supports_salary_range() -> None:
+    blocks = [
+        {
+            "@type": "JobPosting",
+            "title": "Senior QA Engineer",
+            "baseSalary": {
+                "@type": "MonetaryAmount",
+                "currency": "USD",
+                "value": {
+                    "@type": "QuantitativeValue",
+                    "minValue": 110000,
+                    "maxValue": 145000,
+                    "unitText": "YEAR",
+                },
+            },
+        }
+    ]
+
+    metadata = extract_job_metadata(
+        blocks
+    )
+
+    assert metadata.salary == "110000–145000"
+    assert metadata.salary_currency == "USD"
+    assert metadata.salary_interval == "YEAR"
+
+def test_extract_job_metadata_supports_single_salary() -> None:
+    blocks = [
+        {
+            "@type": "JobPosting",
+            "title": "QA Engineer",
+            "baseSalary": {
+                "@type": "MonetaryAmount",
+                "currency": "USD",
+                "value": {
+                    "@type": "QuantitativeValue",
+                    "value": 120000,
+                    "unitText": "YEAR",
+                },
+            },
+        }
+    ]
+
+    metadata = extract_job_metadata(
+        blocks
+    )
+
+    assert metadata.salary == "120000"
+    assert metadata.salary_currency == "USD"
+    assert metadata.salary_interval == "YEAR"
+
+def test_extract_job_metadata_supports_numeric_salary() -> None:
+    blocks = [
+        {
+            "@type": "JobPosting",
+            "baseSalary": {
+                "@type": "MonetaryAmount",
+                "currency": "USD",
+                "value": 125000,
+            },
+        }
+    ]
+
+    metadata = extract_job_metadata(
+        blocks
+    )
+
+    assert metadata.salary == "125000"
+    assert metadata.salary_currency == "USD"
+    assert metadata.salary_interval is None

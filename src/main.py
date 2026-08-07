@@ -16,6 +16,7 @@ from src.models.resume_recommendation import ResumeRecommendation
 from src.models.job_input import JobInput
 from src.parsers.job_opening_parser import parse_job_opening
 from src.profile_loader import load_candidate_profile
+from src.services.profile_service import ProfileService
 from src.resume.resume_recommender import recommend_resume_changes
 from src.scoring.fit_scorer import score_job
 from src.database.database import initialize_database
@@ -503,8 +504,10 @@ def main() -> None:
     job_repository = SQLiteJobRepository()
     args = parse_arguments()
 
-    profile = load_candidate_profile(
-        args.profile
+    profile_service = ProfileService()
+
+    profile = profile_service.load(
+        args.profile,
     )
 
     job_inputs = get_job_inputs(args)
