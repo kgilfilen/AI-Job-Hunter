@@ -93,7 +93,7 @@ For one job artifact directory, the expected generated structure is:
     _fit.json
     _resume_recommendation.json
     tailored_resume.md
-    ```
+```
 
 That naming convention is effectively part of the module’s external contract now. If another component expects _fit.json, changing it to fit_analysis.json would be a behavioral change, not just cleanup.
 
