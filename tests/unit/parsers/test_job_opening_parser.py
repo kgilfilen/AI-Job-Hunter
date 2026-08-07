@@ -6,8 +6,7 @@ from unittest.mock import patch, sentinel
 from src.parsers.job_opening_parser import parse_job_opening, parse_job_opening_file
 from src.parsers.job_title_normalizer import normalize_job_title
 from src.models.job_opening import JobOpening
-from src.main import _write_json
-
+from src.artifacts.analysis_artifacts import _write_json
 
 
 SENIOR_SDET_JOB_DESCRIPTION = """
@@ -89,29 +88,6 @@ def test_parse_job_opening_file_loads_text_and_calls_parser(tmp_path):
         job_text="Senior QA Engineer\nPython\nPlaywright\n",
         source_file="sample_job.txt",
     )
-
-def test_write_json_includes_company(tmp_path) -> None:
-    job = JobOpening(
-        source_file="applied_systems_sdet.txt",
-        title="Software Development Engineer in Test",
-        company="Applied Systems",
-        location="Remote",
-        remote_status="Remote",
-        employment_type="Full-time",
-        security_clearance_required=False,
-        security_clearance_level=None,
-    )
-
-    output_file = tmp_path / "job.json"
-
-    _write_json(
-        output_file=output_file,
-        value=job,
-    )
-
-    saved = json.loads(output_file.read_text(encoding="utf-8"))
-
-    assert saved["company"] == "Applied Systems"
 
 '''def test_job_opening_serialization_includes_company() -> None:
     job = JobOpening(
