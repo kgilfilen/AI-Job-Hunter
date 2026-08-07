@@ -12,4 +12,5 @@ python3 src/main.py --url "https://www.virtualvocations.com/job/qa-engineer-3145
 
 python3 -m pytest -v
 
+python3 -m streamlit run src/ui/streamlit_app.py                                             
 
