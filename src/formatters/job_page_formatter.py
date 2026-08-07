@@ -30,11 +30,35 @@ def build_parser_input(page: FetchedJobPage) -> str:
 
     job_metadata = page.job_metadata
 
+    salary_text = None
+
+    if job_metadata.salary is not None:
+        salary_parts = []
+
+        if job_metadata.salary_currency:
+            salary_parts.append(
+                job_metadata.salary_currency
+            )
+
+        salary_parts.append(
+            job_metadata.salary
+        )
+
+        salary_text = " ".join(
+            salary_parts
+        )
+
+        if job_metadata.salary_interval:
+            salary_text += (
+                f" per {job_metadata.salary_interval}"
+            )
+
     structured_values = {
         "Title": job_metadata.title,
         "Company": job_metadata.company,
         "Location": job_metadata.location,
         "Employment Type": job_metadata.employment_type,
+        "Salary": salary_text,
         "Date Posted": job_metadata.date_posted,
         "Valid Through": job_metadata.valid_through,
     }

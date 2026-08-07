@@ -454,8 +454,6 @@ Create 10–20 or more pages of structured Markdown.
 * Content can support fact-based résumé generation
 * Professional claims remain traceable to supporting evidence
 
----
-
 # Milestone 5 – Resume Generator
 
 **Status:** 🚧 Foundation Started

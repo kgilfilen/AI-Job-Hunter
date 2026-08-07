@@ -67,3 +67,7 @@ It was my idea to have a "user day", and to be able to know if we have seen this
 Now you can have AI create two or five new tests after EVERY new development. There is NO EXCUSE now, for not having ALL of the test triangle fully developed. You used to have two people developing test cases every day. Now, the dev can be creating 10 tests every day, 2 integration tests, and 8 unit tests. 
 
 This part of the landscape has changed. QA engineers are seeing their old way of making a living disappear. They MUST adapt and evolve.
+
+## An engineering principle: 
+
+We need to do our best first, and then present a quality product to AI. Not give AI a huge pile of crap and hope it can figure it out.

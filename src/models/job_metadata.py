@@ -13,4 +13,6 @@ class JobMetadata:
     date_posted: Optional[str] = None
     valid_through: Optional[str] = None
 
-
+    salary: Optional[str] = None
+    salary_currency: Optional[str] = None
+    salary_interval: Optional[str] = None

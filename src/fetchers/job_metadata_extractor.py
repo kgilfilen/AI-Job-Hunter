@@ -92,6 +92,10 @@ def extract_job_metadata(
         if isinstance(company_value, str):
             company = company_value.strip() or None
 
+    salary, salary_currency, salary_interval = (
+        _extract_salary(job_posting)
+    )
+
     return JobMetadata(
         title=_clean_string(
             job_posting.get("title")
@@ -107,6 +111,9 @@ def extract_job_metadata(
         valid_through=_clean_string(
             job_posting.get("validThrough")
         ),
+        salary=salary,
+        salary_currency=salary_currency,
+        salary_interval=salary_interval,
     )
 
 
@@ -153,3 +160,101 @@ def _extract_location(
         for part in parts
         if part is not None
     ) or None
+
+def _extract_salary(
+    job_posting: Dict[str, Any],
+) -> tuple[
+    Optional[str],
+    Optional[str],
+    Optional[str],
+]:
+    """Extract salary, currency, and interval from JobPosting JSON-LD."""
+
+    base_salary = job_posting.get("baseSalary")
+
+    if not isinstance(base_salary, dict):
+        return None, None, None
+
+    currency = _clean_string(
+        base_salary.get("currency")
+    )
+
+    value = base_salary.get("value")
+
+    if isinstance(value, (int, float)):
+        return (
+            _format_number(value),
+            currency,
+            None,
+        )
+
+    if not isinstance(value, dict):
+        return None, currency, None
+
+    interval = _clean_string(
+        value.get("unitText")
+    )
+
+    minimum = value.get("minValue")
+    maximum = value.get("maxValue")
+    single_value = value.get("value")
+
+    if _is_number(minimum) and _is_number(maximum):
+        salary = (
+            f"{_format_number(minimum)}"
+            f"–{_format_number(maximum)}"
+        )
+
+        return salary, currency, interval
+
+    if _is_number(single_value):
+        return (
+            _format_number(single_value),
+            currency,
+            interval,
+        )
+
+    if _is_number(minimum):
+        return (
+            _format_number(minimum),
+            currency,
+            interval,
+        )
+
+    if _is_number(maximum):
+        return (
+            _format_number(maximum),
+            currency,
+            interval,
+        )
+
+    return None, currency, interval
+
+
+def _is_number(
+    value: object,
+) -> bool:
+    """Return whether a value is numeric but not boolean."""
+
+    return (
+        isinstance(value, (int, float))
+        and not isinstance(value, bool)
+    )
+
+
+def _format_number(
+    value: object,
+) -> str:
+    """Format an integer or decimal salary value."""
+
+    if not _is_number(value):
+        raise TypeError(
+            f"Expected numeric salary value, got {value!r}"
+        )
+
+    numeric_value = float(value)
+
+    if numeric_value.is_integer():
+        return str(int(numeric_value))
+
+    return str(numeric_value)
