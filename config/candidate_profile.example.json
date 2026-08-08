@@ -1,0 +1,108 @@
+{
+  "name": "Alex Morgan",
+  "phone": "555-010-2048",
+  "email": "alex.morgan@example.com",
+  "location": "Denver, CO",
+  "linkedin": "https://www.linkedin.com/in/alex-morgan-example",
+  "github": "https://github.com/alex-morgan-example",
+  "summary": "Software Engineering • Python • Test Automation • Distributed Systems • AI-Assisted Development\n\nSoftware engineer with extensive experience designing, building, testing, and integrating software systems across enterprise and infrastructure environments.\n\nExperienced in Python development, automated testing, distributed systems, REST APIs, Linux, CI/CD, full-stack engineering, and developer productivity. Career experience includes building reliable automation frameworks, operational tooling, integration platforms, and software that improves quality and accelerates delivery.\n\nCurrently expanding into AI-assisted software engineering through hands-on development of LLM-powered applications.\n\nInterested in Software Engineering, AI Engineering, Automation, Platform Engineering, Developer Productivity, and Machine Learning Engineering roles.",
+  "target_titles": [
+    "Software Engineer",
+    "Software Development Engineer in Test",
+    "QA Automation Engineer",
+    "Test Automation Engineer",
+    "Quality Engineer"
+  ],
+  "core_skills": [
+    "Python",
+    "pytest",
+    "Playwright",
+    "Selenium",
+    "API testing",
+    "Test automation",
+    "SQL",
+    "Statistical analysis",
+    "Workflow optimization",
+    "Reporting automation",
+    "Business requirements analysis",
+    "Dashboard development",
+    "REST APIs",
+    "Authentication",
+    "Automation engineering",
+    "Containers",
+    "Generative AI",
+    "JSON",
+    "Large language models",
+    "Prompt engineering",
+    "Software engineering",
+    "Workflow automation",
+    "Vector databases",
+    "Application security",
+    "Application infrastructure",
+    "Back-end development",
+    "CI/CD",
+    "Data APIs",
+    "Engineering best practices",
+    "Environment management",
+    "Front-end development",
+    "Full-stack web development",
+    "LLM APIs",
+    "Performance optimization",
+    "React",
+    "Scalability",
+    "Security principles",
+    "Software architecture patterns",
+    "Web application architecture"
+  ],
+  "preferred_skills": [
+    "Python",
+    "AI-assisted software development",
+    "Test automation"
+  ],
+  "industries": [
+    "Enterprise Software",
+    "Technology"
+  ],
+  "certifications": [],
+  "experience": [
+    {
+      "title": "Senior Software Engineer",
+      "company": "Example Networks",
+      "dates": "2021–2025",
+      "location": "Denver, CO",
+      "highlights": [
+        "Designed and developed automated test frameworks supporting feature, regression, performance, acceptance, and operational testing across complex software and infrastructure environments.",
+        "Built full-stack engineering tools using Python, React, and database technologies to monitor engineering systems and infrastructure.",
+        "Developed automated monitoring systems validating application availability, infrastructure health, and deployment readiness.",
+        "Designed Python automation frameworks supporting external service integration and operational validation.",
+        "Integrated automated testing into CI/CD pipelines with an emphasis on maintainability, observability, and repeatability.",
+        "Applied AI-assisted software development techniques to accelerate implementation while maintaining code quality, reviewability, and test coverage."
+      ]
+    },
+    {
+      "title": "Software Development Engineer in Test",
+      "company": "Example Medical Systems",
+      "dates": "2018–2021",
+      "location": "Boulder, CO",
+      "highlights": [
+        "Developed automated verification and validation software for complex software products.",
+        "Designed automated integration tests supporting software executing against production-like hardware and services.",
+        "Worked within engineering processes emphasizing traceability, reproducibility, and quality.",
+        "Collaborated with software, systems, hardware, and quality engineering teams."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor of Science",
+      "institution": "Example University",
+      "graduation_date": "2000",
+      "field_of_study": "Computer Information Systems",
+      "location": "Denver, CO"
+    }
+  ],
+  "remote_preference": "remote",
+  "has_security_clearance": false,
+  "willing_to_relocate": false,
+  "notes": []
+}
