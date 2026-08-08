@@ -1,36 +1,26 @@
-from urllib.parse import urlparse
+"""Fetch job-description content from web pages."""
+
 from typing import Dict, Optional
+from urllib.parse import urlparse
 
 import requests
 from bs4 import BeautifulSoup
 
 from src.fetchers.job_metadata_extractor import (
-    extract_json_ld,
     extract_job_metadata,
+    extract_json_ld,
 )
+from src.models.fetched_job_page import FetchedJobPage
 
 
-DEFAULT_TIMEOUT_SECONDS = 15
+DEFAULT_TIMEOUT_SECONDS = 30
 
 REQUEST_HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 "
-        "(Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 "
-        "(KHTML, like Gecko) "
-        "Chrome/126.0 Safari/537.36"
+        "(compatible; AI-Career-Manager/1.0)"
     )
 }
-
-
-"""Fetch job-description content from web pages."""
-
-from typing import Dict, Optional
-
-import requests
-from bs4 import BeautifulSoup
-
-from src.models.fetched_job_page import FetchedJobPage
 
 
 def _get_meta_content(
@@ -126,19 +116,14 @@ def fetch_job_description(
     validate_url(url)
 
     try:
-
         response = requests.get(
             url,
-            timeout=30,
-            headers={
-                "User-Agent": (
-                    "Mozilla/5.0 "
-                    "(compatible; AI-Career-Manager/1.0)"
-                )
-            },
+            timeout=DEFAULT_TIMEOUT_SECONDS,
+            headers=REQUEST_HEADERS,
         )
 
         response.raise_for_status()
+
     except requests.RequestException as e:
         raise RuntimeError(
             f"Failed to fetch job description: {e}"
@@ -155,16 +140,6 @@ def fetch_job_description(
     soup = BeautifulSoup(
         response.text,
         "html.parser",
-    )
-
-    for element in soup(
-        ["script", "style", "noscript"]
-    ):
-        element.decompose()
-
-    visible_text = soup.get_text(
-        separator="\n",
-        strip=True,
     )
 
     page_title = None
@@ -187,10 +162,12 @@ def fetch_job_description(
         job_metadata=job_metadata,
     )
 
+
 def validate_url(url: str) -> None:
     """
     Validate that a URL uses HTTP or HTTPS and includes a hostname.
     """
+
     parsed_url = urlparse(url)
 
     if parsed_url.scheme not in {"http", "https"}:
@@ -208,7 +185,11 @@ def extract_visible_text(html: str) -> str:
     """
     Extract readable text from an HTML document.
     """
-    soup = BeautifulSoup(html, "html.parser")
+
+    soup = BeautifulSoup(
+        html,
+        "html.parser",
+    )
 
     for element in soup(
         [
