@@ -1,86 +1,58 @@
 # AI Career Manager
 
-AI Career Manager is a Python-based application that preserves, analyzes, and manages job opportunities throughout the hiring process. It automates job acquisition, AI-assisted job analysis, resume tailoring, fit scoring, and long-term application tracking.
+AI Career Manager is an AI-assisted software engineering project that automates
+job analysis, resume tailoring, fit scoring, and long-term career management.
 
-The project began on June 22, 2026, as "AI Job Hunter" and has evolved into a persistent career management system rather than simply a resume tailoring tool.
+Rather than replacing engineering judgment, the application uses large language
+models to accelerate repetitive work while preserving software engineering
+discipline through clean architecture, automated testing, and human review.
 
-This project is not about replacing engineers, but accelerating them.
+Originally started as **AI Job Hunter** in June 2026, the project has evolved
+into a persistent career management platform rather than simply a resume
+tailoring tool.
 
-## Purpose
-Searching for jobs often involves repetitive work, much of which I HATE:
+---
 
-* Reading job descriptions
-* Identifying required skills
-* Comparing jobs against a resume
-* Tailoring resumes
-* Writing cover letters
-* Tracking applications
+# Highlights
 
-AI Job Hunter automates much of this workflow while maintaining human review and approval.
+Current capabilities include:
 
-## Features
+- AI-powered job description analysis
+- Intelligent web page extraction
+- Structured job parsing
+- Resume fit scoring
+- Resume recommendation generation
+- Tailored resume generation
+- Persistent SQLite job history
+- Duplicate detection using URL and SHA-256 hashing
+- Streamlit user interface
+- Comprehensive unit and integration testing
+- Docker-based reproducible development environment
 
-Current Features
+---
 
-* Import jobs from local files or URLs
-* Intelligent web page extraction
-* AI-powered job description parsing
-* Structured JobOpening model generation
-* Resume fit scoring
-* Resume recommendation generation
-* Tailored resume generation (Markdown)
-* Permanent SQLite job history
-* Duplicate detection using URL and SHA-256 hashing
-* Artifact generation for every imported job
-* Safe reprocessing of existing jobs
-* Comprehensive unit and integration test suite
-* Docker-based reproducible development environment
+# Purpose
 
-Planned Features
+Searching for software engineering jobs involves a surprising amount of
+repetitive work.
 
-* JSON-LD and ATS metadata extraction 
+AI Career Manager automates much of that workflow while keeping the engineer in
+control of every decision.
 
-     * Enhanced metadata extraction from modern recruiting platforms -- AI Career Manager extracts structured job information (such as company, title, employment type, and location) from recruiting platforms like Greenhouse, Lever, Workday, and other modern ATS systems to improve parsing accuracy.
-* Interview preparation assistant
-* Application status and interview tracking
-* Resume version history
-* Cover letter generation
-* Web interface
-* Machine learning ranking models
-* AI agent-assisted job search workflow
+The application assists with:
 
-## Current Status
+- Reading job descriptions
+- Extracting requirements
+- Comparing jobs against a candidate profile
+- Resume tailoring
+- Fit scoring
+- Application tracking
+- Long-term career management
 
-Completed
+---
 
-* AI parser
-* Resume fit scoring
-* Resume recommendations
-* Persistent SQLite database
-* Duplicate detection
-* URL acquisition pipeline
-* Artifact management
-* Comprehensive automated testing
-* Docker support
+# Architecture
 
-In Progress
-
-* Rich metadata extraction
-* Application workflow
-* Interview preparation
-
-Future
-
-* Web UI
-* GitHub Actions CI
-* ML-assisted recommendation engine
-### TODO:
-
-* resume tailoring
-* web interface
-* github actions
-
-## Architecture
 ```text
                 Job File
                     │
@@ -92,244 +64,240 @@ Future
                     │
           Duplicate Detection
                     │
-         Store Original Job
+        Store Original Job
              (SQLite)
                     │
           Parse Job Description
                     │
-          Structured JobOpening
+       Structured JobOpening
                     │
-          Resume Fit Analysis
+         Resume Fit Analysis
                     │
-     Resume Recommendation Engine
+    Resume Recommendation Engine
                     │
-      Tailored Resume Generator
+     Tailored Resume Generator
                     │
-        Persistent Artifacts
+      Persistent Artifacts
+                    │
+          Career History
 ```
 
-## Technology Stack
+The application intentionally separates:
 
-* Python 3.x
-* FastAPI
-* SQLite
-* OpenAI API
-* Okta Authentication
-* GitHub Actions
-* Pytest
-* Docker
+- User interface
+- Business services
+- Persistence
+- AI parsing
+- Scoring
+- Artifact generation
 
-## Persistent Job History
+This architecture keeps each module focused on a single responsibility and
+makes the system easier to test and extend.
 
-Every imported job receives a permanent database record.
+---
 
-Each job stores:
+# Technology Stack
 
-* Original job description
-* Source URL (when applicable)
-* Description hash
-* Parsed job information
-* Resume fit analysis
-* Resume recommendations
-* Artifact directory
-* Creation and update timestamps
+Current technologies:
 
-Duplicate jobs are detected using:
+- Python 3
+- SQLite
+- OpenAI API
+- Streamlit
+- BeautifulSoup
+- Pytest
+- Docker
 
-* Source URL
-* SHA-256 hash of the original job description
+Planned additions:
 
-Existing jobs may be intentionally regenerated using:
+- GitHub Actions
+- Machine-learning recommendation models
+- Additional AI agents
+- Expanded web interface
 
-```bash
-python3 -m src.main --reprocess
-```
+---
 
-## Testing
+# Real-World Validation
 
-The project is developed test-first whenever practical.
+AI Career Manager has been used throughout my own software engineering job
+search.
+
+Every job I considered was analyzed before I invested time reading the complete
+description.
+
+The application helped me:
+
+- Quickly eliminate poor-fit positions.
+- Identify strong opportunities worth pursuing.
+- Improve my candidate profile by recording legitimate skills and experience.
+- Re-analyze opportunities after profile improvements.
+- Maintain a permanent history of analyzed jobs.
+
+The result has been less time spent evaluating unsuitable positions and greater
+confidence in the jobs I choose to pursue.
+
+---
+
+# Testing
+
+The project is developed using a test-first approach whenever practical.
 
 Current automated coverage includes:
 
-* Unit tests
-* Integration tests
-* Regression tests
-* Repository tests
-* Parser tests
-* URL fetcher tests
+- Unit tests
+- Integration tests
+- Repository tests
+- Parser tests
+- URL fetcher tests
+- Regression tests
 
-Test reports are automatically generated in JUnit XML format for future CI integration.
+The application architecture intentionally separates business logic from the
+user interface, making most functionality straightforward to test.
 
-## Security
-Sensitive information is never committed to source control.
-Examples include:
+---
 
-* API keys
-* Authentication secrets
-* Production databases
-* Personal resumes
-* Real job application history
+# Repository Structure
 
-Configuration is managed through environment variables.
-
-## Docker Support
-
-The project is fully reproducible using docker. Everyone executes in an identical env, which eliminates "works on my machine".
-The AI Job Hunter can be built, tested, and executed entirely within Docker, providing a reproducible dev environment.
-
-### Build & Run
-
-```bash
-docker build -t ai-job-hunter .
-```
-
-### Run
-``` bash
-docker run --rm ai-job-hunter 
-
-docker run --rm --env-file .env ai-job-hunter 
-
-docker run --rm ai-job-hunter pytest -v
-
-docker run --rm --env-file .env ai-job-hunter pytest -v
-```
-### Complete Docker Check
-``` bash
-./scripts/docker-check.sh
-```
-
-## User Roles
-Guest
-
-* Access demo data
-* View sample job analyses
-* Explore application functionality
-
-Admin
-
-* Analyze real job descriptions
-* Generate tailored resumes
-* Generate cover letters
-* Manage application history
-
-Developer
-
-* TBD
-
-## Repository Structure
 ```text
 src/
-    artifacts/
-    database/
-    fetchers/
-    formatters/
-    models/
-    parsers/
-    resume/
-    scoring/
+    artifacts/      Artifact generation
+    database/       SQLite persistence
+    fetchers/       Job acquisition
+    formatters/     Resume and output formatting
+    models/         Domain models
+    parsers/        AI parsing
+    resume/         Resume recommendation
+    scoring/        Candidate fit scoring
+    services/       Business logic
+    ui/             Streamlit user interface
 
 tests/
-
 examples/
-
 outputs/
-
 config/
-
 docs/
 ```
 
-## Running Locally
+Each package contains engineering documentation describing:
+
+- Purpose
+- Public interface
+- Dependencies
+- Behavioral specifications
+- Invariants
+- Testing strategy
+- Future enhancements
+
+---
+
+# Running the Project
+
+Analyze example jobs:
+
 ```bash
-python -m venv venv
-
-source venv/bin/activate
-
-pip install -r requirements.txt
-
-uvicorn src.main:app --reload
+python src/main.py --examples
 ```
 
-## Running from Docker
+Analyze a local job description:
+
 ```bash
-docker run -rm --env-file .env ai-job-hunter
+python src/main.py --file example_job.txt
 ```
 
-## Future Machine Learning Integration
-This project intentionally separates business logic from scoring logic.
+Analyze a job directly from a URL:
 
-Current releases use transparent rule-based scoring.
+```bash
+python src/main.py --url https://...
+```
 
-Future releases may include:
+Launch the Streamlit interface:
 
-* Interview probability prediction
-* Resume-job similarity scoring
-* Job clustering
-* Application outcome prediction
-* Recommendation systems
+```bash
+streamlit run src/ui/streamlit_app.py
+```
 
-## Engineering Philosophy 
+---
 
-Where Do Engineers Often Go Wrong When Using AI?
+# Docker
 
-One of the biggest mistakes engineers make when using AI is allowing the AI to generate large amounts of code that they never truly understand.
+The project is fully reproducible using Docker.
 
-When I write software manually, I build a mental model of the application as it comes into existence. I know the paths through the code because I created them. I run the software frequently, add print statements, inspect variables, and watch the program execute. Over time, I develop an intuition for the system. I can often predict what the code will do before I run it because I have experienced each part of it being built.
+```bash
+docker build -t ai-career-manager .
+```
 
-And I carefully add minimal comments, because in 6 months I will have created 14 other apps, and completely forgotten about this one.
+Run the application:
 
-AI changes that process.
+```bash
+docker run --rm --env-file .env ai-career-manager
+```
 
-An engineer can ask for an entire module, class, or application and receive hundreds of lines of code in seconds. The code may be correct, but if it is accepted without inspection, testing, and observation, the engineer never develops a complete understanding of how it works. The code exists, but it is not yet part of the engineer’s mental model.
+Run the test suite:
 
-For this project, I deliberately used AI differently.
+```bash
+docker run --rm ai-career-manager pytest
+```
 
-Rather than asking AI to build the entire system, I broke the project into small pieces:
+---
 
-* Repository structure
-* Data models
-* Parsers
-* API integration
-* Authentication
-* Testing
-* User interface
+# Engineering Philosophy
 
-Each component was reviewed, modified, executed, and validated before moving to the next. I frequently run the code, inspect intermediate results, and verify that execution follows the expected path. AI helps accelerate development, but it does not replace engineering discipline.
+Large language models are excellent at understanding unstructured information.
 
-My goal is not simply to produce working software. My goal is to understand the software well enough to maintain it, extend it, debug it, and explain it to another engineer months later.
+Software engineers are responsible for architecture, validation, testing,
+maintainability, and long-term ownership.
 
-This project was created with AI assistance, but it was engineered intentionally. I know what is in the codebase because I experienced it being built.
+This project intentionally combines those strengths.
 
-## Why This Project Matters
+Rather than allowing AI to generate an application in one step, every feature
+was developed incrementally:
 
-One of the most interesting aspects of this project is not the Python code, the API integration, or the user interface. It is the ability to extract meaning from unstructured text.
+- Small architectural changes
+- Frequent execution
+- Continuous testing
+- Human review
+- Incremental refactoring
 
-Well, now it is preserving and managing knowledge throughout a job search.
+The goal is not simply to produce working software.
 
-A simple example is identifying the correct job title from a job description.
+The goal is to understand the software well enough to maintain it, extend it,
+debug it, and explain it to another engineer months later.
 
-At first glance, this appears to be a small problem. In practice, it is remarkably difficult. Job descriptions come from different companies, industries, and recruiting systems. Titles may appear multiple times, be abbreviated, be embedded in marketing language, or be surrounded by unrelated information.
+**AI should reduce repetitive work—not engineering discipline.**
 
-Historically, solving this problem required large amounts of custom software, complex parsing logic, rules engines, keyword databases, and extensive maintenance. Even then, results were often inconsistent.
+---
 
-Today, a large language model can perform this task reliably across a variety of formats. During the development of this project, five significantly different job descriptions were analyzed and the correct job title was identified in each case.
+# Future Roadmap
 
-The Python code required to make this happen is relatively small. The intelligence required to understand the text is not.
+Planned capabilities include:
 
-This project intentionally combines both capabilities:
+- Application tracking
+- Interview tracking
+- Resume version history
+- Cover letter generation
+- AI interview preparation
+- Machine-learning ranking
+- Career analytics dashboard
+- Multi-user support
 
-* Large language models provide the ability to understand and extract meaning from text.
-* Software engineering provides the structure, testing, validation, security, persistence, and user experience required to turn that capability into a useful application.
+---
 
-The goal of this project is not to demonstrate that AI can write software. The goal is to demonstrate how modern software engineering can leverage AI to solve problems that were previously expensive, complex, or impractical to automate.
+# Security
 
-As the project evolves, the focus remains the same: use AI where understanding is required, and use engineering discipline everywhere else.
+Sensitive information is never committed to source control.
 
-## Disclaimer
-This project is intended as a personal productivity and portfolio project. Generated resumes and cover letters should always be reviewed before submission.
+Examples include:
 
-## Author
-Kenny Gilfilen  
+- API keys
+- Authentication secrets
+- Personal resumes
+- Production databases
+- Real application history
+
+---
+
+# Author
+
+**Kenny Gilfilen**
+
 Colorado, USA
-
-
