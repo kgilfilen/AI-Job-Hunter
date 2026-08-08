@@ -2,6 +2,8 @@
 
 **Completion Date:** August 2026
 
+Milestone Theme: From AI Demo to Software Product
+
 ---
 
 # Overview

@@ -1,0 +1,3 @@
+Real-world validation – August 2026
+
+Used AI Career Manager to evaluate every job applied for during an active job search. By analyzing the LinkedIn job URLs and comparing them against my candidate profile, I was able to quickly eliminate poor-fit opportunities before investing time reading the full descriptions. For promising positions, I updated my profile with additional legitimate skills and experience, re-ran the analysis, and improved the fit score. This reduced time spent evaluating jobs and increased confidence in the positions I chose to pursue.
