@@ -247,3 +247,4 @@ For each significant module, the review produces:
 The objective is not exhaustive testing of every possible implementation detail.
 
 The objective is strong protection of important behavior with a fast, understandable, maintainable test suite.
+pl

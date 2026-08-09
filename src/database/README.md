@@ -52,22 +52,28 @@ SQLite
 This module defines the SQLite database configuration and initializes the
 database objects required by AI Career Manager.
 
+It provides the persistence foundation for both job analysis and application
+tracking.
+
 Its responsibilities are deliberately limited to:
 
-- defining the default database location
-- defining database schema
-- defining database indexes
-- creating database connections
-- initializing required database objects
+* defining the default database location
+* defining database schemas
+* defining database indexes
+* creating configured SQLite connections
+* enabling SQLite foreign-key enforcement
+* initializing required database objects
 
-It does not contain job-processing, duplicate-detection, parsing, scoring, or
-application workflow logic.
+It does not contain job-processing, duplicate-detection, parsing, scoring,
+application workflow, or business logic.
 
 ```text
-SQLiteJobRepository
-    ↓
+Application Services
+        ↓
+SQLite Repositories
+        ↓
 database.py
-    ↓
+        ↓
 SQLite database
 ```
 
@@ -77,11 +83,11 @@ SQLite database
 
 This module exposes:
 
-- `DATABASE_PATH`
-- `get_connection()`
-- `initialize_database()`
+* `DATABASE_PATH`
+* `get_connection()`
+* `initialize_database()`
 
-It also defines the SQL schema and indexes used to initialize the database.
+It also defines the SQL schemas and indexes used to initialize the database.
 
 ---
 
@@ -89,26 +95,40 @@ It also defines the SQL schema and indexes used to initialize the database.
 
 ### `get_connection(database_path)`
 
-- Input: optional string or `Path` identifying the SQLite database
-- Default: `data/ai_career_manager.db`
-- Output: configured `sqlite3.Connection`
-- Side effect: creates the parent directory if necessary
-- Configuration: rows are returned as `sqlite3.Row`
+* Input: optional string or `Path` identifying the SQLite database
+* Default: `data/ai_career_manager.db`
+* Output: configured `sqlite3.Connection`
+* Side effect: creates the parent directory if necessary
+* Configuration:
 
-The `sqlite3.Row` configuration allows callers to access result columns by
-column name and later convert rows into dictionaries.
+  * rows are returned as `sqlite3.Row`
+  * SQLite foreign-key enforcement is enabled
+
+The `sqlite3.Row` configuration allows repository code to access result columns
+by name.
+
+Every connection executes:
+
+```sql
+PRAGMA foreign_keys = ON
+```
+
+This ensures that declared foreign-key relationships are enforced rather than
+merely documented in the schema.
 
 ---
 
 ### `initialize_database(database_path)`
 
-- Input: optional string or `Path`
-- Output: None
-- Side effects:
-  - creates the database file when necessary
-  - creates the `jobs` table if it does not exist
-  - creates the source-URL index
-  - creates the description-hash index
+* Input: optional string or `Path`
+* Output: None
+* Side effects:
+
+  * creates the database file when necessary
+  * creates the `jobs` table if it does not exist
+  * creates the `applications` table if it does not exist
+  * creates job lookup indexes
+  * creates application workflow indexes
 
 Initialization is idempotent for the currently defined schema.
 
@@ -118,47 +138,114 @@ Initialization is idempotent for the currently defined schema.
 
 This module depends on:
 
-- `pathlib.Path`
-- `sqlite3`
-- Python path-like type definitions
+* `pathlib.Path`
+* `sqlite3`
+* Python path-like type definitions
 
 It has no dependency on:
 
-- application services
-- AI
-- parsers
-- scoring
-- candidate profiles
-- Streamlit
-- artifact generation
+* application services
+* repositories
+* AI
+* parsers
+* scoring
+* candidate profiles
+* Streamlit
+* artifact generation
 
 ---
 
 ## Database Schema
 
-The current `jobs` table stores:
+The database currently contains two primary tables:
 
-| Column | Purpose |
-|--------|---------|
-| `id` | Database-generated job identifier |
-| `source` | Origin of the job record |
-| `source_url` | URL from which the job was obtained |
-| `description_hash` | SHA-256 identity of the original description |
-| `original_description` | Untouched original job text |
-| `title` | Parsed job title |
-| `company` | Parsed employer |
-| `location` | Parsed job location |
-| `fit_score` | Candidate/job fit score |
-| `recommendation` | Fit recommendation |
-| `status` | Current application/job state |
-| `created_at` | Creation timestamp |
-| `updated_at` | Most recent update timestamp |
+```text
+jobs
+  │
+  │ 1
+  │
+  │ 0..1
+  ▼
+applications
+```
 
-The default status is:
+A job may exist without an application record.
+
+An application must reference an existing job, and the current schema allows at
+most one application record for each job.
+
+---
+
+## `jobs` Table
+
+The `jobs` table stores the persistent identity, original source material, and
+analysis results for each known job.
+
+| Column                 | Purpose                                      |
+| ---------------------- | -------------------------------------------- |
+| `id`                   | Database-generated job identifier            |
+| `source`               | Origin of the job record                     |
+| `source_url`           | URL from which the job was obtained          |
+| `description_hash`     | SHA-256 identity of the original description |
+| `original_description` | Untouched original job text                  |
+| `title`                | Parsed job title                             |
+| `company`              | Parsed employer                              |
+| `location`             | Parsed job location                          |
+| `fit_score`            | Candidate/job fit score                      |
+| `recommendation`       | Fit recommendation                           |
+| `status`               | Current job state                            |
+| `created_at`           | Creation timestamp                           |
+| `updated_at`           | Most recent update timestamp                 |
+
+The default job status is:
 
 ```text
 NEW
 ```
+
+The `jobs` table may contain opportunities that the candidate never chooses to
+pursue.
+
+---
+
+## `applications` Table
+
+The `applications` table stores candidate workflow information for jobs that
+have entered application tracking.
+
+| Column         | Purpose                                          |
+| -------------- | ------------------------------------------------ |
+| `id`           | Database-generated application identifier        |
+| `job_id`       | Associated persistent job ID                     |
+| `status`       | Current application lifecycle state              |
+| `applied_at`   | Timestamp associated with application submission |
+| `next_action`  | Next action associated with the application      |
+| `follow_up_at` | Scheduled follow-up timestamp                    |
+| `notes`        | Free-form application notes                      |
+| `created_at`   | Creation timestamp                               |
+| `updated_at`   | Most recent update timestamp                     |
+
+The default application status is:
+
+```text
+INTERESTED
+```
+
+`job_id` is both:
+
+* `NOT NULL`
+* `UNIQUE`
+
+This establishes the current one-job-to-zero-or-one-application relationship.
+
+The table also declares:
+
+```sql
+FOREIGN KEY (job_id) REFERENCES jobs(id)
+```
+
+Because every connection enables SQLite foreign-key enforcement, an application
+cannot reference a nonexistent job.
 
 ---
 
@@ -185,20 +272,64 @@ jobs.description_hash
 This supports efficient duplicate lookup using the original job-description
 hash.
 
-These indexes improve lookup performance but are not currently defined as
+These job indexes improve lookup performance but are not currently defined as
 unique constraints.
+
+---
+
+### `idx_applications_status`
+
+Indexes:
+
+```text
+applications.status
+```
+
+This supports efficient filtering of applications by lifecycle state.
+
+Examples include finding:
+
+* interested opportunities
+* submitted applications
+* interviewing applications
+* closed applications
+
+---
+
+### `idx_applications_follow_up_at`
+
+Indexes:
+
+```text
+applications.follow_up_at
+```
+
+This supports workflow queries based on upcoming or overdue follow-up activity.
+
+It provides the database foundation for higher-level queries such as:
+
+```text
+What needs my attention today?
+```
+
+The database module provides the index required for efficient lookup but does
+not itself implement that business workflow.
 
 ---
 
 ## Behavioral Specifications
 
-- The default SQLite database is stored at `data/ai_career_manager.db`.
-- Parent directories are created automatically before opening the database.
-- Returned connections use `sqlite3.Row`.
-- Database initialization may safely be called repeatedly.
-- Initialization creates required tables and indexes when absent.
-- Existing tables are not destroyed or recreated.
-- SQLite transactions are managed through connection context managers.
+* The default SQLite database is stored at `data/ai_career_manager.db`.
+* Parent directories are created automatically before opening the database.
+* Returned connections use `sqlite3.Row`.
+* Foreign-key enforcement is enabled for every connection.
+* Database initialization may safely be called repeatedly.
+* Initialization creates required tables and indexes when absent.
+* Existing tables are not destroyed or recreated.
+* Existing records are preserved during initialization.
+* SQLite transactions are managed through connection context managers.
+* Application records must reference existing job records.
+* The current schema permits at most one application record per job.
 
 ---
 
@@ -206,29 +337,95 @@ unique constraints.
 
 The module guarantees:
 
-- A configured database path can be opened without manually creating its parent directory.
-- Every initialized database contains the `jobs` table.
-- Required indexes exist after initialization.
-- Existing job data is preserved when initialization runs again.
-- Repository callers receive row objects that support named-column access.
+* A configured database path can be opened without manually creating its parent
+  directory.
+* Every initialized database contains the `jobs` table.
+* Every initialized database contains the `applications` table.
+* Required indexes exist after initialization.
+* Existing persisted data is preserved when initialization runs again.
+* Repository callers receive row objects that support named-column access.
+* SQLite foreign-key constraints are enforced on configured connections.
+* An application cannot reference a nonexistent job.
+* A job cannot have more than one application record under the current schema.
 
 ---
 
 ## Current Database Contract
 
-The persistence hierarchy currently consists of one primary table:
+The persistence hierarchy currently consists of two related domains:
 
 ```text
 SQLite Database
-    ↓
-jobs
+    │
+    ├── jobs
+    │     │
+    │     ├── original job description
+    │     ├── source identity
+    │     ├── parsed job information
+    │     └── fit analysis
+    │
+    └── applications
+          │
+          ├── application status
+          ├── application date
+          ├── next action
+          ├── follow-up date
+          └── notes
 ```
 
-The `jobs` table acts as the persistent identity and analysis record for each
-job known to the application.
+The relationship is:
 
-Future career-management tables may reference `jobs.id` as the persistent job
-identifier.
+```text
+jobs.id
+   ↓
+applications.job_id
+```
+
+`jobs` remains the persistent identity and analysis record for opportunities
+known to the application.
+
+`applications` records what the candidate is doing about selected opportunities.
+
+This distinction allows the application to analyze and retain jobs without
+requiring every job to become an active application.
+
+---
+
+## Architectural Boundary
+
+The database schema deliberately separates two concepts:
+
+```text
+JOB KNOWLEDGE
+    ↓
+jobs
+
+CANDIDATE ACTION
+    ↓
+applications
+```
+
+The `jobs` table answers questions such as:
+
+```text
+What is this job?
+Where did it come from?
+What did we learn about it?
+How well does it fit the candidate?
+```
+
+The `applications` table supports questions such as:
+
+```text
+Am I pursuing this job?
+What stage am I in?
+What should I do next?
+When should I follow up?
+```
+
+The database module defines the structures needed to persist those answers.
+
+It does not decide the answers itself.
 
 ---
 
@@ -240,14 +437,16 @@ SQLite and filesystem exceptions propagate naturally.
 
 Examples include:
 
-- filesystem permission failures
-- invalid database locations
-- SQLite operational errors
-- malformed schema statements
-- database corruption
+* filesystem permission failures
+* invalid database locations
+* SQLite operational errors
+* malformed schema statements
+* database corruption
+* foreign-key constraint violations
+* uniqueness constraint violations
 
 Higher application layers are responsible for deciding how these failures are
-presented to users.
+translated into application behavior or presented to users.
 
 ---
 
@@ -255,13 +454,18 @@ presented to users.
 
 Essential tests include:
 
-- `get_connection()` creates missing parent directories.
-- Connections use `sqlite3.Row`.
-- `initialize_database()` creates the `jobs` table.
-- Required indexes are created.
-- Initialization is idempotent.
-- Initialization does not destroy existing records.
-- A custom temporary database path works correctly.
+* `get_connection()` creates missing parent directories.
+* Connections use `sqlite3.Row`.
+* Foreign-key enforcement is enabled.
+* `initialize_database()` creates the `jobs` table.
+* `initialize_database()` creates the `applications` table.
+* Required job indexes are created.
+* Required application indexes are created.
+* Initialization is idempotent.
+* Initialization does not destroy existing records.
+* A custom temporary database path works correctly.
+* Applications cannot reference nonexistent jobs.
+* Multiple application records cannot reference the same job.
 
 ---
 
@@ -269,24 +473,41 @@ Essential tests include:
 
 Potential improvements include:
 
-- Formal schema migrations
-- Schema version tracking
-- Additional career-management tables
-- Foreign-key enforcement
-- Database-level uniqueness constraints
-- Connection configuration through application settings
-- Backup and restore tooling
+* Formal schema migrations
+* Schema version tracking
+* Additional career-management tables
+* Interview-event persistence
+* Application-history or status-history records
+* Database-level job uniqueness constraints
+* Connection configuration through application settings
+* Backup and restore tooling
+* Archival policies
+
+As the schema evolves, formal migration support will become increasingly
+important because `CREATE TABLE IF NOT EXISTS` can create new objects but does
+not modify existing table definitions.
 
 ---
 
 ## Overall Responsibility
 
-This module provides the low-level SQLite foundation for persistent application
-data.
+This module provides the low-level SQLite foundation for persistent AI Career
+Manager data.
 
-It defines **where the database lives and what fundamental database objects
-exist**, but deliberately does not define application workflows or business
-rules.
+It defines:
+
+```text
+where persistent data lives
+        +
+what fundamental database objects exist
+        +
+how their referential integrity is enforced
+```
+
+It deliberately does not define application workflows, job-analysis behavior,
+application-state transitions, or business rules.
+
+Those responsibilities belong to repository and service layers.
 
 ---
 

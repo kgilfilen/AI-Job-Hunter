@@ -16,7 +16,8 @@ class Education:
     institution: str
     graduation_date: Optional[str] = None
     field_of_study: Optional[str] = None
-
+    location: Optional[str] = None
+    
 @dataclass
 class Certification:
     name: str
@@ -50,10 +51,3 @@ class CandidateProfile:
 
     notes: List[str] = field(default_factory=list)
 
-@dataclass
-class Education:
-    degree: str
-    institution: str
-    graduation_date: Optional[str] = None
-    field_of_study: Optional[str] = None
-    location: Optional[str] = None
