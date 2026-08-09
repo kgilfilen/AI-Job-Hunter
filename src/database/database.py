@@ -9,7 +9,6 @@ DATABASE_PATH = Path("data/ai_career_manager.db")
 
 PathLike = Union[str, Path]
 
-
 JOBS_TABLE_SCHEMA = """
 CREATE TABLE IF NOT EXISTS jobs (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -34,6 +33,25 @@ CREATE TABLE IF NOT EXISTS jobs (
 )
 """
 
+APPLICATIONS_TABLE_SCHEMA = """
+CREATE TABLE IF NOT EXISTS applications (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    job_id INTEGER NOT NULL UNIQUE,
+
+    status TEXT NOT NULL DEFAULT 'INTERESTED',
+    applied_at TEXT,
+    next_action TEXT,
+    follow_up_at TEXT,
+    notes TEXT,
+
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL,
+
+    FOREIGN KEY (job_id) REFERENCES jobs(id)
+)
+"""
+
 JOBS_SOURCE_URL_INDEX = """
 CREATE INDEX IF NOT EXISTS idx_jobs_source_url
 ON jobs (source_url)
@@ -42,6 +60,16 @@ ON jobs (source_url)
 JOBS_DESCRIPTION_HASH_INDEX = """
 CREATE INDEX IF NOT EXISTS idx_jobs_description_hash
 ON jobs (description_hash)
+"""
+
+APPLICATIONS_STATUS_INDEX = """
+CREATE INDEX IF NOT EXISTS idx_applications_status
+ON applications (status)
+"""
+
+APPLICATIONS_FOLLOW_UP_INDEX = """
+CREATE INDEX IF NOT EXISTS idx_applications_follow_up_at
+ON applications (follow_up_at)
 """
 
 
@@ -55,6 +83,7 @@ def get_connection(
 
     connection = sqlite3.connect(path)
     connection.row_factory = sqlite3.Row
+    connection.execute("PRAGMA foreign_keys = ON")
 
     return connection
 
@@ -62,9 +91,13 @@ def get_connection(
 def initialize_database(
     database_path: PathLike = DATABASE_PATH,
 ) -> None:
-    """Create database tables when they do not already exist."""
+    """Create database tables and indexes when they do not already exist."""
 
     with get_connection(database_path) as connection:
         connection.execute(JOBS_TABLE_SCHEMA)
+        connection.execute(APPLICATIONS_TABLE_SCHEMA)
+
         connection.execute(JOBS_SOURCE_URL_INDEX)
         connection.execute(JOBS_DESCRIPTION_HASH_INDEX)
+        connection.execute(APPLICATIONS_STATUS_INDEX)
+        connection.execute(APPLICATIONS_FOLLOW_UP_INDEX)
