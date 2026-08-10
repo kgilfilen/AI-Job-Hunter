@@ -52,6 +52,22 @@ CREATE TABLE IF NOT EXISTS applications (
 )
 """
 
+APPLICATION_EVENTS_TABLE_SCHEMA = """
+CREATE TABLE IF NOT EXISTS application_events (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    application_id INTEGER NOT NULL,
+
+    event_type TEXT NOT NULL,
+    occurred_at TEXT NOT NULL,
+    notes TEXT,
+
+    created_at TEXT NOT NULL,
+
+    FOREIGN KEY (application_id) REFERENCES applications(id)
+)
+"""
+
 JOBS_SOURCE_URL_INDEX = """
 CREATE INDEX IF NOT EXISTS idx_jobs_source_url
 ON jobs (source_url)
@@ -72,6 +88,10 @@ CREATE INDEX IF NOT EXISTS idx_applications_follow_up_at
 ON applications (follow_up_at)
 """
 
+APPLICATION_EVENTS_APPLICATION_ID_INDEX = """
+CREATE INDEX IF NOT EXISTS idx_application_events_application_id
+ON application_events (application_id)
+"""
 
 def get_connection(
     database_path: PathLike = DATABASE_PATH,
@@ -101,3 +121,5 @@ def initialize_database(
         connection.execute(JOBS_DESCRIPTION_HASH_INDEX)
         connection.execute(APPLICATIONS_STATUS_INDEX)
         connection.execute(APPLICATIONS_FOLLOW_UP_INDEX)
+        connection.execute(APPLICATION_EVENTS_TABLE_SCHEMA)
+        connection.execute(APPLICATION_EVENTS_APPLICATION_ID_INDEX)

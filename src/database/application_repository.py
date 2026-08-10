@@ -4,6 +4,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional, Union
 
+import sqlite3
+
 from src.database.database import (
     DATABASE_PATH,
     get_connection,
@@ -91,12 +93,19 @@ class SQLiteApplicationRepository:
     def get_application(
         self,
         application_id: int,
+        *,
+        connection: Optional[sqlite3.Connection] = None,
     ) -> Optional[Application]:
         """Return one application record, or None if it does not exist."""
 
         _validate_application_id(application_id)
 
-        with get_connection(self.database_path) as connection:
+        owns_connection = connection is None
+
+        if connection is None:
+            connection = get_connection(self.database_path)
+
+        try:
             row = connection.execute(
                 """
                 SELECT
@@ -114,6 +123,9 @@ class SQLiteApplicationRepository:
                 """,
                 (application_id,),
             ).fetchone()
+        finally:
+            if owns_connection:
+                connection.close()
 
         if row is None:
             return None
@@ -161,51 +173,60 @@ class SQLiteApplicationRepository:
         next_action: object = _UNSET,
         follow_up_at: object = _UNSET,
         notes: object = _UNSET,
+        connection: Optional[sqlite3.Connection] = None,
     ) -> Application:
         """Update selected application-tracking fields."""
 
         _validate_application_id(application_id)
 
-        existing = self.get_application(application_id)
+        owns_connection = connection is None
 
-        if existing is None:
-            raise ValueError(
-                f"Application ID does not exist: {application_id}"
+        if connection is None:
+            connection = get_connection(self.database_path)
+
+        try:
+            existing = self.get_application(
+                application_id,
+                connection=connection,
             )
 
-        updated_status = (
-            status
-            if status is not None
-            else existing.status
-        )
+            if existing is None:
+                raise ValueError(
+                    f"Application ID does not exist: {application_id}"
+                )
 
-        updated_applied_at = (
-            existing.applied_at
-            if applied_at is _UNSET
-            else applied_at
-        )
+            updated_status = (
+                status
+                if status is not None
+                else existing.status
+            )
 
-        updated_next_action = (
-            existing.next_action
-            if next_action is _UNSET
-            else next_action
-        )
+            updated_applied_at = (
+                existing.applied_at
+                if applied_at is _UNSET
+                else applied_at
+            )
 
-        updated_follow_up_at = (
-            existing.follow_up_at
-            if follow_up_at is _UNSET
-            else follow_up_at
-        )
+            updated_next_action = (
+                existing.next_action
+                if next_action is _UNSET
+                else next_action
+            )
 
-        updated_notes = (
-            existing.notes
-            if notes is _UNSET
-            else notes
-        )
+            updated_follow_up_at = (
+                existing.follow_up_at
+                if follow_up_at is _UNSET
+                else follow_up_at
+            )
 
-        timestamp = datetime.now(timezone.utc).isoformat()
+            updated_notes = (
+                existing.notes
+                if notes is _UNSET
+                else notes
+            )
 
-        with get_connection(self.database_path) as connection:
+            timestamp = datetime.now(timezone.utc).isoformat()
+
             connection.execute(
                 """
                 UPDATE applications
@@ -229,14 +250,27 @@ class SQLiteApplicationRepository:
                 ),
             )
 
-        updated = self.get_application(application_id)
-
-        if updated is None:
-            raise RuntimeError(
-                "Application was updated but could not be retrieved"
+            updated = self.get_application(
+                application_id,
+                connection=connection,
             )
 
-        return updated
+            if updated is None:
+                raise RuntimeError(
+                    "Application was updated but could not be retrieved"
+                )
+
+            if owns_connection:
+                connection.commit()
+
+            return updated
+        except Exception:
+            if owns_connection:
+                connection.rollback()
+            raise
+        finally:
+            if owns_connection:
+                connection.close()
 
     @staticmethod
     def _row_to_application(
