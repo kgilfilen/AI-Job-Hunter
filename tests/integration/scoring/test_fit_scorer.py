@@ -37,34 +37,30 @@ profile = CandidateProfile(
     willing_to_relocate=False,
 )
 
+JOB_OPENING = parse_job_opening_file(
+    Path(TEST_JOB_DATA + "sdet_topstep.txt")
+)
+
+
 # Remember that the score is stored on job_desc_fit.txt data, NOT in the job_description
 # Test that score is between 0 and 100
 def test_job_opening_score():
 
-    job_opening = parse_job_opening_file(
-        Path(TEST_JOB_DATA + "sdet_topstep.txt")
-    )
-    fit_analysis = score_job(job_opening, profile)
+    fit_analysis = score_job(JOB_OPENING, profile)
 
-    assert isinstance(job_opening, JobOpening)
+    assert isinstance(JOB_OPENING, JobOpening)
     assert 0 <= fit_analysis.overall_score <= 100
 
 def test_job_opening_does_not_require_security_clearance():
 
-    job_opening = parse_job_opening_file(
-        Path(TEST_JOB_DATA + "sdet_topstep.txt")
-    )
 
-    assert isinstance(job_opening, JobOpening)
-    assert job_opening.security_clearance_required is False
+    assert isinstance(JOB_OPENING, JobOpening)
+    assert JOB_OPENING.security_clearance_required is False
 
 def test_job_with_many_missing_required_skills_is_not_perfect_match():
 
-    job_opening = parse_job_opening_file(
-        Path(TEST_JOB_DATA + "sdet_topstep.txt")
-    )
     fit_analysis = score_job(
-        job_opening,
+        JOB_OPENING,
         profile,
     )
 
@@ -74,24 +70,18 @@ def test_job_with_many_missing_required_skills_is_not_perfect_match():
 # Test that target title match raises score
 def test_job_opening_target_title():
 
-    job_opening = parse_job_opening_file(
-        Path(TEST_JOB_DATA + "sdet_topstep.txt")
-    )
-    fit_analysis = score_job(job_opening, profile)
+    fit_analysis = score_job(JOB_OPENING, profile)
 
-    assert isinstance(job_opening, JobOpening)
-    assert job_opening.title in profile.target_titles
+    assert isinstance(JOB_OPENING, JobOpening)
+    assert JOB_OPENING .title in profile.target_titles
     assert fit_analysis.overall_score > 0
 
 # Test that recommendation is Apply / Consider / Pass
 def test_job_opening_recommendation():
 
-    job_opening = parse_job_opening_file(
-        Path(TEST_JOB_DATA + "sdet_topstep.txt")
-    )
-    fit_analysis = score_job(job_opening, profile)
+    fit_analysis = score_job(JOB_OPENING, profile)
 
-    assert isinstance(job_opening, JobOpening)
-    assert job_opening.title is not None
-    assert len(job_opening.title.strip()) > 0
+    assert isinstance(JOB_OPENING, JobOpening)
+    assert JOB_OPENING.title is not None
+    assert len(JOB_OPENING.title.strip()) > 0
     assert fit_analysis.recommendation in VALID_RECOMMENDATIONS

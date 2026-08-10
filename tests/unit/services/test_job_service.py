@@ -210,11 +210,6 @@ def test_analyze_url_builds_job_input(
         reprocess=True,
     )
 
-from unittest.mock import Mock, patch
-
-from src.database.save_job_result import SaveJobResult
-from src.services.job_service import JobService
-
 
 @patch("src.services.job_service.parse_job_opening")
 @patch("src.services.job_service.write_original_job_artifact")

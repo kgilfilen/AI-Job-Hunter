@@ -88,20 +88,3 @@ def test_parse_job_opening_file_loads_text_and_calls_parser(tmp_path):
         job_text="Senior QA Engineer\nPython\nPlaywright\n",
         source_file="sample_job.txt",
     )
-
-'''def test_job_opening_serialization_includes_company() -> None:
-    job = JobOpening(
-        source_file="applied_systems_sdet.txt",
-        title="Software Development Engineer in Test",
-        company="Applied Systems",
-        location="Remote",
-        remote_status="REMOTE",
-        employment_type="FULL_TIME",
-        security_clearance_required=False,
-        security_clearance_level=None,
-        # Supply other required constructor fields.
-    )
-
-    result = job.to_dict()
-
-    assert result["company"] == "Applied Systems"'''

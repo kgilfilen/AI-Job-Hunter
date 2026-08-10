@@ -171,3 +171,176 @@ def test_skill_match_increases_score():
     strong_score = score_job(strong_job, profile).overall_score
 
     assert strong_score > weak_score
+
+
+def _boundary_profile(
+    *,
+    target_titles=None,
+    core_skills=None,
+    remote_preference=None,
+) -> CandidateProfile:
+    """Build a minimal candidate profile for score-boundary tests."""
+    return CandidateProfile(
+        name="Boundary Test Candidate",
+        target_titles=target_titles or [],
+        core_skills=core_skills or [],
+        remote_preference=remote_preference,
+    )
+
+
+def _boundary_job(
+    *,
+    title="Unrelated Role",
+    remote_status=None,
+    required_skills=None,
+    preferred_skills=None,
+) -> JobOpening:
+    """Build a minimal job opening for score-boundary tests."""
+    return JobOpening(
+        source_file="boundary_test_job.txt",
+        title=title,
+        company="Example Company",
+        location="Denver, CO",
+        remote_status=remote_status,
+        employment_type="full-time",
+        security_clearance_required=False,
+        security_clearance_level=None,
+        required_skills=required_skills or [],
+        preferred_skills=preferred_skills or [],
+        responsibilities=[],
+        salary_range=None,
+        notes=[],
+        parser_metadata={},
+    )
+
+
+def test_recommendation_boundary_59_is_pass():
+    """A score immediately below 60 should produce PASS."""
+    matched = [f"Skill {index}" for index in range(5)]
+    missing = [f"Skill {index}" for index in range(5, 7)]
+
+    profile = _boundary_profile(
+        core_skills=matched,
+    )
+    job = _boundary_job(
+        required_skills=matched + missing,
+    )
+
+    analysis = score_job(job, profile)
+
+    assert analysis.overall_score == 59
+    assert analysis.recommendation == Recommendation.PASS
+
+
+def test_recommendation_boundary_60_is_consider():
+    """A score of exactly 60 should produce CONSIDER."""
+    profile = _boundary_profile(
+        remote_preference="remote",
+    )
+    job = _boundary_job(
+        remote_status="remote",
+    )
+
+    analysis = score_job(job, profile)
+
+    assert analysis.overall_score == 60
+    assert analysis.recommendation == Recommendation.CONSIDER
+
+
+def test_recommendation_boundary_79_is_consider():
+    """A score immediately below 80 should remain CONSIDER."""
+    matched = [f"Skill {index}" for index in range(6)]
+    missing = ["Skill 6"]
+
+    profile = _boundary_profile(
+        target_titles=["SDET"],
+        core_skills=matched,
+    )
+    job = _boundary_job(
+        title="Senior SDET",
+        required_skills=matched + missing,
+    )
+
+    analysis = score_job(job, profile)
+
+    assert analysis.overall_score == 79
+    assert analysis.recommendation == Recommendation.CONSIDER
+
+
+def test_recommendation_boundary_80_is_apply():
+    """A score of exactly 80 should produce APPLY."""
+    required_skills = ["Python", "pytest"]
+
+    profile = _boundary_profile(
+        core_skills=required_skills,
+        remote_preference="remote",
+    )
+    job = _boundary_job(
+        remote_status="remote",
+        required_skills=required_skills,
+    )
+
+    analysis = score_job(job, profile)
+
+    assert analysis.overall_score == 80
+    assert analysis.recommendation == Recommendation.APPLY
+
+
+def test_preferred_skills_add_two_points_each():
+    """Each matched preferred skill should add two points."""
+    profile = _boundary_profile(
+        core_skills=["Docker", "AWS"],
+    )
+
+    no_preferred_job = _boundary_job()
+    preferred_job = _boundary_job(
+        preferred_skills=["Docker", "AWS"],
+    )
+
+    baseline = score_job(
+        no_preferred_job,
+        profile,
+    ).overall_score
+
+    with_preferred = score_job(
+        preferred_job,
+        profile,
+    ).overall_score
+
+    assert with_preferred == baseline + 4
+
+
+def test_preferred_skill_bonus_is_capped_at_ten():
+    """More than five preferred-skill matches should not exceed +10."""
+    skills = [
+        "Docker",
+        "AWS",
+        "Azure",
+        "Playwright",
+        "Selenium",
+        "pytest",
+    ]
+
+    profile = _boundary_profile(
+        core_skills=skills,
+    )
+
+    five_skill_job = _boundary_job(
+        preferred_skills=skills[:5],
+    )
+    six_skill_job = _boundary_job(
+        preferred_skills=skills,
+    )
+
+    five_skill_score = score_job(
+        five_skill_job,
+        profile,
+    ).overall_score
+
+    six_skill_score = score_job(
+        six_skill_job,
+        profile,
+    ).overall_score
+
+    assert five_skill_score == 60
+    assert six_skill_score == 60
