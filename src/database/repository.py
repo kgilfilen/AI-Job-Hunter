@@ -144,6 +144,38 @@ class SQLiteJobRepository:
 
         return dict(row)
 
+    def list_jobs(
+        self,
+    ) -> list[Dict[str, object]]:
+        """Return all stored jobs, newest first."""
+
+        with get_connection(self.database_path) as connection:
+            rows = connection.execute(
+                """
+                SELECT
+                    id,
+                    source,
+                    source_url,
+                    description_hash,
+                    original_description,
+                    title,
+                    company,
+                    location,
+                    fit_score,
+                    recommendation,
+                    status,
+                    created_at,
+                    updated_at
+                FROM jobs
+                ORDER BY created_at DESC, id DESC
+                """
+            ).fetchall()
+
+        return [
+            dict(row)
+            for row in rows
+        ]
+
     def update_parsed_job(
         self,
         job_id: int,

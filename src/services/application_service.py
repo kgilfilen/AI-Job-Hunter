@@ -13,6 +13,7 @@ from src.models.application import Application
 from src.models.application_status import ApplicationStatus
 from src.constants import ApplicationEventType
 from src.models.application_event import ApplicationEvent
+from src.database.database import get_connection
 
 class ApplicationService:
     """Coordinate application state and application history."""
@@ -37,20 +38,109 @@ class ApplicationService:
         if applied_at is None:
             applied_at = datetime.now(timezone.utc).isoformat()
 
-        application = self.application_repository.update_application(
+        with get_connection(
+            self.application_repository.database_path
+        ) as connection:
+            application = (
+                self.application_repository.update_application(
+                    application_id,
+                    status=ApplicationStatus.APPLIED,
+                    applied_at=applied_at,
+                    connection=connection,
+                )
+            )
+
+            self.event_repository.create_event(
+                application_id,
+                ApplicationEventType.APPLICATION_SUBMITTED.value,
+                occurred_at=applied_at,
+                notes=notes,
+                connection=connection,
+            )
+
+        return application
+
+    def mark_interviewing(
+        self,
+        application_id: int,
+    ) -> Application:
+        """Mark an application as being in the interview process."""
+
+        return self.application_repository.update_application(
             application_id,
-            status=ApplicationStatus.APPLIED,
-            applied_at=applied_at,
+            status=ApplicationStatus.INTERVIEWING,
         )
 
-        self.event_repository.create_event(
-            application_id,
-            ApplicationEventType.APPLICATION_SUBMITTED.value,
-            occurred_at=applied_at,
+
+    def mark_offer(
+        self,
+        application_id: int,
+        *,
+        occurred_at: Optional[str] = None,
+        notes: Optional[str] = None,
+    ) -> Application:
+        """Mark an application as having received an offer."""
+
+        return self._update_status_with_event(
+            application_id=application_id,
+            status=ApplicationStatus.OFFER,
+            event_type=ApplicationEventType.OFFER_RECEIVED,
+            occurred_at=occurred_at,
             notes=notes,
         )
 
-        return application
+
+    def mark_rejected(
+        self,
+        application_id: int,
+        *,
+        occurred_at: Optional[str] = None,
+        notes: Optional[str] = None,
+    ) -> Application:
+        """Mark an application as rejected."""
+
+        return self._update_status_with_event(
+            application_id=application_id,
+            status=ApplicationStatus.REJECTED,
+            event_type=ApplicationEventType.REJECTED,
+            occurred_at=occurred_at,
+            notes=notes,
+        )
+
+
+    def mark_withdrawn(
+        self,
+        application_id: int,
+        *,
+        occurred_at: Optional[str] = None,
+        notes: Optional[str] = None,
+    ) -> Application:
+        """Mark an application as withdrawn."""
+
+        return self._update_status_with_event(
+            application_id=application_id,
+            status=ApplicationStatus.WITHDRAWN,
+            event_type=ApplicationEventType.WITHDRAWN,
+            occurred_at=occurred_at,
+            notes=notes,
+        )
+
+    def mark_closed(
+        self,
+        application_id: int,
+        *,
+        occurred_at: Optional[str] = None,
+        notes: Optional[str] = None,
+    ) -> Application:
+        """Close an application that is no longer active."""
+
+        return self._update_status_with_event(
+            application_id=application_id,
+            status=ApplicationStatus.CLOSED,
+            event_type=ApplicationEventType.CLOSED,
+            occurred_at=occurred_at,
+            notes=notes,
+        )
 
     def record_activity(
         self,
@@ -126,3 +216,37 @@ class ApplicationService:
             if application.status in active_statuses
         ]
 
+    def _update_status_with_event(
+        self,
+        application_id: int,
+        status: ApplicationStatus,
+        event_type: ApplicationEventType,
+        *,
+        occurred_at: Optional[str] = None,
+        notes: Optional[str] = None,
+    ) -> Application:
+        """Update application state and record its history atomically."""
+
+        if occurred_at is None:
+            occurred_at = datetime.now(timezone.utc).isoformat()
+
+        with get_connection(
+            self.application_repository.database_path
+        ) as connection:
+            application = (
+                self.application_repository.update_application(
+                    application_id,
+                    status=status,
+                    connection=connection,
+                )
+            )
+
+            self.event_repository.create_event(
+                application_id,
+                event_type.value,
+                occurred_at=occurred_at,
+                notes=notes,
+                connection=connection,
+            )
+
+        return application

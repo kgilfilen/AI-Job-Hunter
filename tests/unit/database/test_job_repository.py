@@ -205,3 +205,25 @@ def test_blank_source_url_is_stored_as_none(
     assert stored is not None
     assert stored["source_url"] is None
 
+def test_list_jobs_returns_empty_list(repository) -> None:
+    jobs = repository.list_jobs()
+
+    assert jobs == []
+
+
+def test_list_jobs_returns_newest_jobs_first(repository) -> None:
+    first = repository.save_original_job(
+        original_description="First job description.",
+        source="manual",
+    )
+
+    second = repository.save_original_job(
+        original_description="Second job description.",
+        source="manual",
+    )
+
+    jobs = repository.list_jobs()
+
+    assert len(jobs) == 2
+    assert jobs[0]["id"] == second.job_id
+    assert jobs[1]["id"] == first.job_id

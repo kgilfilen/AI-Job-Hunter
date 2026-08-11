@@ -222,3 +222,97 @@ def test_get_applications_needing_attention_includes_offer(
 
     assert len(applications) == 1
     assert applications[0].status == ApplicationStatus.OFFER
+
+def test_mark_interviewing_updates_application_status(
+    service,
+    application_repository,
+    application_id,
+):
+    service.mark_interviewing(application_id)
+
+    application = application_repository.get_application(
+        application_id
+    )
+
+    assert application.status == ApplicationStatus.INTERVIEWING
+
+
+def test_mark_offer_updates_status_and_records_event(
+    service,
+    application_repository,
+    event_repository,
+    application_id,
+):
+    service.mark_offer(
+        application_id,
+        occurred_at="2026-08-11T14:00:00+00:00",
+        notes="Offer received by email.",
+    )
+
+    application = application_repository.get_application(
+        application_id
+    )
+    events = event_repository.list_events(application_id)
+
+    assert application.status == ApplicationStatus.OFFER
+    assert len(events) == 1
+    assert events[0].event_type == ApplicationEventType.OFFER_RECEIVED.value
+    assert events[0].notes == "Offer received by email."
+
+
+def test_mark_rejected_updates_status_and_records_event(
+    service,
+    application_repository,
+    event_repository,
+    application_id,
+):
+    service.mark_rejected(application_id)
+
+    application = application_repository.get_application(
+        application_id
+    )
+    events = event_repository.list_events(application_id)
+
+    assert application.status == ApplicationStatus.REJECTED
+    assert len(events) == 1
+    assert events[0].event_type == ApplicationEventType.REJECTED.value
+
+
+def test_mark_withdrawn_updates_status_and_records_event(
+    service,
+    application_repository,
+    event_repository,
+    application_id,
+):
+    service.mark_withdrawn(application_id)
+
+    application = application_repository.get_application(
+        application_id
+    )
+    events = event_repository.list_events(application_id)
+
+    assert application.status == ApplicationStatus.WITHDRAWN
+    assert len(events) == 1
+    assert events[0].event_type == ApplicationEventType.WITHDRAWN.value
+
+def test_mark_closed_updates_status_and_records_event(
+    service,
+    application_repository,
+    event_repository,
+    application_id,
+):
+    service.mark_closed(
+        application_id,
+        occurred_at="2026-08-11T15:00:00+00:00",
+        notes="Hiring process ended.",
+    )
+
+    application = application_repository.get_application(
+        application_id
+    )
+    events = event_repository.list_events(application_id)
+
+    assert application.status == ApplicationStatus.CLOSED
+    assert len(events) == 1
+    assert events[0].event_type == ApplicationEventType.CLOSED.value
+    assert events[0].notes == "Hiring process ended."

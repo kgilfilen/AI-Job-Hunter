@@ -1,6 +1,5 @@
 from pathlib import Path
-from datetime import datetime, timedelta, timezone
-
+from datetime import datetime, time, timedelta, timezone
 import streamlit as st
 
 from src.database.repository import SQLiteJobRepository
@@ -574,6 +573,264 @@ else:
 
         st.success("Application activity recorded.")
         st.rerun()
+
+# =========================================================
+# JOB HISTORY
+# =========================================================
+
+st.divider()
+
+st.header("Job History")
+
+action_message = st.session_state.pop(
+    "application_action_message",
+    None,
+)
+
+if action_message:
+    st.success(action_message)
+    
+stored_jobs = repository.list_jobs()
+
+if not stored_jobs:
+    st.info("No analyzed jobs are stored yet.")
+
+else:
+    job_labels = {}
+
+    for job in stored_jobs:
+        title = job.get("title") or f"Job {job['id']}"
+        company = job.get("company")
+
+        if company:
+            label = f"{title} — {company}"
+        else:
+            label = title
+
+        job_labels[job["id"]] = label
+
+    selected_job_id = st.selectbox(
+        "Select a job",
+        options=list(job_labels.keys()),
+        format_func=lambda job_id: job_labels[job_id],
+        key="job_history_selection",
+    )
+
+    selected_job = repository.get_job(selected_job_id)
+
+    if selected_job is not None:
+        title = (
+            selected_job.get("title")
+            or f"Job {selected_job['id']}"
+        )
+
+        st.subheader(title)
+
+        if selected_job.get("company"):
+            st.write(
+                f"**Company:** {selected_job['company']}"
+            )
+
+        if selected_job.get("location"):
+            st.write(
+                f"**Location:** {selected_job['location']}"
+            )
+
+        if selected_job.get("fit_score") is not None:
+            st.write(
+                f"**Fit score:** {selected_job['fit_score']}"
+            )
+
+        if selected_job.get("recommendation"):
+            st.write(
+                "**Recommendation:** "
+                f"{selected_job['recommendation']}"
+            )
+
+        application = application_repository.get_by_job_id(
+            selected_job_id
+        )
+
+        if application is not None:
+            st.write(
+                "**Application status:** "
+                f"{application.status.value}"
+            )
+
+    application = application_repository.get_by_job_id(
+        selected_job_id
+    )
+
+    if application is None:
+        if st.button(
+            "Track Application",
+            key=f"history_track_{selected_job_id}",
+        ):
+            try:
+                application_repository.create_application(
+                    selected_job_id
+                )
+
+                st.success(
+                    "Application tracking started."
+                )
+
+                st.rerun()
+
+            except Exception as exc:
+                st.error(
+                    f"Unable to track application: {exc}"
+                )
+
+    else:
+        st.write(
+            "**Application status:** "
+            f"{application.status.value}"
+        )
+
+        if application.status == ApplicationStatus.INTERESTED:
+            if st.button(
+                "Mark as Applied",
+                key=f"history_mark_applied_{application.id}",
+            ):
+                application_service.mark_applied(application.id)
+                st.rerun()
+
+        elif application.status == ApplicationStatus.APPLIED:
+            if st.button(
+                "Start Interviewing",
+                key=f"history_interviewing_{application.id}",
+            ):
+                application_service.mark_interviewing(
+                    application.id
+                )
+                st.rerun()
+
+        elif application.status == ApplicationStatus.INTERVIEWING:
+            if st.button(
+                "Offer Received",
+                key=f"history_offer_{application.id}",
+            ):
+                application_service.mark_offer(
+                    application.id
+                )
+                st.rerun()
+
+        terminal_statuses = {
+            ApplicationStatus.REJECTED,
+            ApplicationStatus.WITHDRAWN,
+            ApplicationStatus.CLOSED,
+        }
+
+        if application.status not in terminal_statuses:
+            st.markdown("### End Application")
+
+            rejected_notes = st.text_input(
+                "Rejection notes",
+                placeholder=(
+                    "Example: Received email saying they are "
+                    "moving forward with other candidates."
+                ),
+                key=f"rejected_notes_{application.id}",
+            )
+
+            if st.button(
+                "Rejected",
+                key=f"history_rejected_{application.id}",
+            ):
+                application_service.mark_rejected(
+                    application.id,
+                    notes=rejected_notes.strip() or None,
+                )
+
+                st.session_state["application_action_message"] = (
+                    "Application marked as rejected."
+                )
+
+                st.rerun()
+
+            withdrawn_notes = st.text_input(
+                "Withdrawal notes",
+                placeholder=(
+                    "Example: Withdrew after accepting another opportunity."
+                ),
+                key=f"withdrawn_notes_{application.id}",
+            )
+
+            if st.button(
+                "Withdraw",
+                key=f"history_withdrawn_{application.id}",
+            ):
+                application_service.mark_withdrawn(
+                    application.id,
+                    notes=withdrawn_notes.strip() or None,
+                )
+
+                st.session_state["application_action_message"] = (
+                    "Application withdrawn."
+                )
+
+                st.rerun()
+
+            close_notes = st.text_input(
+                "Close reason / notes",
+                placeholder=(
+                    "Example: Received email saying they are "
+                    "moving on to other applicants."
+                ),
+                key=f"close_notes_{application.id}",
+            )
+
+            if st.button(
+                "Close Application",
+                key=f"history_closed_{application.id}",
+            ):
+                application_service.mark_closed(
+                    application.id,
+                    notes=close_notes.strip() or None,
+                )
+
+                st.session_state["application_action_message"] = (
+                    "Application closed."
+                )
+
+                st.rerun()
+
+        st.markdown("### Follow-up")
+
+        next_action = st.text_input(
+            "Next action",
+            value=application.next_action or "",
+            placeholder="Follow up if I haven't heard back",
+            key=f"next_action_{application.id}",
+        )
+
+        follow_up_date = st.date_input(
+            "Follow-up date",
+            value=None,
+            key=f"follow_up_date_{application.id}",
+        )
+
+        if st.button(
+            "Save Follow-up",
+            key=f"save_follow_up_{application.id}",
+        ):
+            follow_up_at = None
+
+            if follow_up_date is not None:
+                follow_up_at = datetime.combine(
+                    follow_up_date,
+                    time(hour=9),
+                ).astimezone().isoformat()
+
+            application_repository.update_application(
+                application.id,
+                next_action=next_action.strip() or None,
+                follow_up_at=follow_up_at,
+            )
+
+            st.success("Follow-up saved.")
+            st.rerun()
 
 # =========================================================
 # CANDIDATE PROFILE

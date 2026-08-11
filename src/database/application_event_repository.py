@@ -2,6 +2,7 @@
 
 from datetime import datetime, timezone
 from pathlib import Path
+import sqlite3
 from typing import Optional, Union
 
 from src.database.database import DATABASE_PATH, get_connection
@@ -34,7 +35,9 @@ class SQLiteApplicationEventRepository:
         event_type: str,
         *,
         occurred_at: Optional[str] = None,
-        notes: Optional[str] = None,    ) -> ApplicationEvent:
+        notes: Optional[str] = None,
+        connection: Optional[sqlite3.Connection] = None,
+    ) -> ApplicationEvent:
         """Record an event for an application."""
 
         _validate_application_id(application_id)
@@ -49,7 +52,12 @@ class SQLiteApplicationEventRepository:
         if occurred_at is None:
             occurred_at = timestamp
 
-        with get_connection(self.database_path) as connection:
+        owns_connection = connection is None
+
+        if connection is None:
+            connection = get_connection(self.database_path)
+
+        try:
             cursor = connection.execute(
                 """
                 INSERT INTO application_events (
@@ -72,19 +80,31 @@ class SQLiteApplicationEventRepository:
 
             event_id = cursor.lastrowid
 
-        if event_id is None:
-            raise RuntimeError(
-                "SQLite did not return an ID for the application event"
+            if event_id is None:
+                raise RuntimeError(
+                    "SQLite did not return an ID for the application event"
+                )
+
+            if owns_connection:
+                connection.commit()
+
+            return ApplicationEvent(
+                id=event_id,
+                application_id=application_id,
+                event_type=event_type,
+                occurred_at=occurred_at,
+                notes=notes,
+                created_at=timestamp,
             )
 
-        return ApplicationEvent(
-            id=event_id,
-            application_id=application_id,
-            event_type=event_type,
-            occurred_at=occurred_at,
-            notes=notes,
-            created_at=timestamp,
-        )
+        except Exception:
+            if owns_connection:
+                connection.rollback()
+            raise
+
+        finally:
+            if owns_connection:
+                connection.close()
 
     def list_events(
         self,

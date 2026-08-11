@@ -20,4 +20,8 @@ class ApplicationEventType(Enum):
     THANK_YOU_SENT = "Thank-you sent"
     REJECTED = "Rejected"
     OFFER_RECEIVED = "Offer received"
+    OFFER_ACCEPTED = "Offer accepted"
+    OFFER_DECLINED = "Offer declined"
+    HIRED = "Hired"
+    CLOSED = "Application closed"
     WITHDRAWN = "Withdrawn"
