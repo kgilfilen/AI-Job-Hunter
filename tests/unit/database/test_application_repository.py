@@ -243,3 +243,111 @@ def test_invalid_job_id_rejected(
         match="job_id must be greater than zero",
     ):
         repository.create_application(job_id)
+
+def test_list_follow_ups_due_returns_overdue_application(
+    repository,
+    job_id,
+):
+    application = repository.create_application(job_id)
+
+    repository.update_application(
+        application.id,
+        follow_up_at="2026-08-10T12:00:00+00:00",
+    )
+
+    results = repository.list_follow_ups_due(
+        "2026-08-11T12:00:00+00:00"
+    )
+
+    assert len(results) == 1
+    assert results[0].id == application.id
+
+
+def test_list_follow_ups_due_includes_exact_due_time(
+    repository,
+    job_id,
+):
+    application = repository.create_application(job_id)
+
+    repository.update_application(
+        application.id,
+        follow_up_at="2026-08-10T12:00:00+00:00",
+    )
+
+    results = repository.list_follow_ups_due(
+        "2026-08-10T12:00:00+00:00"
+    )
+
+    assert len(results) == 1
+    assert results[0].id == application.id
+
+
+def test_list_follow_ups_due_excludes_future_application(
+    repository,
+    job_id,
+):
+    application = repository.create_application(job_id)
+
+    repository.update_application(
+        application.id,
+        follow_up_at="2026-08-12T12:00:00+00:00",
+    )
+
+    results = repository.list_follow_ups_due(
+        "2026-08-11T12:00:00+00:00"
+    )
+
+    assert results == []
+
+
+def test_list_follow_ups_due_excludes_application_without_follow_up(
+    repository,
+    job_id,
+):
+    repository.create_application(job_id)
+
+    results = repository.list_follow_ups_due(
+        "2026-08-11T12:00:00+00:00"
+    )
+
+    assert results == []
+
+def test_list_applications_returns_empty_list(
+    repository,
+):
+    applications = repository.list_applications()
+
+    assert applications == []
+
+
+def test_list_applications_returns_saved_applications(
+    repository,
+    database_path,
+):
+    job_repository = SQLiteJobRepository(database_path)
+
+    first_job = job_repository.save_original_job(
+        original_description="First job description",
+        source="test",
+        source_url="https://example.com/jobs/1",
+    )
+
+    second_job = job_repository.save_original_job(
+        original_description="Second job description",
+        source="test",
+        source_url="https://example.com/jobs/2",
+    )
+
+    first_application = repository.create_application(
+        first_job.job_id
+    )
+
+    second_application = repository.create_application(
+        second_job.job_id
+    )
+
+    applications = repository.list_applications()
+
+    assert len(applications) == 2
+    assert applications[0].id == second_application.id
+    assert applications[1].id == first_application.id

@@ -167,3 +167,58 @@ def test_get_activity_for_date(
         events[0].event_type
         == ApplicationEventType.APPLICATION_SUBMITTED.value
     )
+
+def test_get_applications_needing_attention_includes_active_due_application(
+    service,
+    application_repository,
+    application_id,
+):
+    application_repository.update_application(
+        application_id,
+        status=ApplicationStatus.INTERVIEWING,
+        follow_up_at="2026-08-10T12:00:00+00:00",
+    )
+
+    applications = service.get_applications_needing_attention(
+        "2026-08-10T12:00:00+00:00"
+    )
+
+    assert len(applications) == 1
+    assert applications[0].id == application_id
+    assert applications[0].status == ApplicationStatus.INTERVIEWING
+
+
+def test_get_applications_needing_attention_excludes_rejected_application(
+    service,
+    application_repository,
+    application_id,
+):
+    application_repository.update_application(
+        application_id,
+        status=ApplicationStatus.REJECTED,
+        follow_up_at="2026-08-10T12:00:00+00:00",
+    )
+
+    applications = service.get_applications_needing_attention(
+        "2026-08-10T12:00:00+00:00"
+    )
+
+    assert applications == []
+
+def test_get_applications_needing_attention_includes_offer(
+    service,
+    application_repository,
+    application_id,
+):
+    application_repository.update_application(
+        application_id,
+        status=ApplicationStatus.OFFER,
+        follow_up_at="2026-08-10T12:00:00+00:00",
+    )
+
+    applications = service.get_applications_needing_attention(
+        "2026-08-10T12:00:00+00:00"
+    )
+
+    assert len(applications) == 1
+    assert applications[0].status == ApplicationStatus.OFFER

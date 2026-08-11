@@ -164,6 +164,66 @@ class SQLiteApplicationRepository:
 
         return self._row_to_application(row)
 
+    def list_follow_ups_due(
+        self,
+        due_at: str,
+    ) -> list[Application]:
+        """Return applications with a follow-up due by the given time."""
+
+        with get_connection(self.database_path) as connection:
+            rows = connection.execute(
+                """
+                SELECT
+                    id,
+                    job_id,
+                    status,
+                    applied_at,
+                    next_action,
+                    follow_up_at,
+                    notes,
+                    created_at,
+                    updated_at
+                FROM applications
+                WHERE follow_up_at IS NOT NULL
+                AND follow_up_at <= ?
+                ORDER BY follow_up_at ASC, id ASC
+                """,
+                (due_at,),
+            ).fetchall()
+
+        return [
+            self._row_to_application(row)
+            for row in rows
+        ]
+
+    def list_applications(
+        self,
+    ) -> list[Application]:
+        """Return all tracked applications."""
+
+        with get_connection(self.database_path) as connection:
+            rows = connection.execute(
+                """
+                SELECT
+                    id,
+                    job_id,
+                    status,
+                    applied_at,
+                    next_action,
+                    follow_up_at,
+                    notes,
+                    created_at,
+                    updated_at
+                FROM applications
+                ORDER BY updated_at DESC, id DESC
+                """
+            ).fetchall()
+
+        return [
+            self._row_to_application(row)
+            for row in rows
+        ]
+
     def update_application(
         self,
         application_id: int,

@@ -100,3 +100,29 @@ class ApplicationService:
             start_at,
             end_at,
         )
+
+    def get_applications_needing_attention(
+        self,
+        due_at: str,
+    ) -> list[Application]:
+        """Return active applications with follow-ups due by the given time."""
+
+        active_statuses = {
+            ApplicationStatus.INTERESTED,
+            ApplicationStatus.APPLIED,
+            ApplicationStatus.INTERVIEWING,
+            ApplicationStatus.OFFER,
+        }
+
+        applications = (
+            self.application_repository.list_follow_ups_due(
+                due_at
+            )
+        )
+
+        return [
+            application
+            for application in applications
+            if application.status in active_statuses
+        ]
+
