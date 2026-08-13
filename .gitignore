@@ -76,3 +76,6 @@ Thumbs.db
 *.swp
 *.swo
 *~
+
+# frontend
+node_modules/
