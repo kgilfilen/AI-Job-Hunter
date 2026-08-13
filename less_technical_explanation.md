@@ -4,7 +4,7 @@ This provides a roughly correct explanation of how web pages work. There are man
 
 ### First, a summary
 
-the browser renders the react frontend handed to it by the vite web server on my laptop (or hosted in the cloud somewhere) at port 5173), which makes requests to our backend api, by contacting the uvicorn web server on port 8000 (and actually uses various available temporary ports as needed) which accepts requests because it has our fastapi backend running. 
+the browser renders the react frontend handed to it by the vite web server on my laptop at port 5173 (or hosted in the cloud somewhere), which makes requests to our backend api, by contacting the Uvicorn web server on port 8000 (and actually Chrome uses various available temporary ports as needed) which accepts requests because it has our fastapi backend running. 
 
 ```
 bash
@@ -31,14 +31,17 @@ our Python services/repositories/SQLite
 
 * someone puts "http://localhost:5173" in the address bar of chrome
 * chrome sends "GET /" ('get the stuff for root') to port 5173, which has Vite webserver running/listening
-* Vite receives GET, and hands out Javascript for our react frontend.
-* Chrome receives that Javascript, and loads it in the browser, rendering the web page, at least the initial parts. It wants to start with a section called "Needs Attention".
-* The JavaScript is executing behind the scenes on chrome, and needs some data from the backend, and a function in it does a fetch in the react code (fetch still running on chrome): fetch "http://127.0.0.1:8000/applications/needs-attention"'
-* Chrome sends "GET /applications/needs-attention" to 127.0.0.1 on port 8000
-* Port 8000 has another web server, Uvicorn, which runs our API backend code (using python FastApi), and all of the endpoints we need.
-* Uvicorn/FastApi examine the request: "GET /applications/needs-attention", and FastApi does in fact, have an endpoint called "/applications/needs-attention" which accepts a "GET", and calls the python function for that with any parameters that might have been sent.
-* The function calls our other python backend code, including the application service, which retrieves data from our database. the function returns the data, through Uvicorn/FastApi, to the frontend "fetch" that is updating the frontend with the new data on chrome.
-* The fresh react UI might have a new picklist of jobs, or a text saying "No followups are currently due."
+* Vite receives GET, and hands out React stuff, including Javascript and HTML to Chrome.
+* Chrome receives that stuff, and loads it/executes it in the browser, rendering the web page, at least the initial parts. It tries to start with a section called "Needs Attention" (because we wrote it to), which actually needs some data from the database about what tasks we have due now.
+* The JavaScript needs that data from the backend, and a function in it does a fetch in the react code (fetch still running on chrome): fetch "http://127.0.0.1:8000/applications/needs-attention"'
+* Because of the fetch, chrome sends "GET /applications/needs-attention" to 127.0.0.1 on port 8000
+* Port 8000 has another web server, Uvicorn, which runs our API backend code built from FastApi, and FastApi responds to endpoints as needed.
+* Uvicorn receives the full HTTP communication from Chrome, and hands the HTTP GET to FastApi. 
+* FastApi examines the HTTP request: "GET /applications/needs-attention", and it does in fact, have a route registered for "/applications/needs-attention" which expects a "GET", and therefore calls the python function for that with any parameters that might have been sent.
+* The function calls our other python service code, including the application service, which retrieves data from our repository layer over the database. 
+* FastApi turns the answer into HTTP for the return trip to chrome. 
+* Uvicorn returns the HTTP response to chrome, to the frontend "fetch" that is updating the frontend with the new data on chrome.
+* The updated react UI might have a new list of applications that need attention, or a text saying "No followups are currently due."
 * The complete trip therefore looks approximately like this:
 
 ```
