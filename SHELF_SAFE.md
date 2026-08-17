@@ -473,7 +473,10 @@ They are deferred product directions:
 - richer lifecycle controls;
 - final React visual design;
 - responsive/mobile styling;
-- public deployment;
+- public deployment:
+
+        INTENTIONALLY DEFERRED — local operation is sufficient for current use.
+
 - agent-assisted job-board discovery;
 - saved/automated job searches.
 
@@ -595,8 +598,6 @@ Public deployment:
 NOT YET COMPLETE
 ```
 
-Final Git commit/tag:
+Shelf-safe checkpoint commit:
 
-```text
-TO BE FILLED IN AFTER CLOSEOUT COMMIT
-```
+4ab415c
