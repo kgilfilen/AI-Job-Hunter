@@ -5,6 +5,10 @@ from src.scoring.fit_scorer import normalize_skill
 from src.scoring.fit_scorer import match_skills
 from src.constants import Recommendation
 from tests.helpers.helpers import make_test_job
+from src.models.candidate_profile import (
+    CandidateProfile,
+    CareerProfile,
+)
 
 
 def test_fit_score_is_between_0_and_100():
@@ -344,3 +348,66 @@ def test_preferred_skill_bonus_is_capped_at_ten():
 
     assert five_skill_score == 60
     assert six_skill_score == 60
+
+def test_score_job_uses_selected_career_profile():
+    candidate = CandidateProfile(
+        name="Test Candidate",
+        target_titles=["Legacy Title"],
+        core_skills=["Legacy Skill"],
+        has_security_clearance=False,
+    )
+
+    software_profile = CareerProfile(
+        name="Software / QA",
+        target_titles=["QA Automation Engineer"],
+        core_skills=[
+            "Python",
+            "Selenium",
+            "API Testing",
+        ],
+        remote_preference="remote",
+    )
+
+    culinary_profile = CareerProfile(
+        name="Culinary",
+        target_titles=["Sous Chef"],
+        core_skills=[
+            "Food preparation",
+            "Kitchen management",
+        ],
+        remote_preference=None,
+    )
+
+    job = JobOpening(
+        source_file="test-job.txt",
+        title="QA Automation Engineer",
+        company="Test Company",
+        location="Denver, CO",
+        employment_type="Full-time",
+        required_skills=[
+            "Python",
+            "Selenium",
+            "API Testing",
+        ],
+        preferred_skills=[],
+        remote_status="remote",
+        security_clearance_required=False,
+        security_clearance_level=None,
+    )
+
+    software_result = score_job(
+        job,
+        candidate,
+        software_profile,
+    )
+
+    culinary_result = score_job(
+        job,
+        candidate,
+        culinary_profile,
+    )
+
+    assert software_result.overall_score > culinary_result.overall_score
+
+    assert "Python" in software_result.matched_required_skills
+    assert "Python" in culinary_result.missing_required_skills

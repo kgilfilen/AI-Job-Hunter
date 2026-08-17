@@ -39,6 +39,13 @@ def parse_arguments() -> argparse.Namespace:
     )
 
     parser.add_argument(
+        "--career-profile",
+        type=str,
+        default=None,
+        help="Name of the career profile to use for job analysis.",
+    )
+
+    parser.add_argument(
         "--reprocess",
         action="store_true",
         help="Reprocess an existing job if it already exists.",
@@ -245,12 +252,24 @@ def main() -> None:
 
     args = parse_arguments()
 
+
     repository = SQLiteJobRepository()
 
     profile_service = ProfileService()
     profile = profile_service.load(
         args.profile
     )
+
+    career_profile = None
+
+    if args.career_profile:
+        career_profile = profile.get_career_profile(
+            args.career_profile
+        )
+        if career_profile is None:
+            raise ValueError(
+                f"Career profile not found: {args.career_profile}"
+            )
 
     job_service = JobService(
         repository=repository
@@ -271,6 +290,7 @@ def main() -> None:
             original_text=job_input.original_text,
             parser_text=job_input.parser_text,
             profile=profile,
+            career_profile=career_profile,
             source=job_input.source,
             source_url=job_input.source_url,
             reprocess=args.reprocess,

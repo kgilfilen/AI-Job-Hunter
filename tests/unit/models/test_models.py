@@ -1,4 +1,5 @@
 from src.models.candidate_profile import CandidateProfile
+from src.models.candidate_profile import CareerProfile
 from src.models.job_opening import JobOpening
 from src.models.fit_analysis import FitAnalysis
 from src.scoring.fit_scorer import score_job
@@ -99,3 +100,40 @@ def test_FitAnalysis_default_lists_are_not_shared():
     )
     assert first.strengths == ["Python"]
     assert second.strengths == []
+
+
+def test_get_career_profile_returns_matching_profile():
+    software_profile = CareerProfile(
+        name="Software / QA",
+        core_skills=["Python", "Selenium"],
+    )
+
+    culinary_profile = CareerProfile(
+        name="Culinary",
+        core_skills=["Knife skills", "Saucier"],
+    )
+
+    candidate = CandidateProfile(
+        name="Test Candidate",
+        career_profiles=[
+            software_profile,
+            culinary_profile,
+        ],
+    )
+
+    result = candidate.get_career_profile("Software / QA")
+
+    assert result is not None
+    assert result == software_profile
+
+def test_get_career_profile_returns_none_when_not_found():
+    candidate = CandidateProfile(
+        name="Test Candidate",
+        career_profiles=[
+            CareerProfile(name="Software / QA"),
+        ],
+    )
+
+    result = candidate.get_career_profile("Culinary")
+
+    assert result is None

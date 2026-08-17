@@ -25,6 +25,20 @@ class Certification:
     issue_date: Optional[str] = None
     expiration_date: Optional[str] = None
 
+@dataclass
+class CareerProfile:
+    name: str
+    summary: Optional[str] = None
+
+    target_titles: List[str] = field(default_factory=list)
+    core_skills: List[str] = field(default_factory=list)
+    preferred_skills: List[str] = field(default_factory=list)
+    industries: List[str] = field(default_factory=list)
+
+    remote_preference: Optional[str] = None
+    willing_to_relocate: bool = False
+
+    notes: List[str] = field(default_factory=list)
 
 @dataclass
 class CandidateProfile:
@@ -50,4 +64,14 @@ class CandidateProfile:
     willing_to_relocate: bool = False
 
     notes: List[str] = field(default_factory=list)
+    career_profiles: List[CareerProfile] = field(default_factory=list)
 
+    def get_career_profile(
+        self,
+        name: str,
+    ) -> Optional[CareerProfile]:
+        for career_profile in self.career_profiles:
+            if career_profile.name == name:
+                return career_profile
+
+        return None

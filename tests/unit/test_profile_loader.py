@@ -5,6 +5,7 @@ import pytest
 from src.models.candidate_profile import (
     Education,
     Experience,
+    CareerProfile,
 )
 from src.profile_loader import load_candidate_profile
 
@@ -182,3 +183,54 @@ def test_load_candidate_profile_raises_for_missing_file(
         load_candidate_profile(
             str(missing_path),
         )
+
+def test_load_candidate_profile_constructs_career_profiles(tmp_path):
+    profile_path = tmp_path / "candidate_profile.json"
+
+    profile_path.write_text(
+        """
+        {
+          "name": "Kenny Gilfilen",
+          "career_profiles": [
+            {
+              "name": "Software / QA",
+              "summary": "Software-focused profile",
+              "target_titles": [
+                "SDET",
+                "QA Automation Engineer"
+              ],
+              "core_skills": [
+                "Python",
+                "Test automation"
+              ],
+              "preferred_skills": [],
+              "industries": [],
+              "remote_preference": "remote",
+              "willing_to_relocate": false,
+              "notes": []
+            }
+          ]
+        }
+        """,
+        encoding="utf-8",
+    )
+
+    profile = load_candidate_profile(str(profile_path))
+
+    assert len(profile.career_profiles) == 1
+
+    career_profile = profile.career_profiles[0]
+
+    assert isinstance(career_profile, CareerProfile)
+    assert career_profile.name == "Software / QA"
+    assert career_profile.summary == "Software-focused profile"
+    assert career_profile.target_titles == [
+        "SDET",
+        "QA Automation Engineer",
+    ]
+    assert career_profile.core_skills == [
+        "Python",
+        "Test automation",
+    ]
+    assert career_profile.remote_preference == "remote"
+    assert career_profile.willing_to_relocate is False

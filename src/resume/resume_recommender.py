@@ -3,7 +3,12 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
+from typing import Optional
 
+from src.models.candidate_profile import (
+    CandidateProfile,
+    CareerProfile,
+)
 from src.models.candidate_profile import CandidateProfile
 from src.models.fit_analysis import FitAnalysis
 from src.models.job_opening import JobOpening
@@ -14,6 +19,7 @@ def recommend_resume_changes(
     job: JobOpening,
     fit_analysis: FitAnalysis,
     candidate: CandidateProfile,
+    career_profile: Optional[CareerProfile] = None,
 ) -> ResumeRecommendation:
     """Create resume recommendations from a job and candidate profile.
 
@@ -27,8 +33,10 @@ def recommend_resume_changes(
     preferred_skills = _normalize_collection(
         getattr(job, "preferred_skills", [])
     )
-    candidate_skills = _candidate_skills(candidate)
-
+    candidate_skills = _candidate_skills(
+        candidate,
+        career_profile,
+    )
     matched_required = _find_matches(required_skills, candidate_skills)
     matched_preferred = _find_matches(preferred_skills, candidate_skills)
 
@@ -70,14 +78,23 @@ def recommend_resume_changes(
     return recommendations
 
 
-def _candidate_skills(candidate: CandidateProfile) -> list[str]:
-    """Collect all skills represented in the candidate profile."""
+def _candidate_skills(
+    candidate: CandidateProfile,
+    career_profile: Optional[CareerProfile] = None,
+) -> list[str]:
+    """Collect skills represented in the selected career context."""
+
+    if career_profile is not None:
+        return _unique_preserving_order(
+            _normalize_collection(career_profile.core_skills)
+            + _normalize_collection(career_profile.preferred_skills)
+        )
+
     return _unique_preserving_order(
         _normalize_collection(candidate.core_skills)
         + _normalize_collection(candidate.preferred_skills)
     )
-
-
+    
 def _normalize_collection(values: object) -> list[str]:
     """Convert a string or iterable of values into cleaned strings."""
     if values is None:

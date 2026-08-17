@@ -11,7 +11,7 @@ from src.database.repository import SQLiteJobRepository
 from src.fetchers.web_fetcher import fetch_job_description
 from src.formatters.job_page_formatter import build_parser_input
 from src.formatters.resume_formatter import ResumeFormatter
-from src.models.candidate_profile import CandidateProfile
+from src.models.candidate_profile import CandidateProfile, CareerProfile
 from src.models.fit_analysis import FitAnalysis
 from src.models.job_opening import JobOpening
 from src.models.resume_recommendation import ResumeRecommendation
@@ -126,6 +126,7 @@ class JobService:
         source: str,
         source_url: Optional[str] = None,
         reprocess: bool = False,
+        career_profile: Optional[CareerProfile] = None,
     ) -> JobAnalysisResult:
         """Process one job and return its analysis."""
 
@@ -162,6 +163,7 @@ class JobService:
         fit_analysis = score_job(
             job_opening,
             profile,
+            career_profile,
         )
 
         self.repository.update_fit_analysis(
@@ -173,6 +175,7 @@ class JobService:
             job=job_opening,
             fit_analysis=fit_analysis,
             candidate=profile,
+            career_profile=career_profile
         )
 
         resume_text = ResumeFormatter().format(

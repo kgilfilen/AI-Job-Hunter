@@ -4,6 +4,7 @@ from pathlib import Path
 
 from src.models.candidate_profile import (
     CandidateProfile,
+    CareerProfile,
     Certification,
     Education,
     Experience,
@@ -37,6 +38,11 @@ def load_candidate_profile(
         [],
     )
 
+    career_profile_data = profile_data.pop(
+        "career_profiles",
+        [],
+    )
+
     experiences = [
         Experience(**experience)
         for experience in experience_data
@@ -52,9 +58,15 @@ def load_candidate_profile(
         for certification in certification_data
     ]
 
+    career_profiles = [
+        CareerProfile(**career_profile)
+        for career_profile in career_profile_data
+    ]
+
     return CandidateProfile(
         **profile_data,
         experience=experiences,
         education=education,
         certifications=certifications,
+        career_profiles=career_profiles,
     )

@@ -1,4 +1,9 @@
-from src.models.candidate_profile import CandidateProfile
+from typing import Optional
+
+from src.models.candidate_profile import (
+    CandidateProfile,
+    CareerProfile,
+)
 from src.models.fit_analysis import FitAnalysis
 from src.models.job_opening import JobOpening
 from src.constants import Recommendation
@@ -16,7 +21,6 @@ SKILL_NORMALIZATION_MAP = {
     "selenium": "Selenium",
     "python": "Python",
 }
-
 
 def normalize_skill(skill: str) -> str:
     cleaned = skill.strip().lower()
@@ -47,18 +51,37 @@ def match_skills(job_skills, candidate_skills):
 def score_job(
     job: JobOpening,
     profile: CandidateProfile,
+    career_profile: Optional[CareerProfile] = None,
 ) -> FitAnalysis:
     score = 50
     strengths = []
     concerns = []
     notes = []
 
+    target_titles = (
+        career_profile.target_titles
+        if career_profile is not None
+        else profile.target_titles
+    )
+
+    core_skills = (
+        career_profile.core_skills
+        if career_profile is not None
+        else profile.core_skills
+    )
+
+    remote_preference = (
+        career_profile.remote_preference
+        if career_profile is not None
+        else profile.remote_preference
+    )
+
     title_text = (job.title or "").lower()
     remote_status = (job.remote_status or "").lower()
 
     matching_titles = [
         target_title
-        for target_title in profile.target_titles
+        for target_title in target_titles
         if target_title.lower() in title_text
     ]
 
@@ -82,11 +105,8 @@ def score_job(
             "does not currently have one."
         )
 
-    if profile.remote_preference:
-        if (
-            profile.remote_preference.lower()
-            in remote_status
-        ):
+    if remote_preference:
+        if remote_preference.lower() in remote_status:
             score += 10
             strengths.append(
                 "Matches remote preference: "
@@ -108,7 +128,7 @@ def score_job(
         missing_required_skills,
     ) = match_skills(
         job.required_skills,
-        profile.core_skills,
+        core_skills,
     )
 
     required_skill_count = (
@@ -145,7 +165,7 @@ def score_job(
         missing_preferred_skills,
     ) = match_skills(
         job.preferred_skills,
-        profile.core_skills,
+        core_skills,
     )
 
     if matched_preferred_skills:
@@ -182,3 +202,4 @@ def score_job(
         matched_preferred_skills=matched_preferred_skills,
         missing_preferred_skills=missing_preferred_skills,
     )
+
